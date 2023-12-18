@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OpenAIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/assistant', 'OpenAIController@runAssistant');
+Route::get('/assistant', [OpenAIController::class, 'runAssistant']);

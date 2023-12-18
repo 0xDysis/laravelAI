@@ -20,7 +20,7 @@ class OpenAIController extends Controller
 
     private function runPythonScript($function, $args = [])
     {
-        $process = new Process(array_merge(['python', base_path('app/PythonScripts/openai_assistant.py'), $function], $args));
+        $process = new Process(array_merge(['python3', base_path('app/PythonScripts/openai_assistant.py'), $function], $args));
         $process->run();
 
         if (!$process->isSuccessful()) {
