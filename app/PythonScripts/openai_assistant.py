@@ -1,10 +1,10 @@
 import openai
 import sys
+import json
+import time
 
 # Set the API key directly
-openai.api_key = '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'
-
-
+openai.api_key = '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'
 
 def create_assistant():
     assistant = openai.beta.assistants.create(
@@ -13,31 +13,48 @@ def create_assistant():
         tools=[{"type": "retrieval"}],
         model="gpt-3.5-turbo-1106"
     )
-    return assistant.id
+    print(assistant.id)  # Only print the assistant ID
 
 def create_thread():
     thread = openai.beta.threads.create()
-    return thread.id
+    print(thread.id)  # Only print the thread ID
 
-def add_message(thread_id, role, content):
-    message = openai.beta.threads.messages.create(
-        thread_id=thread_id,
-        role=role,
-        content=content
-    )
-    return message.id
+def get_messages(thread_id):
+    response = openai.beta.threads.messages.list(thread_id=thread_id)
+    messages = response.data
+    messages_data = []
+    for message in messages:
+        # Convert each message to a dictionary
+        message_dict = {
+            'id': message.id,
+            'role': message.role,
+            'content': message.content.text if hasattr(message.content, 'text') else str(message.content),
+            'created_at': message.created_at,
+            # Add any other properties you're interested in
+        }
+        messages_data.append(message_dict)
+    messages_json = json.dumps(messages_data)  # Convert messages to JSON
+    print(messages_json)  # Print the messages to standard output
 
 def run_assistant(thread_id, assistant_id):
     run = openai.beta.threads.runs.create(
         thread_id=thread_id,
         assistant_id=assistant_id
     )
-    return run.id
-
-def get_messages(thread_id):
-    messages = openai.beta.threads.runs.retrieve(thread_id=thread_id)
-    return messages
+    # Wait for the run to finish processing
+    while run.status == 'in-progress':
+        time.sleep(1)  # Wait for a short amount of time
+        run = openai.beta.threads.runs.retrieve(run.id)  # Refresh the run status
+    print(run.id)  # Print the run ID to standard output
 
 # Call the function specified by the first command line argument with the remaining arguments
 if __name__ == "__main__":
-    globals()[sys.argv[1]](*sys.argv[2:])
+    if len(sys.argv) > 1:
+        function_name = sys.argv[1]
+        args = sys.argv[2:]
+        if function_name in globals():
+            globals()[function_name](*args)
+        else:
+            print(f"No function named {function_name} found.")
+    else:
+        print("No function specified to call.")
