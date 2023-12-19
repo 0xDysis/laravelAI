@@ -3,39 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class OpenAIController extends Controller
 {
+    public function index()
+    {
+        // Check if the assistant and thread IDs are already stored in the session
+        if (!Session::has('assistantId') || !Session::has('threadId')) {
+            $assistantId = $this->runPythonScript('create_assistant');
+            $threadId = $this->runPythonScript('create_thread');
+            Session::put('assistantId', $assistantId);
+            Session::put('threadId', $threadId);
+        }
+
+        return view('assistant');
+    }
+
     public function submitMessage(Request $request)
     {
         $userMessage = $request->input('message');
-        $messages = $this->runAssistant($userMessage);
-        return view('assistant', ['messages' => $messages]);
-    }
-
-    public function runAssistant($userMessage)
-    {
-        $assistantId = $this->runPythonScript('create_assistant');
-        if (!$assistantId) {
-            throw new \Exception('Failed to create assistant');
-        }
+        $assistantId = Session::get('assistantId');
+        $threadId = Session::get('threadId');
     
-        $threadId = $this->runPythonScript('create_thread');
-        if (!$threadId) {
-            throw new \Exception('Failed to create thread');
+        if (!$assistantId || !$threadId) {
+            throw new \Exception('Assistant or thread ID not found in session.');
         }
     
         $this->runPythonScript('add_message', [$threadId, 'user', $userMessage]);
-        $runId = $this->runPythonScript('run_assistant', [$threadId, $assistantId]);  // Capture the run ID
+        $this->runPythonScript('run_assistant', [$threadId, $assistantId]);
     
         // Wait for the assistant to finish processing
         sleep(5);  // Wait for 5 seconds
     
-        $messages = $this->runPythonScript('get_messages', [$threadId]);  // Pass the run ID to get_messages
+        $messages = $this->runPythonScript('get_messages', [$threadId]);
     
-        return $messages;
+        return view('assistant', ['messages' => $messages]);
     }
 
     private function runPythonScript($function, $args = [])

@@ -17,5 +17,5 @@ use App\Http\Controllers\OpenAIController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/assistant', [OpenAIController::class, 'runAssistant']);
+Route::get('/assistant', [OpenAIController::class, 'index']);
 Route::post('/submit-message', [OpenAIController::class, 'submitMessage']);

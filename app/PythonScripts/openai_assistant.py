@@ -36,7 +36,7 @@ def get_messages(thread_id):
         message_dict = {
             'id': message.id,
             'role': message.role,
-            'content': message.content.text if hasattr(message.content, 'text') else str(message.content),
+            'content': message.content.text if hasattr(message.content, 'text') else {'value': str(message.content)},
             'created_at': message.created_at,
             # Add any other properties you're interested in
         }
