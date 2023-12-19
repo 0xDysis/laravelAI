@@ -18,3 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/assistant', [OpenAIController::class, 'runAssistant']);
+Route::post('/submit-message', [OpenAIController::class, 'submitMessage']);

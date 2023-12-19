@@ -4,7 +4,7 @@ import json
 import time
 
 # Set the API key directly
-openai.api_key = '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'
+openai.api_key = 'x'
 
 def create_assistant():
     assistant = openai.beta.assistants.create(
@@ -18,6 +18,14 @@ def create_assistant():
 def create_thread():
     thread = openai.beta.threads.create()
     print(thread.id)  # Only print the thread ID
+
+def add_message(thread_id, role, content):
+    message = openai.beta.threads.messages.create(
+        thread_id=thread_id,
+        role=role,
+        content=content
+    )
+    print(message.id)  # Print the message ID to standard output
 
 def get_messages(thread_id):
     response = openai.beta.threads.messages.list(thread_id=thread_id)
