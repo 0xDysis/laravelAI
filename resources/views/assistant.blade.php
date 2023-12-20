@@ -4,22 +4,11 @@
     <title>OpenAI Assistant</title>
 </head>
 <body>
-    @if(isset($messages))
-        @php
-        $decodedMessages = json_decode($messages, true);
-        @endphp
-
-        @if(is_array($decodedMessages))
-            @for ($i = 0; $i < count($decodedMessages); $i += 2)
-                <p><strong>Van-Ons Assistant:</strong> {{ $decodedMessages[$i]['content']['value'] }}</p>
-                @if (isset($decodedMessages[$i + 1]))
-                    <p><strong>User:</strong> {{ $decodedMessages[$i + 1]['content']['value'] }}</p>
-                @endif
-            @endfor
-        @else
-            <p>Error: Messages are not in the correct format.</p>
-        @endif
-    @endif
+    @if(isset($rawData))
+    <p><strong>Raw Data:</strong> {{ $rawData }}</p>
+@else
+    <p>Error: Raw data is not available.</p>
+@endif
 
     <form action="/submit-message" method="post">
         @csrf
@@ -27,5 +16,15 @@
         <input type="text" id="message" name="message"><br>
         <input type="submit" value="Submit">
     </form>
+    <form action="/delete-thread" method="post">
+        @csrf
+        <input type="submit" value="Delete Thread">
+    </form>
+    
+    <form action="/delete-assistant" method="post">
+        @csrf
+        <input type="submit" value="Delete Assistant">
+    </form>
+    
 </body>
 </html>

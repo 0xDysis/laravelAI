@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 Route::get('/assistant', [OpenAIController::class, 'index']);
 Route::post('/submit-message', [OpenAIController::class, 'submitMessage']);
+Route::post('/delete-thread', [OpenAIController::class, 'deleteThread']);
+Route::post('/delete-assistant', [OpenAIController::class, 'deleteAssistant']);

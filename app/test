@@ -1,0 +1,132 @@
+namespace App\Services;
+
+use OpenAI\Client as OpenAIClient;
+
+class OpenAIService
+{
+    protected $client;
+
+    public function __construct()
+    {
+        $this->client = new OpenAIClient('your-openai-api-key');
+        $this->client->withHttpHeader('OpenAI-Beta', 'assistants=v1');
+    }
+
+    public function createAssistant()
+    {
+        $response = $this->client->assistants()->create([
+            'instructions' => 'You are an assistant that uses retrieval to answer questions.',
+            'name' => 'Retrieval Assistant',
+            'tools' => [
+                [
+                    'type' => 'retrieval',
+                ],
+            ],
+            'model' => 'gpt-3.5-turbo-1106',
+        ]);
+
+        return $response->id;
+    }
+
+    // Add other methods for thread creation, message addition, etc.
+}
+namespace App\Services;
+
+use OpenAI\Client as OpenAIClient;
+
+class OpenAIService
+{
+    protected $client;
+
+    public function __construct()
+    {
+        $this->client = new OpenAIClient('your-openai-api-key');
+        $this->client->withHttpHeader('OpenAI-Beta', 'assistants=v1');
+    }
+
+    public function createAssistant()
+    {
+        // ... (same as before)
+    }
+
+    public function createThread()
+    {
+        $response = $this->client->threads()->create([]);
+        return $response->id;
+    }
+
+    public function createAndRunThread($assistantId, $message)
+    {
+        $response = $this->client->threads()->createAndRun([
+            'assistant_id' => $assistantId,
+            'thread' => [
+                'messages' => [
+                    [
+                        'role' => 'user',
+                        'content' => $message,
+                    ],
+                ],
+            ],
+        ]);
+        return $response->toArray();
+    }
+
+    public function retrieveThread($threadId)
+    {
+        $response = $this->client->threads()->retrieve($threadId);
+        return $response->toArray();
+    }
+
+    public function modifyThread($threadId, $metadata)
+    {
+        $response = $this->client->threads()->modify($threadId, [
+            'metadata' => $metadata,
+        ]);
+        return $response->toArray();
+    }
+
+    public function deleteThread($threadId)
+    {
+        $response = $this->client->threads()->delete($threadId);
+        return $response->toArray();
+    }
+
+    public function createMessage($threadId, $role, $content)
+    {
+        $response = $this->client->threads()->messages()->create($threadId, [
+            'role' => $role,
+            'content' => $content,
+        ]);
+        return $response->toArray();
+    }
+
+    public function retrieveMessage($threadId, $messageId)
+    {
+        $response = $this->client->threads()->messages()->retrieve($threadId, $messageId);
+        return $response->toArray();
+    }
+
+    public function modifyMessage($threadId, $messageId, $metadata)
+    {
+        $response = $this->client->threads()->messages()->modify($threadId, $messageId, [
+            'metadata' => $metadata,
+        ]);
+        return $response->toArray();
+    }
+
+    public function deleteMessage($threadId, $messageId)
+    {
+        $response = $this->client->threads()->messages()->delete($threadId, $messageId);
+        return $response->toArray();
+    }
+
+    public function listMessages($threadId, $limit = 10)
+    {
+        $response = $this->client->threads()->messages()->list($threadId, [
+            'limit' => $limit,
+        ]);
+        return $response->toArray();
+    }
+
+    // ... (any other methods you need)
+}
