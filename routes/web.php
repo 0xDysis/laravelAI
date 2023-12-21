@@ -14,10 +14,9 @@ use App\Http\Controllers\OpenAIController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/assistant', [OpenAIController::class, 'index']);
+Route::get('/', [OpenAIController::class, 'index']);
 Route::post('/submit-message', [OpenAIController::class, 'submitMessage']);
-Route::post('/delete-thread', [OpenAIController::class, 'deleteThread']);
-Route::post('/delete-assistant', [OpenAIController::class, 'deleteAssistant']);
+Route::delete('/delete-thread', [OpenAIController::class, 'deleteThread']);
+Route::delete('/delete-assistant', [OpenAIController::class, 'deleteAssistant']);
+Route::post('/create-new-thread', [OpenAIController::class, 'createNewThread']);
+Route::post('/create-new-assistant', [OpenAIController::class, 'createNewAssistant']);

@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 
 
-$apiKey = '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';
+$apiKey = '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';
 $client = OpenAI::client($apiKey);
 
 function createAssistant($client) {
@@ -24,7 +24,7 @@ function createAssistant($client) {
     
     $assistant = $client->assistants()->create([
         'name' => "Retrieval Assistant",
-        'instructions' => "You are an assistant that uses retrieval to answer questions.",
+        'instructions' => "VanOnsAssist is a knowledgeable, friendly, and professional AI assistant for the web development company van-ons, specifically designed to help you find the right information about anything concerning the van-ons operations",
         'tools' => [['type' => 'retrieval']],
         'model' => 'gpt-3.5-turbo-1106',
         'file_ids' => [$file1->id, $file2->id]
@@ -57,15 +57,18 @@ function getMessages($client, $threadId) {
         if (is_array($content)) {
             $content = json_encode($content);
         }
+        $contentJson = json_decode($content, true);
+        $messageText = $contentJson[0]['text']['value'];
         $messageDict = [
             'id' => $message->id,
             'role' => $message->role,
-            'content' => $content,
+            'content' => $messageText,
         ];
         array_push($messagesData, $messageDict);
     }
-    echo json_encode($messagesData); // Echo the JSON string directly
+    echo json_encode($messagesData); 
 }
+
 
 
 
@@ -74,12 +77,26 @@ function runAssistant($client, $threadId, $assistantId) {
     $run = $client->threads()->runs()->create($threadId, [
         'assistant_id' => $assistantId
     ]);
-    while ($run->status == 'in-progress') {
-        sleep(1);
+
+    
+    do {
+        sleep(1);  
         $run = $client->threads()->runs()->retrieve($threadId, $run->id);
-    }
+    } while ($run->status == 'in_progress');
+
     echo $run->id;
+    return true;
 }
+function deleteThread($client, $threadId) {
+    $response = $client->threads()->delete($threadId);
+    echo $response->id;
+}
+
+function deleteAssistant($client, $assistantId) {
+    $response = $client->assistants()->delete($assistantId);
+    echo $response->id;
+}
+
 
 // Entry point of the PHP script
 if ($argc > 1) {
