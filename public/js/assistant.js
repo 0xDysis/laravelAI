@@ -21,9 +21,9 @@ function checkRunStatus(runId) {
     $.ajax({
         url: '/check-run-status',
         type: 'POST',
-        dataType: 'json',
+        dataType: 'json', // Expecting JSON response
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
         },
         data: { runId: runId },
         success: function(response) {
@@ -43,47 +43,54 @@ function checkRunStatus(runId) {
     });
 }
 
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('messageForm').addEventListener('submit', function (e) {
-        e.preventDefault(); // Prevent the default form submission
-        submitMessage();
-    });
-});
-
-function submitMessage() {
-    var message = document.getElementById('message').value;
-    updateMessageArea('<p>Processing your request...</p>'); // Display a temporary message
-
-    $.ajax({
-        url: '/submit-message', // URL for submitting the message
-        type: 'POST',
-        data: {
-            message: message,
-            _token: $('input[name="_token"]').val() // CSRF token
-        },
-        success: function() {
-            startAssistantRun();
-        },
-        error: function(error) {
-            console.error('Error submitting message:', error);
-            updateMessageArea('<p>Error submitting message. Please try again.</p>'); // Display error message
-        }
-    });
-}
-
-function updateMessageArea(message) {
-    var messageArea = document.getElementById('messages');
-    messageArea.innerHTML = message;
-}
-
 function initiateStatusCheck(runId) {
     intervalId = setInterval(function() {
         checkRunStatus(runId);
     }, 2000); // Check every 2 seconds
 }
+
+function submitMessage() {
+    var messageInput = $('#message');
+    var message = messageInput.val();
+    // Append user message to the message area
+    updateMessageArea('<p><strong>User:</strong> ' + message + '</p>', true);
+    updateMessageArea('<p>Processing your request...</p>', true); // Append processing message
+
+    $.ajax({
+        url: '/submit-message',
+        type: 'POST',
+        data: { 
+            message: message,
+            _token: $('input[name="_token"]').val() // CSRF token
+        },
+        success: function() {
+            messageInput.val(''); // Clear the input field after submission
+            startAssistantRun();
+        },
+        error: function(error) {
+            console.error('Error submitting message:', error);
+            updateMessageArea('<p>Error submitting message. Please try again.</p>', true);
+        }
+    });
+}
+
+function updateMessageArea(message, append = false) {
+    var messageArea = document.getElementById('messages');
+    if (append) {
+        // Create a new div element for the new message
+        var newMessage = document.createElement('div');
+        newMessage.innerHTML = message;
+
+        // Append the new message to the message area
+        messageArea.appendChild(newMessage);
+
+        // Scroll to the bottom
+        messageArea.scrollTop = messageArea.scrollHeight;
+    } else {
+        messageArea.innerHTML = message; // Replace the content
+    }
+}
+
 function fetchAndDisplayMessages() {
     $.ajax({
         url: '/get-messages', // URL for fetching messages
@@ -91,6 +98,10 @@ function fetchAndDisplayMessages() {
         success: function(response) {
             // Assuming the response is an array of messages
             var messageContent = '<p><strong>Messages:</strong></p>';
+
+            // Reverse the order of the messages
+            response.reverse();
+
             response.forEach(function(message) {
                 messageContent += '<p><strong>' + message.role + ':</strong> ' + message.content + '</p>';
             });
@@ -103,3 +114,9 @@ function fetchAndDisplayMessages() {
     });
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('messageForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        submitMessage();
+    });
+});

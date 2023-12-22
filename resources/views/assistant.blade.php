@@ -2,14 +2,24 @@
 <html>
 <head>
     <title>OpenAI Assistant</title>
-    <head>
-        <title>OpenAI Assistant</title>
-        <!-- Include jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        
-    
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('js/assistant.js') }}"></script> <!-- Include assistant.js -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        #messages {
+            max-height: 400px; /* Adjust height as needed */
+            overflow-y: auto; /* Makes the div scrollable */
+            margin-bottom: 20px;
+        }
+        /* Additional styles for better UI */
+        .form-container {
+            margin-top: 20px;
+        }
+        .message-form {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
     @if(session('message'))
@@ -27,64 +37,40 @@
         @endif
     </div>
     
+    <div class="form-container">
+        <div class="message-form">
+            <form id="messageForm">
+                @csrf
+                <label for="message">Enter your message:</label><br>
+                <input type="text" id="message" name="message"><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
 
-    <form id="messageForm">
-        @csrf
-        <label for="message">Enter your message:</label><br>
-        <input type="text" id="message" name="message"><br>
-        <input type="submit" value="Submit">
-    </form>
-    
+        <!-- Flex container for creation and deletion forms -->
+        <div style="display: flex; justify-content: space-around;">
+            <form action="/create-new-thread" method="post">
+                @csrf
+                <input type="submit" value="Create New Thread">
+            </form>
 
-    <form action="/delete-thread" method="post">
-        @csrf
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="submit" value="Delete Thread">
-    </form>
-    
-    <form action="/delete-assistant" method="post">
-        @csrf
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="submit" value="Delete Assistant">
-    </form>
+            <form action="/create-new-assistant" method="post">
+                @csrf
+                <input type="submit" value="Create New Assistant">
+            </form>
 
-    <form action="/create-new-thread" method="post">
-        @csrf
-        <input type="submit" value="Create New Thread">
-    </form>
+            <form action="/delete-thread" method="post">
+                @csrf
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="submit" value="Delete Thread">
+            </form>
 
-    <form action="/create-new-assistant" method="post">
-        @csrf
-        <input type="submit" value="Create New Assistant">
-    </form>
-
-    <script>
-       function updateMessageArea(message) {
-    var messageArea = document.getElementById('messages');
-    messageArea.innerHTML = message;
-}
-
-function submitMessage() {
-    var message = $('#message').val();
-    updateMessageArea('<p>Processing your request...</p>'); // Display a temporary message
-
-    $.ajax({
-        url: '/submit-message', // Adjust URL as per your routing
-        type: 'POST',
-        data: { 
-            message: message,
-            _token: $('input[name="_token"]').val() // CSRF token
-        },
-        success: function() {
-            startAssistantRun();
-        },
-        error: function(error) {
-            console.error('Error submitting message:', error);
-            updateMessageArea('<p>Error submitting message. Please try again.</p>'); // Display error message
-        }
-    });
-}
-
-    </script>
+            <form action="/delete-assistant" method="post">
+                @csrf
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="submit" value="Delete Assistant">
+            </form>
+        </div>
+    </div>
 </body>
 </html>

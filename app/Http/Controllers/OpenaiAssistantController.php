@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 
 
-$apiKey = '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';
+$apiKey = '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';
 $client = OpenAI::client($apiKey);
 
 function createAssistant($client) {
