@@ -10,7 +10,9 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "openai-php/client": "^0.8.0"
+        "openai-php/client": "^0.8.0",
+        "ratchet/pawl": "^0.4.1",
+        "react/event-loop": "^1.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

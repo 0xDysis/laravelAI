@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 
 
-$apiKey = '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';
+$apiKey = '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';
 $client = OpenAI::client($apiKey);
 
 function createAssistant($client) {
@@ -78,15 +78,14 @@ function runAssistant($client, $threadId, $assistantId) {
         'assistant_id' => $assistantId
     ]);
 
-    
-    do {
-        sleep(1);  
-        $run = $client->threads()->runs()->retrieve($threadId, $run->id);
-    } while ($run->status == 'in_progress');
-
     echo $run->id;
-    return true;
 }
+function checkRunStatus($client, $threadId, $runId) {
+    $run = $client->threads()->runs()->retrieve($threadId, $runId);
+    echo json_encode(['status' => $run->status, 'id' => $run->id]);
+}
+
+
 function deleteThread($client, $threadId) {
     $response = $client->threads()->delete($threadId);
     echo $response->id;
