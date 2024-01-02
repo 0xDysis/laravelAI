@@ -96,15 +96,24 @@ function fetchAndDisplayMessages() {
         url: '/get-messages', // URL for fetching messages
         type: 'GET',
         success: function(response) {
-            // Assuming the response is an array of messages
             var messageContent = '<p><strong>Messages:</strong></p>';
 
-            // Reverse the order of the messages
             response.reverse();
 
             response.forEach(function(message) {
-                messageContent += '<p><strong>' + message.role + ':</strong> ' + message.content + '</p>';
+                // Check if the message has a fileId and replace the link
+                if (message.fileId) {
+                    var downloadLink = '/download-file/' + message.fileId;
+                    var updatedContent = message.content.replace(
+                        /\[Download [^\]]+\]\(sandbox:\/mnt\/data\/[^\)]+\)/g, 
+                        '<a href="' + downloadLink + '" target="_blank">Download File</a>'
+                    );
+                    messageContent += '<p><strong>' + message.role + ':</strong> ' + updatedContent + '</p>';
+                } else {
+                    messageContent += '<p><strong>' + message.role + ':</strong> ' + message.content + '</p>';
+                }
             });
+
             updateMessageArea(messageContent);
         },
         error: function(error) {
@@ -113,6 +122,7 @@ function fetchAndDisplayMessages() {
         }
     });
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('messageForm').addEventListener('submit', function (e) {

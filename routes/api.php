@@ -20,5 +20,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/start-run', [OpenAIController::class, 'startRun']);
-Route::post('/check-run-status', [OpenAIController::class, 'checkRunStatus']);

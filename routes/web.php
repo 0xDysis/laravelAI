@@ -19,9 +19,15 @@ Route::post('/submit-message', [OpenAIController::class, 'submitMessage']);
 Route::delete('/delete-thread', [OpenAIController::class, 'deleteThread']);
 Route::delete('/delete-assistant', [OpenAIController::class, 'deleteAssistant']);
 Route::post('/create-new-thread', [OpenAIController::class, 'createNewThread']);
-Route::post('/create-new-assistant', [OpenAIController::class, 'createNewAssistant']);
+Route::post('/create-new-assistant', [OpenAIController::class, 'createNewAssistantWithCsv']);
 
-// Add these two routes for starting the assistant run and checking its status
+
+// Existing routes for starting the assistant run and checking its status
 Route::post('/start-run', [OpenAIController::class, 'startRun']);
 Route::post('/check-run-status', [OpenAIController::class, 'checkRunStatus']);
 Route::get('/get-messages', [OpenAIController::class, 'getMessages']);
+
+// New route for downloading files
+Route::get('/download-file/{fileId}', [OpenAIController::class, 'downloadMessageFile']);
+
+
