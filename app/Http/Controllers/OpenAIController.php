@@ -27,7 +27,6 @@ class OpenAIController extends Controller
 
         $this->runPHPScript('addMessage', [$threadId, 'user', $userMessage]);
 
-        // Note: We're not running the assistant here anymore, as it will be done asynchronously
         return view('assistant', ['threadId' => $threadId, 'assistantId' => $assistantId]);
     }
 
@@ -54,8 +53,9 @@ class OpenAIController extends Controller
         }
 
         $status = $this->runPHPScript('checkRunStatus', [$threadId, $runId]);
-        return response($status); // Assuming the status is a JSON string
+        return response($status);
     }
+
     public function getMessages()
     {
         $threadId = Session::get('threadId');
@@ -72,11 +72,8 @@ class OpenAIController extends Controller
             $fileIds = json_decode($fileIdsJson, true);
     
             if (is_null($fileIds)) {
-                // Special handling for non-array responses, possibly for image files
-                // This logic needs to be refined based on the actual response structure for images
-                $messagesData[$key]['fileId'] = 'image_handling_needed'; // Placeholder
+                $messagesData[$key]['fileId'] = 'image_handling_needed';
             } elseif (!empty($fileIds) && is_array($fileIds)) {
-                // Standard handling for regular files (CSV, HTML, etc.)
                 $fileId = $fileIds[0];
                 $messagesData[$key]['fileId'] = $fileId;
     
@@ -91,58 +88,41 @@ class OpenAIController extends Controller
     
         return response()->json($messagesData);
     }
-    
 
+    private function extractFileNameFromContent($content)
+    {
+        if (preg_match('/\[Download (.*?)\]\(sandbox:/', $content, $matches)) {
+            return $matches[1];
+        }
 
-private function extractFileNameFromContent($content)
-{
-    // Regex to extract file name from the content
-    if (preg_match('/\[Download (.*?)\]\(sandbox:/', $content, $matches)) {
-        return $matches[1]; // Returns the file name with extension
+        return 'defaultFileName.txt';
     }
 
-    return 'defaultFileName.txt'; // Default file name if not found
-}
+    public function downloadMessageFile($fileId)
+    {
+        $fileContent = $this->runPHPScript('retrieveMessageFile', [$fileId]);
+        $fileName = Session::get($fileId . '-fileName', 'defaultFile.csv');
+        $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+        $contentType = $this->getContentTypeByExtension($fileExtension);
 
+        return response()->streamDownload(function () use ($fileContent) {
+            if (ob_get_level()) {
+                ob_end_clean();
+            }
+            echo $fileContent;
+        }, $fileName, [
+            'Content-Type' => $contentType,
+        ]);
+    }
 
+    private function getContentTypeByExtension($extension)
+    {
+        $mimeTypes = [
+            // Mime types mapping
+        ];
 
-public function downloadMessageFile($fileId)
-{
-    $fileContent = $this->runPHPScript('retrieveMessageFile', [$fileId]);
-    $fileName = Session::get($fileId . '-fileName', 'defaultFile.csv');
-    $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-    $contentType = $this->getContentTypeByExtension($fileExtension);
-
-    return response()->streamDownload(function () use ($fileContent) {
-        // Ensure output buffering is turned off
-        if (ob_get_level()) {
-            ob_end_clean();
-        }
-        echo $fileContent;
-    }, $fileName, [
-        'Content-Type' => $contentType,
-    ]);
-}
-
-
-
-
-private function getContentTypeByExtension($extension)
-{
-    $mimeTypes = [
-        
-    ];
-
-    return $mimeTypes[$extension] ?? 'application/octet-stream'; 
-}
-
-
-
-
-
-
-    
-
+        return $mimeTypes[$extension] ?? 'application/octet-stream'; 
+    }
 
     public function retrieveMessageFile($threadId, $messageId, $fileId)
     {
@@ -153,12 +133,6 @@ private function getContentTypeByExtension($extension)
     {
         return $this->runPHPScript('listMessageFiles', [$threadId, $messageId]);
     }
-
-   
-
-
-    
-
 
     public function deleteThread()
     {
@@ -184,52 +158,43 @@ private function getContentTypeByExtension($extension)
     public function createNewAssistantWithCsv()
     {
         $csvData = $this->convertOrdersToCsv();
-    
-        // Create a temporary file and write the CSV data to it
         $tempFilePath = tempnam(sys_get_temp_dir(), 'csv');
         file_put_contents($tempFilePath, $csvData);
-    
-        // Pass the path of the temporary file to the script
         $assistantId = $this->runPHPScript('createAssistant', [$tempFilePath]);
     
         Session::put('assistantId', $assistantId);
-        unlink($tempFilePath); // Remove the temporary file after use
+        unlink($tempFilePath);
     
         return redirect('/');
     }
-    
 
     private function convertOrdersToCsv()
     {
         $orders = Order::all();
-
-        // Convert orders to CSV format
-        $csvData = "order_id,customer_name,order_total\n"; // Add your CSV headers
+        $csvData = "order_id,customer_name,order_total\n";
         foreach ($orders as $order) {
-            $csvData .= "{$order->order_id},{$order->customer_name},{$order->order_total}\n"; // Format each order
+            $csvData .= "{$order->order_id},{$order->customer_name},{$order->order_total}\n";
         }
 
         return $csvData;
     }
 
     private function runPHPScript($function, $args = [])
-{
-    $scriptPath = '/Users/dysisx/Documents/assistant/app/Http/Controllers/OpenaiAssistantController.php';
+    {
+        $scriptPath = '/path/to/php/script';
+        $process = new Process(array_merge(['php', $scriptPath, $function], $args));
+        $process->setWorkingDirectory(base_path());  
+        $process->run();
 
-    $process = new Process(array_merge(['php', $scriptPath, $function], $args));
-    $process->setWorkingDirectory(base_path());  
-    $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
 
-    if (!$process->isSuccessful()) {
-        throw new ProcessFailedException($process);
+        $output = trim($process->getOutput());
+        if (!$output) {
+            throw new \Exception("No output from PHP script for function: $function");
+        }
+
+        return $output;
     }
-
-    $output = trim($process->getOutput());
-    if (!$output) {
-        throw new \Exception("No output from PHP script for function: $function");
-    }
-
-    return $output;
-}
-
 }
