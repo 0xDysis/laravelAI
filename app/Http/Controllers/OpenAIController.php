@@ -181,7 +181,7 @@ class OpenAIController extends Controller
 
     private function runPHPScript($function, $args = [])
     {
-        $scriptPath = '/path/to/php/script';
+        $scriptPath = '/Users/dysisx/Documents/assistant/app/Http/Controllers/OpenaiAssistantController.php';
         $process = new Process(array_merge(['php', $scriptPath, $function], $args));
         $process->setWorkingDirectory(base_path());  
         $process->run();
