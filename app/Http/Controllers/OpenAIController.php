@@ -130,15 +130,10 @@ public function downloadMessageFile($fileId)
 private function getContentTypeByExtension($extension)
 {
     $mimeTypes = [
-        'png' => 'image/png',
-        'jpg' => 'image/jpeg',
-        'jpeg' => 'image/jpeg',
-        'html' => 'text/html',
-        'csv' => 'text/csv',
-        // Add more mappings as needed
+        
     ];
 
-    return $mimeTypes[$extension] ?? 'application/octet-stream'; // Default MIME type
+    return $mimeTypes[$extension] ?? 'application/octet-stream'; 
 }
 
 
