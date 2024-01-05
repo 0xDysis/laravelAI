@@ -105,6 +105,23 @@ function retrieveMessageFile($client, $fileId) {
     echo $fileContent;
 }
 
+function listMessageFiles($client, $threadId, $messageId) {
+    $response = $client->threads()->messages()->files()->list(
+        threadId: $threadId,
+        messageId: $messageId,
+        parameters: [
+            'limit' => 10,
+        ],
+    );
+
+    $fileIds = [];
+    foreach ($response->data as $file) {
+        array_push($fileIds, $file->id);
+    }
+
+    echo json_encode($fileIds);
+}
+
 if ($argc > 1) {
     $functionName = $argv[1];
     $args = array_slice($argv, 2);

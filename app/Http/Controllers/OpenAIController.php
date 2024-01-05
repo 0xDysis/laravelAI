@@ -71,9 +71,7 @@ class OpenAIController extends Controller
             $fileIdsJson = $this->runPHPScript('listMessageFiles', [$threadId, $message['id']]);
             $fileIds = json_decode($fileIdsJson, true);
     
-            if (is_null($fileIds)) {
-                $messagesData[$key]['fileId'] = 'image_handling_needed';
-            } elseif (!empty($fileIds) && is_array($fileIds)) {
+            if (!empty($fileIds) && is_array($fileIds)) {
                 $fileId = $fileIds[0];
                 $messagesData[$key]['fileId'] = $fileId;
     
@@ -88,6 +86,29 @@ class OpenAIController extends Controller
     
         return response()->json($messagesData);
     }
+    
+    public function downloadMessageFile($fileId)
+{
+    // Directly retrieve the file content using fileId
+    $fileContent = $this->retrieveMessageFile($fileId);
+    if (!$fileContent) {
+        return response()->json(['error' => 'File not found or unable to retrieve.'], 404);
+    }
+
+    $fileName = Session::get($fileId . '-fileName', 'defaultFile.csv');
+    $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+    $contentType = $this->getContentTypeByExtension($fileExtension);
+
+    return response()->streamDownload(function () use ($fileContent) {
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+        echo $fileContent;
+    }, $fileName, [
+        'Content-Type' => $contentType,
+    ]);
+}
+    
 
     private function extractFileNameFromContent($content)
     {
@@ -98,22 +119,7 @@ class OpenAIController extends Controller
         return 'defaultFileName.txt';
     }
 
-    public function downloadMessageFile($fileId)
-    {
-        $fileContent = $this->runPHPScript('retrieveMessageFile', [$fileId]);
-        $fileName = Session::get($fileId . '-fileName', 'defaultFile.csv');
-        $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-        $contentType = $this->getContentTypeByExtension($fileExtension);
-
-        return response()->streamDownload(function () use ($fileContent) {
-            if (ob_get_level()) {
-                ob_end_clean();
-            }
-            echo $fileContent;
-        }, $fileName, [
-            'Content-Type' => $contentType,
-        ]);
-    }
+ 
 
     private function getContentTypeByExtension($extension)
     {
@@ -124,11 +130,11 @@ class OpenAIController extends Controller
         return $mimeTypes[$extension] ?? 'application/octet-stream'; 
     }
 
-    public function retrieveMessageFile($threadId, $messageId, $fileId)
+    public function retrieveMessageFile($fileId)
     {
-        return $this->runPHPScript('retrieveMessageFile', [$threadId, $messageId, $fileId]);
+        // Retrieve the file content based solely on the fileId
+        return $this->runPHPScript('retrieveMessageFile', [$fileId]);
     }
-
     public function listMessageFiles($threadId, $messageId)
     {
         return $this->runPHPScript('listMessageFiles', [$threadId, $messageId]);
