@@ -1,0 +1,2337 @@
+{
+    "messages": [
+        {
+            "role": "system",
+            "content": "VanOnsAssist is a knowledgeable, friendly, and professional AI assistant for the web development company van-ons, specifically designed to help you find the right information about anything concerning the van-ons operations"
+        },
+        {
+            "role": "user",
+            "content": "What services does Van-Ons offer?"
+        },
+        {
+            "role": "assistant",
+            "content": "Van-Ons offers a wide range of services, including web development, app development, platform creation, and complex cloud solution integrations. Their primary focus is on increasing the digital power of their clients by delivering high-quality digital channels and solutions."
+        },
+        {
+            "role": "user",
+            "content": "What is the mission of Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "The mission of Van-Ons is to create and build digital channels that truly make a difference. They are dedicated to innovation and excellence, striving to deliver top-notch digital solutions that help their clients succeed in the digital world."
+        },
+        {
+            "role": "user",
+            "content": "What is the team structure at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "The team at Van-Ons consists of a diverse group of professionals, including developers, designers, managers, and other specialists. Key members include Robert, the founder; Maurice, the technical lead; and Timmy, a talented developer. Together, they work collaboratively to deliver high-quality digital solutions to their clients."
+        },
+        {
+            "role": "user",
+            "content": "What is the history of Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Van-Ons was founded in 2006 by Robert, who had a deep passion for the digital world and a commitment to quality. Since its inception, the company has grown and evolved, becoming a successful web development company known for its innovative and high-quality digital channels."
+        },
+        {
+            "role": "user",
+            "content": "What sets Van-Ons apart from other digital agencies?"
+        },
+        {
+            "role": "assistant",
+            "content": "Van-Ons sets itself apart from other digital agencies through its dedication to innovation, excellence, and quality. Their team of skilled professionals works tirelessly to create and build digital channels that make a real difference for their clients. By focusing on increasing their clients' digital power, Van-Ons delivers tailored solutions that help businesses succeed in the digital landscape."
+        },
+        {
+            "role": "user",
+            "content": "Can you tell me about Robert?"
+        },
+        {
+            "role": "assistant",
+            "content": "Robert is the visionary founder of Van-Ons. With a deep passion for the digital world and an unyielding commitment to quality, he established Van-Ons in 2006. Since then, he has led the company with a clear focus on creating and building digital channels that truly make a difference. His leadership has been instrumental in shaping Van-Ons into the successful web development company it is today. Robert's dedication to innovation and excellence continues to drive the company forward in its mission to deliver top-notch digital solutions."
+        },
+        {
+            "role": "user",
+            "content": "I'd like to know more about Maurice."
+        },
+        {
+            "role": "assistant",
+            "content": "Maurice is the technical lead at Van-Ons. He is a master of problem-solving and has a deep understanding of various programming languages and technologies. Maurice's technical expertise and leadership skills ensure that our projects are executed with precision and efficiency. His ability to navigate complex technical challenges is truly remarkable, making him an invaluable asset to the Van-Ons team."
+        },
+        {
+            "role": "user",
+            "content": "Could you provide some information on Timmy?"
+        },
+        {
+            "role": "assistant",
+            "content": "Timmy is one of our talented developers at Van-Ons. His passion for coding and his commitment to quality are evident in every project he works on. Timmy has a knack for turning complex problems into simple, elegant solutions. His dedication and technical skills contribute significantly to the high-quality digital channels that Van-Ons is known for. Timmy's work truly embodies the spirit of innovation that drives Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Who at Van-Ons can assist me with CSS issues?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you're having trouble with CSS at Van Ons, you can reach out to Sebastiaan, Michel, Yannic, Lars, or Jonathan for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who should I contact at Van-Ons if I need help with JavaScript?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you're stuck on a JavaScript problem, you can consult Jesse, Maurice, Danique, Merlijn, or Jonathan for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who are the React experts at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you need help with React, you can contact Yannic, Maurice, Jonathan, Jesse, or Merlijn for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who can I reach out to at Van-Ons for React Native issues?"
+        },
+        {
+            "role": "assistant",
+            "content": "For React Native issues, you can contact Maurice, Jonathan, or Yannic for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who at Van-Ons can help me with Gutenberg-related queries?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you have questions about Gutenberg, you can contact Maurice or Yannic for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who are the WordPress specialists at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "For WordPress-related issues, you can contact Jesse, Maurice, or Merlijn for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who at Van-Ons can help me with Laravel issues?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you need help with Laravel, you can contact Maurice, Merlijn, or Danique for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who should I contact at Van-Ons for design-related issues?"
+        },
+        {
+            "role": "assistant",
+            "content": "For design-related questions, you can contact Sebastiaan or Lars for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who can assist me with hosting issues at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you have hosting issues, you can contact Jeffrey or Maurice for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who at Van-Ons can assist me with WordPress issues?"
+        },
+        {
+            "role": "assistant",
+            "content": "For WordPress-related issues, you can contact Jesse, Maurice, or Merlijn for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who should I contact at Van-Ons if I need help with Laravel?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you need help with Laravel, you can contact Maurice, Merlijn, or Danique for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who are the design experts at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "For design-related questions, you can contact Sebastiaan or Lars for assistance."
+        },
+        {
+            "role": "user",
+            "content": "Who can I reach out to at Van-Ons for hosting issues?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you have hosting issues, you can contact Jeffrey or Maurice for assistance."
+        },
+        {
+            "role": "user",
+            "content": "What is the purpose of the Van-Ons Wiki?"
+        },
+        {
+            "role": "assistant",
+            "content": "The Van Ons Wiki is primarily used as a centralized platform for documentation and how-to's on anything technical at Van Ons. It is constantly updated, collaborative, and encourages knowledge sharing within the team. The main topics covered include the company's way of working, code styles, tools, the WordPress Starter Theme, and a 'tips & tricks' section."
+        },
+        {
+            "role": "user",
+            "content": "Who can contribute to the Van-Ons Wiki?"
+        },
+        {
+            "role": "assistant",
+            "content": "Everyone at Van Ons has the capability to contribute to the wiki. Users can add their own wiki articles or make modifications to existing articles using the WordPress platform. However, it's essential to approach contributions with care and consideration, as existing content is written with intent and a purpose. Always confer with the author or the Tech Team if you want to make any alterations."
+        },
+        {
+            "role": "user",
+            "content": "What are the main topics covered in the Van-Ons Wiki?"
+        },
+        {
+            "role": "assistant",
+            "content": "The primary subjects in the Van Ons Wiki include the company's way of working, code styles, tools, the WordPress Starter Theme, and a 'tips & tricks' section. These topics provide a comprehensive resource for technical documentation and how-to's specific to Van Ons."
+        },
+        {
+            "role": "user",
+            "content": "What are the key focus areas of the Van-Ons Wiki?"
+        },
+        {
+            "role": "assistant",
+            "content": "The key areas of focus in the Van Ons Wiki are the company's way of working, code styles, tools, the WordPress Starter Theme, and a 'tips & tricks' section. These areas aim to offer a centralized and collaborative platform for technical knowledge sharing within the team."
+        },
+        {
+            "role": "user",
+            "content": "What technical aspects does the Van-Ons Wiki cover?"
+        },
+        {
+            "role": "assistant",
+            "content": "The Van Ons Wiki covers several aspects of technical documentation, including the company's way of working, code styles, tools, the WordPress Starter Theme, and a 'tips & tricks' section. This comprehensive resource helps team members navigate and understand various technical aspects of Van Ons' projects."
+        },
+        {
+            "role": "user",
+            "content": "Can Van-Ons assist me in developing an e-commerce platform?"
+        },
+        {
+            "role": "assistant",
+            "content": "Absolutely, Van-Ons has extensive experience in building e-commerce platforms using technologies such as Shopify and WooCommerce. We can help you create a unique and user-friendly online store that meets your specific needs."
+        },
+        {
+            "role": "user",
+            "content": "What are the primary web development technologies used by Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Van-Ons uses a variety of technologies for web development, including HTML, CSS, JavaScript, React, Angular, Vue.js, Node.js, and PHP. We also have expertise in content management systems such as WordPress and Drupal, as well as e-commerce platforms like Shopify and WooCommerce."
+        },
+        {
+            "role": "user",
+            "content": "Does Van-Ons provide website maintenance and support services?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yes, Van-Ons offers website maintenance and support services to ensure that your website stays up-to-date and runs smoothly. We can help you with content updates, plugin and software updates, security monitoring, and performance optimization."
+        },
+        {
+            "role": "user",
+            "content": "What should I do if I'm working on an older project at Van-Ons with a different code style?"
+        },
+        {
+            "role": "assistant",
+            "content": "When working on an older project with a different code style, it's important to adapt your style to the project rather than refactoring the whole project. For example, if all methods are declared using snake_case, apply that to your new code as well. This helps maintain consistency and avoid confusion."
+        },
+        {
+            "role": "user",
+            "content": "Do I need to memorize all the guidelines at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "No, there's no need to memorize all the guidelines. Most of them will already be the default when working with our current WordPress Starter Theme or a Laravel project. Use the guidelines as a reference guide for when in doubt, or in the event of a discussion with coworkers. Some of the guides could be interpreted as a matter of taste, and this rulebook helps remove the personal taste and makes things clear and concise."
+        },
+        {
+            "role": "user",
+            "content": "How can I suggest changes to the guidelines at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you think some code styles could be better, feel free to suggest changes! We move with developments in our respective expertise communities and update these guidelines from time to time. Any suggestions can be discussed with the development team via Slack, the weekly stand-up, or the Dev.Monthly sessions."
+        },
+        {
+            "role": "user",
+            "content": "What are the syntax and formatting rules followed by Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "We use 4 space indents, single quotes, keep leading zeros, remove trailing zeros, remove units from zero values, a space after colons."
+        },
+        {
+            "role": "user",
+            "content": "How does Van-Ons order CSS declarations?"
+        },
+        {
+            "role": "assistant",
+            "content": "We group related properties, like positioning and typography. We apply some logic that is quick to understand."
+        },
+        {
+            "role": "user",
+            "content": "What naming conventions does Van-Ons use?"
+        },
+        {
+            "role": "assistant",
+            "content": "We follow the BEM methodology - Block, Element, Modifier. Blocks are components, elements are parts of a block, and modifiers define variations."
+        },
+        {
+            "role": "user",
+            "content": "When does Van-Ons nest selectors?"
+        },
+        {
+            "role": "assistant",
+            "content": "We avoid nesting selectors, except for pseudo-classes/elements. Nesting can cause long selectors, make code less readable, and lose context."
+        },
+        {
+            "role": "user",
+            "content": "What are the rules for typing properties and methods at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, we type properties and method signatures whenever possible instead of using docblocks. We don't do type checks if we can use parameter type hinting."
+        },
+        {
+            "role": "user",
+            "content": "When should I use nullable and void types at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, we use the nullable ?type notation instead of type|null unions. We use void return type when a method returns nothing."
+        },
+        {
+            "role": "user",
+            "content": "What is Van-Ons' stance on constructor property promotion?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, we use constructor property promotion if all properties can be promoted. We put each on its own line with a comma after the last one."
+        },
+        {
+            "role": "user",
+            "content": "What are the rules for traits and strings at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, we put each trait import on its own line. We prefer string interpolation over concatenation where possible."
+        },
+        {
+            "role": "user",
+            "content": "How does Van-Ons format if statements?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, we always use brackets for if statements. We put the unhappy path first. We avoid else with early returns and ternaries. We separate compound conditions into individual if checks."
+        },
+        {
+            "role": "user",
+            "content": "What general skills should I learn to work at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "To work at Van-Ons, you should learn Git, GitHub, HTTP, HTML, SQL databases, and basic PHP."
+        },
+        {
+            "role": "user",
+            "content": "What PHP and Laravel topics are most important at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, we focus on PHP basics, OOP, Laravel routing, views, databases, relationships, authentication, APIs, testing, and dependency injection."
+        },
+        {
+            "role": "user",
+            "content": "What about WordPress backend development at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, we focus on WordPress theme structure, template hierarchy, hooks, custom post types and fields, caching, and ACF blocks."
+        },
+        {
+            "role": "user",
+            "content": "What is the workflow when starting on a ticket at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, you pick a ticket, understand it, create a feature branch, make changes, commit/push, open a PR, get it reviewed/tested, make any fixes, then it gets approved."
+        },
+        {
+            "role": "user",
+            "content": "What if a ticket is missing details at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, if a ticket is missing details, you supplement it yourself using design, docs, asking PMs/colleagues/client. You add details so changes can be properly tested."
+        },
+        {
+            "role": "user",
+            "content": "How does Van-Ons handle new projects with initial setup?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, we use a general feature/JIR-1 branch for foundational tickets at first. Later we switch to ticket branches once the project is established."
+        },
+        {
+            "role": "user",
+            "content": "Can you explain the workflow for working on a new ticket?"
+        },
+        {
+            "role": "assistant",
+            "content": "1. Pick a ticket from JIRA to work on. 2. Make sure you understand what needs to be done. 3. Create a feature branch named after ticket. 4. Make your code changes locally. 5. Commit and push changes to remote branch. 6. Open pull request to master. 7. Wait for colleague review. 8. Make any fixes requested during review."
+        },
+        {
+            "role": "user",
+            "content": "What actions should I take if a JIRA ticket lacks important details?"
+        },
+        {
+            "role": "assistant",
+            "content": "You should try to fill in missing details yourself by checking design mockups, technical documentation, asking PMs, colleagues or clients. Add enough so that a reviewer can properly test your changes."
+        },
+        {
+            "role": "user",
+            "content": "Who is responsible for approving or rejecting my code changes?"
+        },
+        {
+            "role": "assistant",
+            "content": "Typically a colleague will review first and may approve or request changes. After that, sometimes the client may also review and give final approval to close out the ticket."
+        },
+        {
+            "role": "user",
+            "content": "How should I handle the initial setup for new projects without specific tickets?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use a general feature/JIR-1 branch for foundational components at first without ticket branches. Later when project matures, switch to creating ticket branches for new features."
+        },
+        {
+            "role": "user",
+            "content": "What is the process for creating a new Laravel site in Forge?"
+        },
+        {
+            "role": "assistant",
+            "content": "1. Login to Forge and go to Servers page. 2. Click New Site and fill in name, domain, web directory. 3. Click Add Site. 4. Go to Git Repository tab and connect to Buddy repo. 5. Adjust branch name if needed."
+        },
+        {
+            "role": "user",
+            "content": "How can I link the site to my project's code?"
+        },
+        {
+            "role": "assistant",
+            "content": "Connect to the Git repository in Buddy that contains your project code. Forge will deploy from that repo."
+        },
+        {
+            "role": "user",
+            "content": "What steps should I take to secure the development environment?"
+        },
+        {
+            "role": "assistant",
+            "content": "Go to the Security tab and create a username/password credential for access. E.g. username: vanonsklant, password: cowlabs."
+        },
+        {
+            "role": "user",
+            "content": "How do I create a new Laravel project in Rootnet?"
+        },
+        {
+            "role": "assistant",
+            "content": "1. Go to Projecten and click New Project. 2. Give project a name and select the Laravel template. 3. Add correct domain(s) under Domain Names. 4. Give developer access under Access. 5. Allow GitHub access under Deployment Tools."
+        },
+        {
+            "role": "user",
+            "content": "What is the procedure for connecting a GitHub repo to Rootnet?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use GitHub Whisperer to setup Production secrets with Rootnet hostname/username. Copy Public key to SSH keys in Rootnet."
+        },
+        {
+            "role": "user",
+            "content": "How should I set up the database for my project?"
+        },
+        {
+            "role": "assistant",
+            "content": "Add database/Redis credentials from Rootnet mail to 1Password. FTP to server and create .env file with credentials. Set DB_*, REDIS_* keys."
+        },
+        {
+            "role": "user",
+            "content": "What are the steps to deploy and run my site?"
+        },
+        {
+            "role": "assistant",
+            "content": "Run the GitHub production deploy workflow. Optionally start Horizon and setup repeating Cron tasks."
+        },
+        {
+            "role": "user",
+            "content": "How is the WordPress update process organized within the development team?"
+        },
+        {
+            "role": "assistant",
+            "content": "Sites are strategically assigned to developers based on their knowledge, either built it or know it well. Everyone has a bundle of sites to be responsible for updating. Time is planned every 2 weeks for all developers to execute updates."
+        },
+        {
+            "role": "user",
+            "content": "What preparations should I make before starting the update process for a site?"
+        },
+        {
+            "role": "assistant",
+            "content": "Review the site beforehand - check email settings, recipients for automated mails, backups. Test all updates first on the development environment before touching production."
+        },
+        {
+            "role": "user",
+            "content": "Can you guide me through the process of updating a website?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use ManageWP to update WP core, plugins, themes. Go through each category methodically. Review changelogs before updating. After updating test site functionality thoroughly on dev, both front and backend. Check common and client-specific features. Fix any issues before continuing with next site."
+        },
+        {
+            "role": "user",
+            "content": "What precautions should I take when updating websites?"
+        },
+        {
+            "role": "assistant",
+            "content": "No emails should be sent to clients during testing. Watch for complete site failure, restore from backup if needed but keep control, don't fully restore. For ACF, upload plugin first before removing from theme. Keep PHP versions up-to-date."
+        },
+        {
+            "role": "user",
+            "content": "When is it appropriate to update a Laravel application?"
+        },
+        {
+            "role": "assistant",
+            "content": "Always apply security updates when available. For major version updates to Laravel, Statamic etc, consider if still actively working on project or if it will stop receiving security fixes."
+        },
+        {
+            "role": "user",
+            "content": "What is the procedure for applying security updates to a Laravel application?"
+        },
+        {
+            "role": "assistant",
+            "content": "Run composer update. Composer will find updated packages with non-breaking changes automatically. But you still need to thoroughly test application afterwards."
+        },
+        {
+            "role": "user",
+            "content": "How can I update my Laravel application to a new major version?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use official upgrade guides provided with each release. Can also use Laravel Shift to automatically handle changes, but discuss with team first as it costs per project."
+        },
+        {
+            "role": "user",
+            "content": "What aspects of the application should I test after updating?"
+        },
+        {
+            "role": "assistant",
+            "content": "Test all critical functionality - forms, auth, APIs, workflows etc. Check logs for errors. Confirm no unintended emails were sent to clients during testing."
+        },
+        {
+            "role": "user",
+            "content": "Can you recommend some useful Laravel packages for general use?"
+        },
+        {
+            "role": "assistant",
+            "content": "For roles/permissions use spatie/laravel-permission. For multilingual models use spatie/laravel-translatable. For media management use spatie/laravel-medialibrary."
+        },
+        {
+            "role": "user",
+            "content": "What Laravel packages are helpful for SEO in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use diglactic/laravel-breadcrumbs for breadcrumbs. Use our vop-seo package for SEO tags. Use spatie/laravel-sitemap for sitemaps. Use spatie/schema-org for schema.org markup."
+        },
+        {
+            "role": "user",
+            "content": "Can you recommend some Nova-related packages for Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "For media library use ebess/advanced-nova-media-library. For slugs use spatie/laravel-sluggable if not using Nova. For tags use spatie/nova-tags-field. For settings use optimistdigital/nova-settings."
+        },
+        {
+            "role": "user",
+            "content": "What is the best approach for writing a TD for a Laravel project at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Identify all user actions needed. Break down high level goals into detailed steps and sub-tasks. Document every feature, field, button at granular level - nothing is obvious."
+        },
+        {
+            "role": "user",
+            "content": "Can you provide examples of functionality to document in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Admin dashboard capabilities, menu systems, content models, SEO fields, forms required, media library setup, analytics/data tracking needs, frontend technical considerations, hosting environment."
+        },
+        {
+            "role": "user",
+            "content": "What scaffolding can help speed up development in Van-Ons Laravel projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "The Laravel Starter Kit provides frontend scaffolding - Webpack, SASS, SVG sprites, responsive images. Integrates well with Spatie media library. Helps avoid refactoring later."
+        },
+        {
+            "role": "user",
+            "content": "What are some special hosting considerations for Van-Ons Laravel projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Laravel hosting needs more advanced configuration - PHP versions, Redis, Supervisor, Buddy pipelines. Cloudflare can help with caching needs. Plan this with hosting provider upfront."
+        },
+        {
+            "role": "user",
+            "content": "How can I output variables in Blade templates for Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use {{ $var }} to output a variable, automatically escaping HTML. Use {!! $var !!} to output without escaping HTML."
+        },
+        {
+            "role": "user",
+            "content": "What are some useful Blade statements for control flow in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use @if, @else, @elseif, @foreach, @forelse, @for, @while, @unless for conditionals and loops. @isset, @empty can conditionally render blocks."
+        },
+        {
+            "role": "user",
+            "content": "How do I work with template inheritance and sections in Van-Ons Blade templates?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use @extends to inherit a layout. @section and @yield define content blocks. @stack with @push/@prepend allows multiple content blocks in one section."
+        },
+        {
+            "role": "user",
+            "content": "When should I use PHP tags in Van-Ons Blade templates?"
+        },
+        {
+            "role": "assistant",
+            "content": "@php and @endphp allow writing PHP logic, but should be avoided if possible. Inline PHP is allowed outside these tags."
+        },
+        {
+            "role": "user",
+            "content": "How do I create and use an anonymous Blade component in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Save component markup to a blade file like views/components/card.blade.php. Render with <x-card> element in any template, access attributes as variables."
+        },
+        {
+            "role": "user",
+            "content": "In which cases should I create a component class for Van-Ons Laravel projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Create a Component class when you need control over data passed to the template, or have a lot of logic that doesn't belong in the template directly."
+        },
+        {
+            "role": "user",
+            "content": "In Van-Ons projects, how can I pass data from a component class to its template?"
+        },
+        {
+            "role": "assistant",
+            "content": "Define public properties in the class to pass data. Render a custom view with data instead of the default in render() method."
+        },
+        {
+            "role": "user",
+            "content": "How do I register a new custom post type for Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Create a class extending BasePost, use Registers trait. Add class to post_types config. Override methods to customize labels, slug etc."
+        },
+        {
+            "role": "user",
+            "content": "How can I add ACF fields to a custom post type in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use the HasFields trait. Define fields in getFields() method, returning ACF arrays. Location is automatically set."
+        },
+        {
+            "role": "user",
+            "content": "How do I display custom post data in my Van-Ons project templates?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use the HasTemplateTags trait methods instead of WordPress functions. Custom logic can be added as non-static methods on the class."
+        },
+        {
+            "role": "user",
+            "content": "How can I run a custom query for my post type in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Call static ::query() method with a WP_Query argument array. Returns a PostCollection for easier processing."
+        },
+        {
+            "role": "user",
+            "content": "How do I register a new taxonomy for Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Create a Taxonomy class, use Registers trait. Set $taxonomy property, linked post types. Override methods to customize labels, slug etc."
+        },
+        {
+            "role": "user",
+            "content": "Is it possible to add ACF fields to a taxonomy in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yes, use the HasFields trait. Define fields in getFields() method, returning ACF arrays. Location is automatically set."
+        },
+        {
+            "role": "user",
+            "content": "How do I access taxonomy data in my Van-Ons project code?"
+        },
+        {
+            "role": "assistant",
+            "content": "Term instances have a getMeta() method for metadata. Add custom non-static methods on the taxonomy class for more complex needs."
+        },
+        {
+            "role": "user",
+            "content": "What are some examples of view files I might create in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "View files like parts/header.blade.php, pages/home.blade.php, partials/event-item.blade.php. Typically organize by site section and component."
+        },
+        {
+            "role": "user",
+            "content": "When rendering a view in Van-Ons projects, can I pass multiple variables?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yes, the second argument when rendering a view is an associative array. Define multiple key/value pairs to pass many variables."
+        },
+        {
+            "role": "user",
+            "content": "How can I render a view inside another view in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use the @include Blade directive inside a view to render another view, just like voView() in PHP code."
+        },
+        {
+            "role": "user",
+            "content": "In Van-Ons projects, how can I check if a view file exists before rendering it?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use the ViewFinder: $finder = new ViewFinder; $finder->exists('pages.home'); Returns true if view exists."
+        },
+        {
+            "role": "user",
+            "content": "How do I create a controller for a default template file in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Name it like the file, Single{PostType}Controller. Extend TemplateController, add handle() method to render views."
+        },
+        {
+            "role": "user",
+            "content": "What about controllers for custom page templates in Van-Ons projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Same idea but in page-templates folder. Add template comment to specify name. Extend TemplateController and handle rendering."
+        },
+        {
+            "role": "user",
+            "content": "Can you explain how dependency injection works in controllers?"
+        },
+        {
+            "role": "assistant",
+            "content": "Add type-hinted arguments to handle() method, they will auto resolve to post, term, collection objects etc."
+        },
+        {
+            "role": "user",
+            "content": "What are the steps to create a basic GitHub workflow?"
+        },
+        {
+            "role": "assistant",
+            "content": "Workflows are YAML files. Define name and triggers under on. Add jobs with runs-on, steps for actions like checkout, install, test, build."
+        },
+        {
+            "role": "user",
+            "content": "What's the process to manually trigger a workflow execution?"
+        },
+        {
+            "role": "assistant",
+            "content": "Add a workflow_dispatch trigger. Then run workflow manually from the Actions tab. Useful for testing one-off executions."
+        },
+        {
+            "role": "user",
+            "content": "Could you tell me about some advanced GitHub workflow features?"
+        },
+        {
+            "role": "assistant",
+            "content": "Use env variables to avoid repetition. Add secrets for credentials. Chain jobs with needs. Share artifacts between jobs. See GitHub docs for more."
+        },
+        {
+            "role": "user",
+            "content": "What does the quotation checklist for 2023 include?"
+        },
+        {
+            "role": "assistant",
+            "content": "The quotation checklist for 2023 includes considerations such as whether there is test time in the quotation, which should be 15% of the Tech Phase, at €85 per hour. It also includes whether time to guide the launch is included, what falls under content migration, who is responsible for redirects, and whether each line has a time estimate that matches the description and quantity."
+        },
+        {
+            "role": "user",
+            "content": "What are the guidelines for new business?"
+        },
+        {
+            "role": "assistant",
+            "content": "The rate for Laravel and WordPress development work is €110 per hour excluding VAT. The rate in 2019 was €100 per hour, and before that, it was €85 per hour. Testing is +15% of the Technical Phase, and project management is +10% of the subtotal. Design and content can be offered for €85 per hour. Conversations with prospects (new business) are preferably done with two PMs. Always make a written delineation of the project."
+        },
+        {
+            "role": "user",
+            "content": "What should be avoided in the new business conversation?"
+        },
+        {
+            "role": "assistant",
+            "content": "Avoid speaking about 'new sales' or 'new business'. We are there for the customer, not for our business. Preferably do not show the Technical Document, unless the customer asks for it. Let each other finish speaking and do not repeat stories that the other has just told. Never criticize the proposal."
+        },
+        {
+            "role": "user",
+            "content": "Can you explain what sprints are?"
+        },
+        {
+            "role": "assistant",
+            "content": "The post-2019 method of estimation consists of sprints. A sprint is always 2 weeks. With the hourly rate of €110, 1 sprint then costs €8,800 excluding VAT."
+        },
+        {
+            "role": "user",
+            "content": "What does a standard site entail?"
+        },
+        {
+            "role": "assistant",
+            "content": "A standard site is one that doesn't require technology that deviates significantly from WordPress and needs fewer than 10 unique templates. A Technical Document can be created in a few days (paid) or for free as part of the quotation. Up to 8 templates development can be done in 1 sprint (€8,000), but it's better to have extra days for testing and delivery (12 days, €12,000). Design can be done in a few additional days or in 2 sprints (4 weeks, €16,000)."
+        },
+        {
+            "role": "user",
+            "content": "Can you give an example of a shop?"
+        },
+        {
+            "role": "assistant",
+            "content": "An example of a shop ideally stays as close as possible to the WooCommerce flow: product overview > product single > shopping cart > checkout. Payment is done via Mollie, and other systems are usually more challenging. A shop without a shopping cart is not a shop, and we can work with Gravity Forms. A shop with a few other types of pages requires at least 2 sprints of development work (€16,000) due to settings. Design can be done in 1 (internal) or 2 (external) weeks."
+        },
+        {
+            "role": "user",
+            "content": "What does a Standard + Shop + NASA site look like?"
+        },
+        {
+            "role": "assistant",
+            "content": "A Standard + Shop + NASA site has 10+ templates for the site itself, the shop flow, and a connection with system X. It requires a minimum of 2 weeks (€8,000) for design and a minimum of 6 weeks (€24,000) for development. For an unknown connection, we often use 'from €10,000' depending on the API documentation. Creating a connection is only possible if an API is available for all involved software."
+        },
+        {
+            "role": "user",
+            "content": "What does taking over an existing site involve?"
+        },
+        {
+            "role": "assistant",
+            "content": "Taking over an existing site requires a minimum of 1 week to receive data, set up the development environment, and assess the site's status. Involve the Technical Lead. We can never know if it's a good fit without a copy or FTP access. Only take over with the intention of building a new site or providing ongoing maintenance. Taking over hosting alone doesn't make sense."
+        },
+        {
+            "role": "user",
+            "content": "What makes a lead interesting?"
+        },
+        {
+            "role": "assistant",
+            "content": "A customer is an interesting lead if they can spend at least EUR 4,000 on design, their deadline can be met, they can meet our payment terms, and they are willing to pay for PM hours and a paid preliminary process."
+        },
+        {
+            "role": "user",
+            "content": "What are some warning signs to look out for before negotiations?"
+        },
+        {
+            "role": "assistant",
+            "content": "Red flags include requests coming from a private address, the customer using technical terms incorrectly, and a very tight deadline. These can indicate that the lead may not be a good fit."
+        },
+        {
+            "role": "user",
+            "content": "What are some warning signs to look out for during negotiations?"
+        },
+        {
+            "role": "assistant",
+            "content": "During negotiations, be wary if the customer uses many technical terms almost correctly, promises more business if the first project is done at a good price, or uses the word 'quotation' when the details are not yet 100% certain. These can indicate potential issues down the line."
+        },
+        {
+            "role": "user",
+            "content": "What are some warning signs to look out for during and just before kickoff?"
+        },
+        {
+            "role": "assistant",
+            "content": "During and just before kickoff, red flags include the customer missing payment terms, paying bills from an account other than the company's account, and not delivering designs on time or delivering designs with new functionality. These can indicate potential issues with the project."
+        },
+        {
+            "role": "user",
+            "content": "Where is the preferred location to host websites?"
+        },
+        {
+            "role": "assistant",
+            "content": "Since 2023, we prefer to host websites at Rootnet, where both Laravel and WordPress sites can be hosted. Savvii is also still in use for WordPress. In the past, we used Kinsta, Cloud.nl, and True, but this has been phased out since 2023."
+        },
+        {
+            "role": "user",
+            "content": "Do you offer email hosting?"
+        },
+        {
+            "role": "assistant",
+            "content": "No, we do not provide email hosting. Gmail and Office 365 are fantastic options. We can help with setting up Gmail, but not with Office 365. None of our servers contain mail software, as it makes hosting more business-critical due to privacy, sensitive information, and potential email loss."
+        },
+        {
+            "role": "user",
+            "content": "What are the costs for hosting?"
+        },
+        {
+            "role": "assistant",
+            "content": "As of May 2023, our hosting prices are as follows: Shared hosting at €150 per month, Dedicated VPS with various configurations ranging from €300 to €550 per month. All prices include WordPress and plugin updates, access to our support channel, and are exclusive of VAT. Hosting contracts are only for 6 or 12 months."
+        },
+        {
+            "role": "user",
+            "content": "What other services are offered?"
+        },
+        {
+            "role": "assistant",
+            "content": "We offer domain registration, SSL certificates, Extended Validation (EV) certificates, Wildcard certificates, and extended SLAs for shorter response times. Domain registration can be done at TransIP or Versio. SSL certificates can be obtained for free with Let's Encrypt."
+        },
+        {
+            "role": "user",
+            "content": "What kind of support is provided?"
+        },
+        {
+            "role": "assistant",
+            "content": "Hosting always comes with maintenance, including updates and support, as we are obligated to ensure the sites are safe and up-to-date. We provide support for hosting-related issues and can help with recurring invoices and handling late payments."
+        },
+        {
+            "role": "user",
+            "content": "What are the style guidelines for invoices?"
+        },
+        {
+            "role": "assistant",
+            "content": "Style rules for invoices include providing a clear description of the work, explaining the 'units' such as hours, writing months without capital letters, having a clear title, specifying if it's a down payment or final payment, and avoiding lines with a '0.0' amount. Discounts should be mentioned in a separate line with a reason."
+        },
+        {
+            "role": "user",
+            "content": "What is the invoicing process for new customers?"
+        },
+        {
+            "role": "assistant",
+            "content": "For new customers, we require a 50% down payment before starting the project. We wait until the down payment is received before starting the project. This rule applies to all new customers, regardless of any prior relationship. Communicate this to the customer so they understand the process."
+        },
+        {
+            "role": "user",
+            "content": "What is the invoicing process for existing customers?"
+        },
+        {
+            "role": "assistant",
+            "content": "For existing customers with a good payment history, you can be more flexible with the down payment requirement, but it's still preferable to follow the same process as for new customers. Existing customers are those who have made previous payments without issues."
+        },
+        {
+            "role": "user",
+            "content": "How are interim invoices handled?"
+        },
+        {
+            "role": "assistant",
+            "content": "You can issue interim invoices, for example, invoicing 30% when the project is 80% complete. This can be done if you anticipate problems or feel it's necessary for a particular customer."
+        },
+        {
+            "role": "user",
+            "content": "What is the policy for starting new projects or features?"
+        },
+        {
+            "role": "assistant",
+            "content": "A customer can start a new project or feature only after all outstanding invoices related to previous projects or features have been paid. For customers with a poor payment history, development will only start if everything is paid 100% upfront."
+        },
+        {
+            "role": "user",
+            "content": "Can you explain the 10% Project Management fee?"
+        },
+        {
+            "role": "assistant",
+            "content": "Since 2019, we add a standard 10% project management fee to every invoice, based on the subtotal. This fee covers the project manager's role as the main point of contact and the person responsible for the entire project's delivery. The fee is not applied to hosting costs."
+        },
+        {
+            "role": "user",
+            "content": "How are recurring invoices created?"
+        },
+        {
+            "role": "assistant",
+            "content": "You should create these types of invoices as soon as you bill for something like the hosting of a project. This prevents administrative errors."
+        },
+        {
+            "role": "user",
+            "content": "What settings should I be aware of?"
+        },
+        {
+            "role": "assistant",
+            "content": "Pay attention to the 'First Issue Date'. If you're billing the final invoice (50%) of a new website plus the hosting, then the First Issue Date of the recurring invoice is 1 year later. Also, set 'On Scheduled Date' to 'Automatically send this invoice'. The sender should ideally be 'administratie@van-ons.nl' so that any customer responses can be handled by the administration."
+        },
+        {
+            "role": "user",
+            "content": "What information should be included in the invoice subject?"
+        },
+        {
+            "role": "assistant",
+            "content": "The subject of the invoice should be consistent and easily recognizable. Make sure the site name/URL is included, not the company name as it often differs from how we know the customer/site. For hosting, we do something like: 'Van Ons Webhosting - www.snippetmedia.nl' or 'Van Ons Dedicated Webhosting - www.aureus.nl'."
+        },
+        {
+            "role": "user",
+            "content": "Can you provide the standard text for Shared hosting invoices?"
+        },
+        {
+            "role": "assistant",
+            "content": "The standard text for a Shared hosting invoice can be found at this link: https://vanons.harvestapp.com/recurring_invoices/247119/edit"
+        },
+        {
+            "role": "user",
+            "content": "What's the standard text for Dedicated hosting invoices?"
+        },
+        {
+            "role": "assistant",
+            "content": "The standard text for a Dedicated hosting invoice can be found at this link: https://vanons.harvestapp.com/recurring_invoices/283337/edit"
+        },
+        {
+            "role": "user",
+            "content": "What additional information can be included in a hosting quote?"
+        },
+        {
+            "role": "assistant",
+            "content": "You can add that with good hosting, we ensure a safe, reliable, fast website. Hosting is about the storage of the site, the place on the internet where it stands. With us, access to our Support channel and periodic, human-checked updates are included. We handle minor defects that arise or questions about WordPress for free. Below are all the technical details."
+        },
+        {
+            "role": "user",
+            "content": "Why is the 'Strippenkaart' not a preferred method?"
+        },
+        {
+            "role": "assistant",
+            "content": "There are several reasons. Firstly, while we do take money now, it's deferred revenue/work because we don't immediately perform the work. Secondly, the customer can expect work from us at a later time when we may not have the capacity or room in the schedule. Thirdly, the hourly rate is fixed in the 'Strippenkaart'. Lastly, it's difficult to always precisely indicate how many hours something costs and therefore hard to stay within the limit of the 'Strippenkaart'."
+        },
+        {
+            "role": "user",
+            "content": "What details should be included in a 'Strippenkaart' invoice?"
+        },
+        {
+            "role": "assistant",
+            "content": "The invoice should always indicate what the hours can be used for (customer name or URL) and for which type of work. It should also specify how notifications should be made and how quickly our response time is following a notification/ticket. Lastly, it should state until when the hours can be used and what happens to them after that period (they expire)."
+        },
+        {
+            "role": "user",
+            "content": "Can you provide a sample text for a 'Strippenkaart' invoice?"
+        },
+        {
+            "role": "assistant",
+            "content": "Sure, here's an example: '1. Hours to be used for work on {customer name}. We make no distinction in the type of work (optimization, SEO, bugs, content, etc.). 2. Notifications should be made via support@van-ons.nl. Our Support Team can then indicate when these will be scheduled. 3. This 'Strippenkaart' expires on December 31, 2020, the hours that may be unused will then expire.'"
+        },
+        {
+            "role": "user",
+            "content": "What are the steps in the new build project process at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "The ideal new build project process at Van-Ons starts with meeting the client and adding the deal to Pipedrive."
+        },
+        {
+            "role": "user",
+            "content": "What happens after a deal is added to Pipedrive?"
+        },
+        {
+            "role": "assistant",
+            "content": "We then create a quote in Google Doc format, which is checked with developers and the technical lead. We also discuss payment terms with the client and get their approval on the quote."
+        },
+        {
+            "role": "user",
+            "content": "What's the next step after getting client approval on the quote?"
+        },
+        {
+            "role": "assistant",
+            "content": "We start the technical document and involve developers and other colleagues as needed. We then get client approval on the technical document."
+        },
+        {
+            "role": "user",
+            "content": "What happens after the client approves the technical document?"
+        },
+        {
+            "role": "assistant",
+            "content": "We kick off with developers to convert the technical document into Jira tickets. Then, we start the design and development process."
+        },
+        {
+            "role": "user",
+            "content": "What's the process for testing and delivery?"
+        },
+        {
+            "role": "assistant",
+            "content": "We conduct internal tests before delivery. After testing, we deliver to the client and test together. We also make room for progressive insight if needed."
+        },
+        {
+            "role": "user",
+            "content": "What happens after the project is delivered to the client?"
+        },
+        {
+            "role": "assistant",
+            "content": "We send the final payment invoice and go live. After going live, there is a meeting within 1-2 months to discuss how things are going and what the client expects in this post-live period."
+        },
+        {
+            "role": "user",
+            "content": "What are the steps in the development project process at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "The ideal development project process at Van-Ons involves the client understanding what development entails, reserving enough time at Van-Ons for support, inspiration, and suggestions for improving online channels and achieving goals."
+        },
+        {
+            "role": "user",
+            "content": "How do you keep track of the work in development projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Work is clearly stated in Jira to keep projects transferable and transparent. This helps us and the client stay on the same page about the project's progress."
+        },
+        {
+            "role": "user",
+            "content": "What's the billing process for development projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Billing occurs monthly, at the end of the month. We ensure that all financial aspects are clear and transparent."
+        },
+        {
+            "role": "user",
+            "content": "Can you explain the testing and deployment process in development projects?"
+        },
+        {
+            "role": "assistant",
+            "content": "Before deploying, internal testing is conducted. There are clear agreements on how often deployments can occur per period."
+        },
+        {
+            "role": "user",
+            "content": "What is the procedure when a client relationship concludes at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "When clients indicate they want to switch to a new web agency, we are helpful in the transition. It's often useful and necessary to involve Tom to go through all the steps."
+        },
+        {
+            "role": "user",
+            "content": "What does the checklist entail when a client relationship terminates?"
+        },
+        {
+            "role": "assistant",
+            "content": "The checklist includes ensuring the billing is in order, checking if hosting contracts can be cancelled up to one month before the end of the current period, and removing the client from Lastpass, Google Drive, Jira, and other services exclusively used for this client."
+        },
+        {
+            "role": "user",
+            "content": "What needs to be verified before terminating a client relationship?"
+        },
+        {
+            "role": "assistant",
+            "content": "Before ending the relationship, it's important to check if all outstanding invoices have been paid, if there are any invoices that need to be sent before the collaboration can be terminated, and if we have ongoing contracts on plugins or other services exclusively for this client. All finances should be settled before starting the final tasks."
+        },
+        {
+            "role": "user",
+            "content": "What does the process of transferring services look like when a client relationship concludes?"
+        },
+        {
+            "role": "assistant",
+            "content": "The end date of our collaboration should be specified so we can plan accordingly. We need to understand what kind of transfer the client expects. Are we providing a complete backup or is another web agency involved that will do the necessary work?"
+        },
+        {
+            "role": "user",
+            "content": "What does the cooling-off period mean when a client relationship ends?"
+        },
+        {
+            "role": "assistant",
+            "content": "If the site is on a server shared with other clients, it's fine to let the departing client stay there for a while after the agreed date. This allows them to access any data they might still need. It's important to set a definitive date for when the client's data can be permanently removed. This should be noted in the Google calendar, and after about 3 months, all project data can be removed from Google Drive and the user(s) can be removed from Jira."
+        },
+        {
+            "role": "user",
+            "content": "What occurs during the weekly meeting at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "In the weekly meeting, the PMs, Operations Manager, and Robert come together to discuss the most important topics for the entire agency. They also look at the sales and revenue figures from the previous week to keep a finger on the pulse and adjust where necessary."
+        },
+        {
+            "role": "user",
+            "content": "What does the preparation for the meeting involve?"
+        },
+        {
+            "role": "assistant",
+            "content": "Most data in Teamleader is automated, except for the weekly Payability and the total amount of outstanding quotes according to Pipedrive. The Payability needs to be checked as it depends on the hours everyone in the agency writes. The capacity and worked hours of each person are checked and adjusted if necessary."
+        },
+        {
+            "role": "user",
+            "content": "What happens if the capacity and worked hours don't align?"
+        },
+        {
+            "role": "assistant",
+            "content": "If the capacity is higher than the worked hours, it's checked in Forecast if someone was free or sick. If so, the number of hours can be corrected in WordPress. If someone was not free, they probably forgot to write hours. In this case, they are asked to write the correct number of hours."
+        },
+        {
+            "role": "user",
+            "content": "How do you check the outstanding quotes in Pipedrive?"
+        },
+        {
+            "role": "assistant",
+            "content": "In Pipedrive, the filter is set to 'Deals open less than 2 months' to see all current quotes in one column. The highest amount is noted."
+        },
+        {
+            "role": "user",
+            "content": "What is the meeting agenda?"
+        },
+        {
+            "role": "assistant",
+            "content": "The meeting starts with checking the minutes from the previous meeting. Then, the figures in Teamleader are reviewed, including the revenue from the previous week, the Payability from the previous week, and the revenue interim score for the current year. The non-payable items are checked, and a quick look is taken at the debtors. The status of outstanding proposals from Pipedrive is also reviewed, and new points that come to the table are noted."
+        },
+        {
+            "role": "user",
+            "content": "How can I log in to Buddy?"
+        },
+        {
+            "role": "assistant",
+            "content": "You can log in to Buddy by visiting the workspace URL: https://app.buddy.works/vanons. Use your own email address and password to log in."
+        },
+        {
+            "role": "user",
+            "content": "What are the steps to add a project in Buddy?"
+        },
+        {
+            "role": "assistant",
+            "content": "To add a project in Buddy, go to the dashboard and click on 'New project'. Choose 'Buddy Git Hosting' under Select GIT hosting provider and enter your project name under Name your project. Click on 'Create new project'. The project is now created and you can see the repository URL on the screen."
+        },
+        {
+            "role": "user",
+            "content": "Can you explain what a pipeline is in Buddy and how I can create one?"
+        },
+        {
+            "role": "assistant",
+            "content": "A pipeline in Buddy is a series of commands that are executed when a certain action is performed. In this context, it's about deploying code. To add a pipeline, go to the project where you want to add a pipeline, click on 'Pipelines' in the menu, and then click on 'Add a new pipeline' on the right side. Fill in the required fields and click on 'Add a new pipeline'."
+        },
+        {
+            "role": "user",
+            "content": "What are the steps to add an action to a pipeline in Buddy?"
+        },
+        {
+            "role": "assistant",
+            "content": "To add an action to a pipeline in Buddy, go to the pipeline where you want to add an action and click on 'Add the first action' under 'Actions'. Choose SFTP or FTP, fill in the (S)FTP details and the root folder of the website on the server in Remote path, and click on 'Add this action'. Now the pipeline with action is set up and can be deployed."
+        },
+        {
+            "role": "user",
+            "content": "How can I deploy a project using Buddy?"
+        },
+        {
+            "role": "assistant",
+            "content": "To deploy a project in Buddy, go to the project you want to deploy, click on the 'Pipelines' tab, and click on 'Run' for the server you want to deploy to. Optionally, add a comment and click on 'Run now'. The deployment will be executed."
+        },
+        {
+            "role": "user",
+            "content": "What is the process to deploy to all servers at once in Buddy?"
+        },
+        {
+            "role": "assistant",
+            "content": "To deploy to all servers simultaneously in Buddy, go to the 'Pipelines' tab of the project, click on 'Execute all pipelines' in the right menu, and confirm the action by clicking on 'Continue'. All pipelines will be executed."
+        },
+        {
+            "role": "user",
+            "content": "How can I deploy to a specific branch in Buddy?"
+        },
+        {
+            "role": "assistant",
+            "content": "To deploy to a specific branch in Buddy, go to the 'Pipelines' tab of the project, click on the current branch name under 'Branch' for the server you want to deploy to, choose the branch you want to deploy from the dropdown, and click on 'Run'. Optionally, add a comment and click on 'Run now'. The deployment will be executed. Don't forget to switch back to the original branch when you're done testing."
+        },
+        {
+            "role": "user",
+            "content": "What are the steps to undo a deployment in Buddy?"
+        },
+        {
+            "role": "assistant",
+            "content": "To undo a deployment in Buddy, go to the 'Pipelines' tab of the project, click on 'Run' for the server you want to revert, and in the screen that appears, choose the commit you want to deploy under 'Revision'. Click on 'Run now', and the deployment will be executed."
+        },
+        {
+            "role": "user",
+            "content": "What's the initial step to add a website via RunCloud?"
+        },
+        {
+            "role": "assistant",
+            "content": "The first step is to select the desired server where you want to add the website. For example, you can choose the newest server like DEV6 and click on 'View'."
+        },
+        {
+            "role": "user",
+            "content": "How can I create a web application in RunCloud?"
+        },
+        {
+            "role": "assistant",
+            "content": "In the left menu, click on 'Web Application' and then on the 'Create Web App' button. Fill in the project name at 'Web application name', the URL at 'Domain name', and select the desired PHP version and 'Web application stack'. For 'Stack mode', choose 'Development'. Do not change the other fields."
+        },
+        {
+            "role": "user",
+            "content": "What are the steps to create and link a database in RunCloud?"
+        },
+        {
+            "role": "assistant",
+            "content": "In the left menu, click on 'Database' and then on the 'Create Database' button. Fill in the database name and choose 'utf8mb4_general_ci' for 'Collation'. To link the database to a user, click on 'Attach user' next to the database you added and select 'dev6_user' for 'Database user'."
+        },
+        {
+            "role": "user",
+            "content": "How can I activate SSL in RunCloud?"
+        },
+        {
+            "role": "assistant",
+            "content": "In the left menu, click on 'Web Application' and then on your project name. Then click on 'SSL/TLS' in the left menu. The default settings are usually correct, so you just need to click on 'Submit'."
+        },
+        {
+            "role": "user",
+            "content": "Is it possible to install WordPress via RunCloud?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yes, you can automatically install WordPress via RunCloud. In the left menu, go to 'Web Application' and click on your project name. Then go to 'Script installer', select 'WordPress' for the script, and click on install. WordPress will be installed on your website within a few seconds."
+        },
+        {
+            "role": "user",
+            "content": "What is the process to make an SFTP connection via RunCloud?"
+        },
+        {
+            "role": "assistant",
+            "content": "For DEV5 websites via RunCloud, there is a single SFTP account. You can find the details in the RunCloud (DEV5+) in LastPass. The only thing you need to change in PHP Storm is the root path, which you can find in RunCloud by going to 'Web application' in the left menu after clicking on the server, and then clicking on the project name."
+        },
+        {
+            "role": "user",
+            "content": "How can I activate Let's Encrypt SSL via RunCloud?"
+        },
+        {
+            "role": "assistant",
+            "content": "In RunCloud, go to 'Web application' in the left menu after clicking on the server, then click on the project name. Finally, click on 'SSL/TLS' in the left menu. The only thing you need to change is the 'Let's Encrypt Environment'. Choose 'Live' to get a real certificate. You can also choose a staging certificate, but your browser will initially warn you that the certificate is not valid."
+        },
+        {
+            "role": "user",
+            "content": "Can you explain the project kick-off process at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, the project kick-off process starts with a discussion based on the design of the application to be built. All elements are discussed and tickets are created based on the design. There are also functionalities or features not in the design but described in the Technical Design, which are also discussed and ticketed. The project manager or gatekeeper creates the JIRA tickets during the meeting. Each ticket should include everything that has been decided, an estimated number of hours for completion, and ideally a screenshot showing the part of the design which that ticket covers. The project manager is responsible for preparing and scheduling the kick-off meeting, creating the JIRA board, and ensuring everything in the design and Technical Design has been discussed and decided on. The gatekeeper is responsible for all technical and architectural decisions being made during the meeting. Developers are responsible for estimating the amount of hours needed for each ticket and helping the gatekeeper make the best possible decisions. Designers are responsible for clarifying decisions made in the design."
+        },
+        {
+            "role": "user",
+            "content": "What does the project manager do during a kick-off at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "The project manager at Van-Ons has several responsibilities during the project kick-off. They are responsible for preparing the kick-off meeting, which includes creating the JIRA board and scheduling the meeting before development starts. The meeting should be scheduled for 3 hours and all involved developers, designers, and the technical lead or another 'gatekeeper' should be invited. The project manager is also responsible for ensuring that everything in the design and Technical Design has been discussed and decided on."
+        },
+        {
+            "role": "user",
+            "content": "What does the gatekeeper do during a project kick-off at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "The gatekeeper at Van-Ons is responsible for all technical and architectural decisions being made during the project kick-off meeting. This includes deciding when to use and when not to use Gutenberg blocks, when to use archive versus page templates, preventing duplicate template parts or code logic, ensuring every element in the design has been thought through and ends up with a technical solution, and preventing dirty solutions, such as using WordPress core functionality for something they are not meant to be used for. These decisions should be made in consultation with the other developers, designers, and the project manager."
+        },
+        {
+            "role": "user",
+            "content": "What do developers do during a project kick-off at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Developers at Van-Ons have two main responsibilities during the project kick-off. They are responsible for estimating the amount of hours needed for each ticket. This helps in planning and resource allocation for the project. They are also responsible for helping the gatekeeper make the best possible decisions. This involves providing their technical expertise and insights during the discussion and decision-making process."
+        },
+        {
+            "role": "user",
+            "content": "What do designers do during a project kick-off at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Designers at Van-Ons are responsible for clarifying decisions made in the design during the project kick-off. This involves explaining the rationale behind design choices and providing insights into how the design elements contribute to the overall user experience and project objectives. Their input is crucial in ensuring that the technical team fully understands the design and can effectively translate it into a functional application."
+        },
+        {
+            "role": "user",
+            "content": "What server settings and permissions are important for a Laravel application?"
+        },
+        {
+            "role": "assistant",
+            "content": "When hosting a Laravel application, ensure the following permissions are set up correctly: 1. The /storage folder and its contents should be writable by the Nginx/Apache user (e.g., www-data). 2. The /storage folder and its contents should also be writable by your SSH user, including files and folders created by the Nginx/Apache user. This allows you to run PHP artisan commands from SSH."
+        },
+        {
+            "role": "user",
+            "content": "How can I configure Laravel queues with Supervisor?"
+        },
+        {
+            "role": "assistant",
+            "content": "To set up Laravel queues with Supervisor: 1. Install Supervisor on the server. 2. Ensure your SSH user has permission to execute Supervisor commands using sudo. 3. Make the Supervisor configuration folder (usually /etc/supervisor/conf.d/) writable by your SSH user. 4. Create a Supervisor configuration file in /etc/supervisor/conf.d/ with the appropriate settings. 5. Update and start the Supervisor job using 'sudo supervisorctl reread', 'sudo supervisorctl update', and 'sudo supervisorctl start laravel-queue:*' commands."
+        },
+        {
+            "role": "user",
+            "content": "How can I configure the Laravel Scheduler?"
+        },
+        {
+            "role": "assistant",
+            "content": "To set up the Laravel Scheduler, create a cron job that runs the Scheduler every minute. You can use the following examples: 1. To log the output: '* * * * * cd /path/to/laravel/current && php artisan schedule:run >> /path/to/laravel/storage/logs/cron.log 2>&1'. 2. To ignore the output: '* * * * * cd /path/to/laravel/current && php artisan schedule:run >> /dev/null 2>&1'."
+        },
+        {
+            "role": "user",
+            "content": "What are the necessary commands to run after deploying a Laravel application?"
+        },
+        {
+            "role": "assistant",
+            "content": "After deploying changes to a Laravel application, run the following commands: 1. 'composer install' for PHP packages. 2. 'npm ci' and 'npm run prod' for JavaScript, CSS, and other assets. 3. 'php artisan migrate --force' for database updates. 4. 'php artisan view:clear', 'php artisan cache:clear', and 'php artisan config:cache' for clearing view, config, and other caching. 5. If applicable, run Laravel queue (mail) commands: 'sudo supervisorctl reread', 'sudo supervisorctl update', and 'sudo supervisorctl start laravel-queue:*'."
+        },
+        {
+            "role": "user",
+            "content": "What are the typical requirements for hosting a Laravel application on Cloud.nl?"
+        },
+        {
+            "role": "assistant",
+            "content": "The usual requirements for hosting a Laravel application on Cloud.nl are: 1. Latest stable PHP version. 2. Phpredis extension. 3. Pdo_sqlite extension. 4. MySQL. 5. Supervisor. 6. Redis. Send your requirements to support@cloud.nl when you want to host a new site."
+        },
+        {
+            "role": "user",
+            "content": "How can I resolve an issue where a Laravel application is searching for a deleted service provider?"
+        },
+        {
+            "role": "assistant",
+            "content": "To fix the issue where the Laravel application is looking for a deleted service provider, delete the 'bootstrap/cache/config.php' file and run the 'composer dump-autoload' command. This will clear the cached config and autoload files that may still be referencing the deleted service provider."
+        },
+        {
+            "role": "user",
+            "content": "Why is it important to communicate in a team setting?"
+        },
+        {
+            "role": "assistant",
+            "content": "Communication is crucial in a team because if you don't communicate, it's as if it doesn't exist. If you find a great tool but don't share it, you're withholding a good find from the team. If you think code can be improved, are dissatisfied with something, or appreciate someone (give a compliment!), remember that no one can read your mind. If you don't say it, it doesn't exist."
+        },
+        {
+            "role": "user",
+            "content": "What is the recommended frequency of communication with colleagues and clients?"
+        },
+        {
+            "role": "assistant",
+            "content": "It's better to communicate too often than too little, both with colleagues and clients. Regularly ask yourself: 'Is the client informed?'. If a project manager is not available, send a short and clear email or call the client. Clients don't like being kept in the dark."
+        },
+        {
+            "role": "user",
+            "content": "When is the best time to communicate with clients?"
+        },
+        {
+            "role": "assistant",
+            "content": "It's always better to communicate in advance rather than afterwards, especially if it's bad news. A call can often make the difference between an angry client and a happy client."
+        },
+        {
+            "role": "user",
+            "content": "What should I do when I don't have an answer to a question?"
+        },
+        {
+            "role": "assistant",
+            "content": "Clients see us as experts. If we don't know something, who will? Instead of saying 'I don't know', say 'I'll find out for you'. You can also say 'I'll discuss it with a colleague and get back to you'. Clients don't mind waiting as long as they feel confident that we will definitely solve it."
+        },
+        {
+            "role": "user",
+            "content": "How should I communicate about extra costs or time requirements?"
+        },
+        {
+            "role": "assistant",
+            "content": "Never say 'it costs more money' or 'it takes more time'. A client always knows that it will cost more money/time, but they also need to arrange a budget internally or adjust a schedule. Indicate approximately how much time you will need (hours times rate). If necessary, involve a project manager."
+        },
+        {
+            "role": "user",
+            "content": "What is the best way to handle an angry customer?"
+        },
+        {
+            "role": "assistant",
+            "content": "When a customer is angry, it's important how you handle the situation from that moment. Here are some steps to effectively de-escalate: 1. Listen to the customer fully to understand the actual problem. 2. Acknowledge the customer's feelings and show empathy. 3. Ask again what exactly the problem is, even if you think you know where the problem might be. 4. Summarize: 'I hear you saying that the site was down twice, but also that you can't do XYZ with the current site. Is that correct?' 5. Propose a solution and ask if this is the desired solution for the customer."
+        },
+        {
+            "role": "user",
+            "content": "Can you provide some strategies for dealing with an upset customer?"
+        },
+        {
+            "role": "assistant",
+            "content": "Here are some tips for communicating with an angry customer: 1. Call them! People can hear your intentions and seriousness in your voice. 2. Focus on the outcome of the conversation. Aim to continue with the customer or the project in a constructive way. 3. Buy yourself time: if the customer is too emotional or if you simply don't have a solution yet, indicate that you understand the problem and when you will get back to them. 4. Only say that you understand the problem if you really do. If not, ask the necessary questions again. 5. Don't get too involved in the customer's emotions. Keep it businesslike and professional."
+        },
+        {
+            "role": "user",
+            "content": "Why is it crucial to give and accept feedback?"
+        },
+        {
+            "role": "assistant",
+            "content": "Giving and receiving feedback can sometimes be difficult. Many people anticipate the other person's reaction (anger, sadness) and choose to do nothing because avoidance is easier than resolution. However, feedback should not be seen as positive or negative. It's a reflection of how someone experiences another's behavior or actions. It's not right or wrong, they are feelings. By giving feedback, the other person can improve."
+        },
+        {
+            "role": "user",
+            "content": "To whom should I provide feedback?"
+        },
+        {
+            "role": "assistant",
+            "content": "You should give feedback directly to the person it concerns. Their manager or their mother is not going to act on the feedback, the person themselves must do it. Professionals give each other direct feedback and only escalate to their manager if they can't resolve it among themselves."
+        },
+        {
+            "role": "user",
+            "content": "What's the best way to give feedback?"
+        },
+        {
+            "role": "assistant",
+            "content": "You can use the 'I-I-You' method to give feedback: 1. 'I notice that...' [describe the behavior: what exactly did you see/hear?] 2. 'I think that...'/'That comes across to me as...' [effect of this behavior on you: what is bothering you?] 3. 'Do you recognize that? Is that correct?' [seek connection with the other person and ask for recognition; if the other person becomes defensive, go back to steps 1 and 2] 4. Ask for different behavior. [what is your wish?]"
+        },
+        {
+            "role": "user",
+            "content": "What's the best way to receive feedback?"
+        },
+        {
+            "role": "assistant",
+            "content": "When receiving feedback: 1. Listen to the feedback without defending yourself. 2. Ask for clarification on what the other person means. 3. Confirm receipt by summarizing. 4. Reflect on feelings: what you suspect the other person feels and how you feel. 5. Tell what you will do with the feedback, if anything. 6. Evaluate the feedback. You decide whether or not to do something with it. 7. Thank the person who gave the feedback."
+        },
+        {
+            "role": "user",
+            "content": "What's the proper way to answer the office phone?"
+        },
+        {
+            "role": "assistant",
+            "content": "In the office, there are several landline phones that customers can reach via 020-3318177. Since 2018, they encounter a phone menu: 1 for Support, 2 for Sales. If nothing (or a name/number) is displayed, it's someone for Support, and the person who is Team Support that day picks up first. If 'Sales' is displayed, a Project Manager will answer. If the phone has rung 2-3 times and no one has responded, pick it up! Say, 'Good day, this is Van Ons [and then your name]'."
+        },
+        {
+            "role": "user",
+            "content": "What should I do if I can't assist the caller immediately?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you can't help the caller directly, ask who the call is intended for, note the name and phone number, and pass on the information. If you can't understand the caller well, simply ask them to repeat until you have written down the correct details. This is very important because if we can't call back, it's very frustrating and we might miss potential business."
+        },
+        {
+            "role": "user",
+            "content": "How can I handle complex social interactions over the phone?"
+        },
+        {
+            "role": "assistant",
+            "content": "Here are some tips to help you navigate complex social interactions over the phone: 1. If someone thinks we are 'from WordPress', patiently explain the difference between the brilliant work we do and the basic CMS system that is WordPress. 2. If someone calls for a colleague, note the name and phone number and leave a note on the colleague's desk. 3. If someone calls because they want to build a new website, check if one of the Project Managers is around to take over the conversation. If not, ask the person to send an email to a Project Manager, preferably with a briefing. 4. Always stay nice, don't lose your patience, and don't forget: 'leave emotion at the door'."
+        },
+        {
+            "role": "user",
+            "content": "What are the internal communication tools used by the Van Ons team?"
+        },
+        {
+            "role": "assistant",
+            "content": "For internal communication during the workday, the Van Ons team uses Slack (https://vanons.slack.com). For urgent or practical messages important to the entire company, there's a WhatsApp group called 'Van Ons liefde'. Ask Robert for an invite. For messages important to the entire company, there's also an Intranet."
+        },
+        {
+            "role": "user",
+            "content": "What are the external communication channels for clients to contact Van Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Customers can reach Van Ons through the following external communication channels: 1. By phone at 020 331 81 77. See also: telephone etiquette. 2. Via email, often directly to a Project Manager or through info@van-ons.nl and the form on https://van-ons.nl. 3. Via support@van-ons.nl (Help Scout). See also: Support."
+        },
+        {
+            "role": "user",
+            "content": "What should I know about deploying a website at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "A website can be deployed (go live) if: 1. It's Monday, Tuesday, Wednesday, or Thursday. 2. Preferably as early as possible in the day, but definitely not after 2:00 PM. 3. It's not a day directly before a national holiday or a day when you're off work the next day."
+        },
+        {
+            "role": "user",
+            "content": "What are the methods for making a website live at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "There are three different ways of going live: 1. Live on a new URL (maintenance mode off). 2. Live with new hosting (switching the DNS). 3. Live with a new design for an existing WooCommerce shop. Each method has its own preparation steps and procedures."
+        },
+        {
+            "role": "user",
+            "content": "What does Van-Ons recommend doing before every live launch?"
+        },
+        {
+            "role": "assistant",
+            "content": "Before every live launch, you should: 1. Copy the Website Checklist in Google Drive and place the copy in the project folder. 2. Follow all the steps in the checklist, including creating a backup of the old website (if applicable)."
+        },
+        {
+            "role": "user",
+            "content": "What does going live on a new URL entail at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "To go live on a new URL: 1. The website can already be set up on the correct environment. Use a plugin like WP Maintenance Mode to shield it from the public until it's ready to go live. 2. Send the client an email with your approach and the 'live launch procedure'. Verify by phone that they have seen and understood the email. 3. Before and after disabling Maintenance Mode, go through the checklist. 4. Make sure that under Settings > Reading, the option to discourage search engines is unchecked. 5. Go live!"
+        },
+        {
+            "role": "user",
+            "content": "What does going live with new hosting mean at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "To go live with new hosting: 1. Determine who manages the DNS. If the domain name is with us, it's easy. Otherwise, it's usually with a party that only the client can access. 2. Ensure the TTL (time to live) is as low as possible. 3. Make sure you know how the client's email is set up. 4. Ask the client explicitly if everything on the environment that will go live is satisfactory. 5. Send the client an email with the explanation of the procedure and what you will do if something goes wrong. 6. Give the client a time and day after which they should not work on the live site. 7. Go live and check if everything works as desired."
+        },
+        {
+            "role": "user",
+            "content": "What does it mean to go live with a new design for an existing WooCommerce shop at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "The procedure for going live with a new design for an existing WooCommerce shop is not provided in the text. However, it's mentioned that you should avoid transferring content back and forth via the database, as it may cause issues with orders linked to both products and customers. It's recommended to follow the other live launch procedures and adapt them to the specific needs of a WooCommerce shop."
+        },
+        {
+            "role": "user",
+            "content": "What does live redesigning of a WooCommerce shop entail at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Redesigning a WooCommerce shop live means making changes to the website while it's still accessible to the public. This method is risky because you're working on a live site, so there's a time pressure. The site needs to be available again as quickly as possible."
+        },
+        {
+            "role": "user",
+            "content": "What are the steps for live redesigning of a WooCommerce shop at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "The process involves several steps, including preparing the client, uploading the new theme and necessary plugins to the live site, activating the themes and plugins, checking everything works, making the desired settings in WordPress, theme, and plugins, and finally, confirming with the client that everything is working correctly."
+        },
+        {
+            "role": "user",
+            "content": "What is the contingency plan at Van-Ons if something goes wrong during the live setting?"
+        },
+        {
+            "role": "assistant",
+            "content": "If something goes wrong during the live setting, such as encountering errors in functionality or content, a rollback is desired. In that case, a new date will be set for the live setting. The old theme and necessary plugins will be reactivated, and the old site will be back."
+        },
+        {
+            "role": "user",
+            "content": "What measures are taken to guarantee a successful live setting?"
+        },
+        {
+            "role": "assistant",
+            "content": "Several precautions are taken to ensure a smooth live setting. These include making sure the client knows what we're going to do and what will happen if the live setting doesn't go well, scheduling a day when the client has time to sit behind the computer, and making sure the site itself is 100% satisfactory on dev or staging before the live setting."
+        },
+        {
+            "role": "user",
+            "content": "What factors should I keep in mind when transferring content for a new site?"
+        },
+        {
+            "role": "assistant",
+            "content": "When copying content for a new website, you should consider potential privacy-sensitive information that may be embedded in the website. This could include form submissions, orders if it's an e-commerce site, and existing users. It's important to discuss with the client where in the content such information may be located and ensure it's not copied."
+        },
+        {
+            "role": "user",
+            "content": "Can you explain SVN and its connection to WordPress?"
+        },
+        {
+            "role": "assistant",
+            "content": "SVN, or Subversion, is a version control system that WordPress uses for deploying plugin versions. It's similar to GIT, another version control system. The main difference is that SVN is purely a 'release repository', while GIT is also used to push small changes. WordPress has indicated a desire to switch to GIT in the future, but for now, SVN is still in use."
+        },
+        {
+            "role": "user",
+            "content": "How can I use SVN to release a new version?"
+        },
+        {
+            "role": "assistant",
+            "content": "To deploy a new version using SVN, you first need to fetch the existing repository. Then, update your local SVN version to ensure it's up-to-date. Add the latest code to the /trunk/ folder, let SVN know about this code, and then push your code to the SVN repository. Finally, tag the new version and commit the version to the repository."
+        },
+        {
+            "role": "user",
+            "content": "What should I do if I encounter a problem during the SVN process?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you have any questions during this process, you can consult with your team lead or refer to the WordPress documentation. It's important to ensure you understand each step to avoid any potential issues."
+        },
+        {
+            "role": "user",
+            "content": "What is the procedure for accessing the Van-Ons office?"
+        },
+        {
+            "role": "assistant",
+            "content": "The office can be accessed at any time with a single key that opens the front door and the doors to the floors. For example, if you've forgotten something, you can always get in as there is no alarm system."
+        },
+        {
+            "role": "user",
+            "content": "What are my responsibilities if I am the last one to leave the Van-Ons office?"
+        },
+        {
+            "role": "assistant",
+            "content": "If you're the last one leaving the office, it's important to secure the premises. Check all floors to ensure all windows are closed and lights are turned off. Also, make sure all doors are closed and locked. Turn the key until it can't turn anymore. Finally, lock the front door as you leave."
+        },
+        {
+            "role": "user",
+            "content": "What is the significance of the cow in relation to Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "The cow is related to the founders Bas and Robert, who are from Haarlemmermeerpolder, an area with few cows but with the potential for cows. The cow is memorable and serves as a marketing tool for the company."
+        },
+        {
+            "role": "user",
+            "content": "Why does Van-Ons prefer to use WordPress?"
+        },
+        {
+            "role": "assistant",
+            "content": "Although the company is not solely a WordPress agency anymore, they have over 10 years of experience with this CMS. WordPress is used by over 30% of the internet, making it the most popular content management system. The company builds on top of this platform."
+        },
+        {
+            "role": "user",
+            "content": "What are the expectations for my role at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Expectations are communicated through personal talks, and there is reading material available on the subject, such as Mission Statements for Developers and Competencies for developers. Knowing expectations helps you understand how to thrive and excel in your role."
+        },
+        {
+            "role": "user",
+            "content": "What is the best way to propose an idea at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "To make a suggestion, speak up whenever you get the chance. Approach other team members, set up a meeting, and share your ideas. The company appreciates and welcomes new approaches and suggestions from its employees."
+        },
+        {
+            "role": "user",
+            "content": "Who are the owners of Van Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Van Ons was founded by Bas and Robert. Together with Brian Hirman (advisor) and Jeffrey Visser, they are the shareholders of Van Ons Holding B.V., which owns Van Ons B.V. (the agency)."
+        },
+        {
+            "role": "user",
+            "content": "Who is robert van eekhout?"
+        },
+        {
+            "role": "assistant",
+            "content": "Robert is the visionary founder of Van-Ons. With a deep passion for the digital world and an unyielding commitment to quality, he established Van-Ons in 2006. Since then, he has led the company with a clear focus on creating and building digital channels that truly make a difference. His leadership has been instrumental in shaping Van-Ons into the successful web development company it is today. Robert's dedication to innovation and excellence continues to drive the company forward in its mission to deliver top-notch digital solutions."
+        },
+        {
+            "role": "user",
+            "content": "Who is timmy moreels?"
+        },
+        {
+            "role": "assistant",
+            "content": "Timmy is one of our talented developers at Van-Ons. His passion for coding and his commitment to quality are evident in every project he works on. Timmy has a knack for turning complex problems into simple, elegant solutions. His dedication and technical skills contribute significantly to the high-quality digital channels that Van-Ons is known for. Timmy's work truly embodies the spirit of innovation that drives Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Who is maurice wijnalda ?"
+        },
+        {
+            "role": "assistant",
+            "content": "Maurice is the technical lead at Van-Ons. He is a master of problem-solving and has a deep understanding of various programming languages and technologies. Maurice's technical expertise and leadership skills ensure that our projects are executed with precision and efficiency. His ability to navigate complex technical challenges is truly remarkable, making him an invaluable asset to the Van-Ons team."
+        },
+        {
+            "role": "user",
+            "content": "Who is Robert at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Robert is the founder of Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What is Jeffrey's role at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Jeffrey is an Account Manager and Partner at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Marcel at Van-Ons."
+        },
+        {
+            "role": "assistant",
+            "content": "Marcel is the Operations Manager at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What does Anna do at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Anna is an Online Producer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Who is Jesse at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Jesse is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What is Sebastiaan's role at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Sebastiaan is a Designer and Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Saskia at Van-Ons."
+        },
+        {
+            "role": "assistant",
+            "content": "Saskia is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What does Tim do at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Tim is the Finance Manager at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Who is Maurice at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Maurice is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What is Yannic's role at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yannic is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Danique at Van-Ons."
+        },
+        {
+            "role": "assistant",
+            "content": "Danique is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What does Merlijn do at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Merlijn is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Who is Susanne at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Susanne is the Culture Manager at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What is Yvonne's role at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yvonne is the Office Manager at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Michel at Van-Ons."
+        },
+        {
+            "role": "assistant",
+            "content": "Michel is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What does Jonathan do at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Jonathan is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Who is Lars at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Lars is a Developer and Designer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What is Luc's role at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Luc is an Online Producer and Support Manager at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Jaimy at Van-Ons."
+        },
+        {
+            "role": "assistant",
+            "content": "Jaimy is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What does Tatum do at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Tatum is an Online Producer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Who is Joshua at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Joshua is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What is Timmy's role at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Timmy is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Shin at Van-Ons."
+        },
+        {
+            "role": "assistant",
+            "content": "Shin is a Developer at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "Can you tell me about Robert's contribution to Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Robert, as the founder of Van-Ons, has been the driving force behind the company's success. His vision and passion for the digital world have been instrumental in establishing Van-Ons as a leading web development company."
+        },
+        {
+            "role": "user",
+            "content": "What makes Jeffrey a key part of the Van-Ons team?"
+        },
+        {
+            "role": "assistant",
+            "content": "Jeffrey, as an Account Manager and Partner at Van-Ons, plays a crucial role in maintaining strong relationships with our clients. His expertise and dedication contribute significantly to the company's success."
+        },
+        {
+            "role": "user",
+            "content": "How does Marcel contribute to the operations at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Marcel, the Operations Manager at Van-Ons, ensures that all processes run smoothly. His organizational skills and attention to detail are invaluable to the efficient functioning of the company."
+        },
+        {
+            "role": "user",
+            "content": "What role does Anna play at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Anna, an Online Producer at Van-Ons, plays a pivotal role in creating engaging and effective online content. Her creativity and dedication are key to the company's digital success."
+        },
+        {
+            "role": "user",
+            "content": "How does Jesse contribute to the development team at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Jesse, a Developer at Van-Ons, brings a wealth of technical expertise to the team. His problem-solving skills and dedication to quality are instrumental in delivering top-notch digital solutions."
+        },
+        {
+            "role": "user",
+            "content": "What makes Sebastiaan a unique asset to the Van-Ons team?"
+        },
+        {
+            "role": "assistant",
+            "content": "Sebastiaan's dual role as a Designer and Developer at Van-Ons makes him a unique asset to the team. His ability to bridge the gap between design and development ensures a seamless transition from concept to implementation."
+        },
+        {
+            "role": "user",
+            "content": "How does Saskia contribute to the development team at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Saskia, a Developer at Van-Ons, brings a unique blend of technical skills and creativity to the team. Her dedication to quality and innovation contributes significantly to the company's success."
+        },
+        {
+            "role": "user",
+            "content": "What role does Tim play in the financial management at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Tim, the Finance Manager at Van-Ons, plays a crucial role in maintaining the financial health of the company. His expertise in financial management ensures the company's stability and growth."
+        },
+        {
+            "role": "user",
+            "content": "How does Maurice contribute to the development team at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Maurice, a Developer at Van-Ons, brings a wealth of technical expertise to the team. His problem-solving skills and dedication to quality are instrumental in delivering top-notch digital solutions."
+        },
+        {
+            "role": "user",
+            "content": "What makes Yannic a key part of the Van-Ons team?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yannic, a Developer at Van-Ons, is a key part of the team due to his technical skills and dedication to quality. His contributions are vital to the company's mission of delivering top-notch digital solutions."
+        },
+        {
+            "role": "user",
+            "content": "How does Danique contribute to the development team at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Danique, a Developer at Van-Ons, brings a unique blend of technical skills and creativity to the team. Her dedication to quality and innovation contributes significantly to the company's success."
+        },
+        {
+            "role": "user",
+            "content": "What role does Merlijn play at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Merlijn, a Developer at Van-Ons, plays a crucial role in the technical team. His expertise and dedication to quality ensure the delivery of top-notch digital solutions."
+        },
+        {
+            "role": "user",
+            "content": "How does Susanne contribute to the culture at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Susanne, the Culture Manager at Van-Ons, plays a pivotal role in shaping the company's culture. Her efforts ensure a positive and inclusive work environment for all team members."
+        },
+        {
+            "role": "user",
+            "content": "What role does Yvonne play in the office management at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yvonne, the Office Manager at Van-Ons, ensures the smooth running of the office. Her organizational skills and attention to detail contribute to a productive and efficient work environment."
+        },
+        {
+            "role": "user",
+            "content": "How does Michel contribute to the development team at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Michel, a Developer at Van-Ons, brings a wealth of technical expertise to the team. His problem-solving skills and dedication to quality are instrumental in delivering top-notch digital solutions."
+        },
+        {
+            "role": "user",
+            "content": "What makes Jonathan a key part of the Van-Ons team?"
+        },
+        {
+            "role": "assistant",
+            "content": "Jonathan, a Developer at Van-Ons, is a key part of the team due to his technical skills and dedication to quality. His contributions are vital to the company's mission of delivering top-notch digital solutions."
+        },
+        {
+            "role": "user",
+            "content": "How does Lars contribute to the design and development team at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Lars, a Developer and Designer at Van-Ons, brings a unique blend of technical and creative skills to the team. His ability to bridge the gap between design and development ensures a seamless transition from concept to implementation."
+        },
+        {
+            "role": "user",
+            "content": "What role does Luc play at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Luc, an Online Producer and Support Manager at Van-Ons, plays a crucial role in creating engaging online content and providing excellent support to our clients. His dedication and expertise contribute significantly to the company's success."
+        },
+        {
+            "role": "user",
+            "content": "How does Jaimy contribute to the development team at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Jaimy, a Developer at Van-Ons, brings a wealth of technical expertise to the team. His problem-solving skills and dedication to quality are instrumental in delivering top-notch digital solutions."
+        },
+        {
+            "role": "user",
+            "content": "What role does Tatum play at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Tatum, an Online Producer at Van-Ons, plays a pivotal role in creating engaging and effective online content. Her creativity and dedication are key to the company's digital success."
+        },
+        {
+            "role": "user",
+            "content": "How does Joshua contribute to the development team at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Joshua, a Developer at Van-Ons, brings a wealth of technical expertise to the team. His problem-solving skills and dedication to quality are instrumental in delivering top-notch digital solutions."
+        },
+        {
+            "role": "user",
+            "content": "What makes Timmy a key part of the Van-Ons team?"
+        },
+        {
+            "role": "assistant",
+            "content": "Timmy, a Developer at Van-Ons, is a key part of the team due to his technical skills and dedication to quality. His contributions are vital to the company's mission of delivering top-notch digital solutions."
+        },
+        
+        {
+            "role": "user",
+            "content": "Who's Robert?"
+        },
+        {
+            "role": "assistant",
+            "content": "Robert is the founder of Van-Ons. He's the one who started it all, with a vision and a passion for the digital world. He's also known for his love of coffee and his collection of quirky ties."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Jeffrey."
+        },
+        {
+            "role": "assistant",
+            "content": "Jeffrey is an Account Manager and Partner at Van-Ons. He's the one who keeps our clients happy and our relationships strong. He's also a master at office ping pong and has an unbeatable record."
+        },
+        {
+            "role": "user",
+            "content": "What about Marcel?"
+        },
+        {
+            "role": "assistant",
+            "content": "Marcel is the Operations Manager at Van-Ons. He's the one who keeps everything running smoothly. He's also known for his love of cats and his ability to solve a Rubik's cube in under a minute."
+        },
+        {
+            "role": "user",
+            "content": "Who's Anna?"
+        },
+        {
+            "role": "assistant",
+            "content": "Anna is an Online Producer at Van-Ons. She's the one who creates engaging and effective online content. She's also a talented baker and often brings her delicious homemade cookies to the office."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Jesse."
+        },
+        {
+            "role": "assistant",
+            "content": "Jesse is a Developer at Van-Ons. He's the one who brings technical expertise to the team. He's also a Star Wars fanatic and can quote every line from the original trilogy."
+        },
+        {
+            "role": "user",
+            "content": "Who's Sebastiaan?"
+        },
+        {
+            "role": "assistant",
+            "content": "Sebastiaan is a Designer and Developer at Van-Ons. He's the one who bridges the gap between design and development. He's also an avid cyclist and often bikes to work, rain or shine."
+        },
+        {
+            "role": "user",
+            "content": "What about Saskia?"
+        },
+        {
+            "role": "assistant",
+            "content": "Saskia is a Developer at Van-Ons. She's the one who brings a unique blend of technical skills and creativity to the team. She's also a yoga enthusiast and often leads lunchtime yoga sessions at the office."
+        },
+        {
+            "role": "user",
+            "content": "Who's Tim?"
+        },
+        {
+            "role": "assistant",
+            "content": "Tim is the Finance Manager at Van-Ons. He's the one who keeps our finances in check. He's also a trivia whiz and often organizes fun trivia nights for the team."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Maurice."
+        },
+        {
+            "role": "assistant",
+            "content": "Maurice is a Developer at Van-Ons. He's the one who solves complex technical challenges. He's also a music lover and often DJs at our office parties."
+        },
+        {
+            "role": "user",
+            "content": "Who's Yannic?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yannic is a Developer at Van-Ons. He's the one who brings technical skills and dedication to the team. He's also a coffee connoisseur and often shares his latest coffee discoveries with the team."
+        },
+        {
+            "role": "user",
+            "content": "What about Danique?"
+        },
+        {
+            "role": "assistant",
+            "content": "Danique is a Developer at Van-Ons. She's the one who brings a unique blend of technical skills and creativity to the team. She's also a bookworm and often recommends great reads to her colleagues."
+        },
+        {
+            "role": "user",
+            "content": "Who's Merlijn?"
+        },
+        {
+            "role": "assistant",
+            "content": "Merlijn is a Developer at Van-Ons. He's the one who ensures the delivery of top-notch digital solutions. He's also a chess enthusiast and often challenges his colleagues to a game during breaks."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Susanne."
+        },
+        {
+            "role": "assistant",
+            "content": "Susanne is the Culture Manager at Van-Ons. She's the one who shapes the company's culture and ensures a positive work environment. She's also a plant lover and is responsible for the office's mini jungle."
+        },
+        {
+            "role": "user",
+            "content": "Who's Yvonne?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yvonne is the Office Manager at Van-Ons. She's the one who keeps the office running smoothly. She's also a dog lover and often brings her adorable dog, Max, to the office."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Michel."
+        },
+        {
+            "role": "assistant",
+            "content": "Michel is a Developer at Van-Ons. He's the one who brings technical expertise to the team. He's also a foodie and often shares his latest culinary discoveries with the team."
+        },
+        {
+            "role": "user",
+            "content": "Who's Jonathan?"
+        },
+        {
+            "role": "assistant",
+            "content": "Jonathan is a Developer at Van-Ons. He's the one who brings technical skills and dedication to the team. He's also a fitness enthusiast and often leads office workouts."
+        },
+        {
+            "role": "user",
+            "content": "What about Lars?"
+        },
+        {
+            "role": "assistant",
+            "content": "Lars is a Developer and Designer at Van-Ons. He's the one who ensures a seamless transition from concept to implementation. He's also a photography enthusiast and often captures beautiful moments at office events."
+        },
+        {
+            "role": "user",
+            "content": "Who's Luc?"
+        },
+        {
+            "role": "assistant",
+            "content": "Luc is an Online Producer and Support Manager at Van-Ons. He's the one who creates engaging online content and provides excellent support to our clients. He's also a movie buff and often organizes movie nights for the team."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Jaimy."
+        },
+        {
+            "role": "assistant",
+            "content": "Jaimy is a Developer at Van-Ons. He's the one who brings technical expertise to the team. He's also a travel enthusiast and often shares his exciting travel stories with the team."
+        },
+        {
+            "role": "user",
+            "content": "Who's Tatum?"
+        },
+        {
+            "role": "assistant",
+            "content": "Tatum is an Online Producer at Van-Ons. She's the one who creates engaging and effective online content. She's also a fashionista and often gives style advice to her colleagues."
+        },
+        {
+            "role": "user",
+            "content": "Tell me about Joshua."
+        },
+        {
+            "role": "assistant",
+            "content": "Joshua is a Developer at Van-Ons. He's the one who brings technical expertise to the team. He's also a video game enthusiast and often organizes gaming tournaments for the team."
+        },
+        {
+            "role": "user",
+            "content": "Who's Timmy?"
+        },
+        {
+            "role": "assistant",
+            "content": "Timmy is a Developer at Van-Ons. He's the one who brings technical skills and dedication to the team. He's also known for his love of comic books and his impressive collection of superhero figurines."
+        },
+        {
+            "role": "user",
+            "content": "What about Shin?"
+        },
+        {
+            "role": "assistant",
+            "content": "Shin is a Developer at Van-Ons. He's the one who brings a unique blend of technical skills and creativity to the team. He's also a music lover and often plays his guitar during office breaks."
+        },
+        {
+            "role": "user",
+            "content": "What does 'Samen maken we er iets moois van' mean?"
+        },
+        {
+            "role": "assistant",
+            "content": "'Samen maken we er iets moois van' translates to 'Together, we make something beautiful'. It signifies the collaborative approach at Van-Ons."
+        },
+        {
+            "role": "user",
+            "content": "What services does Van-Ons offer?"
+        },
+        {
+            "role": "assistant",
+            "content": "Van-Ons offers a wide range of services for developing your digital channels. This includes design, web development, app development, and hosting and further development."
+        },
+        {
+            "role": "user",
+            "content": "What does Van-Ons specialize in when it comes to web development?"
+        },
+        {
+            "role": "assistant",
+            "content": "Van-Ons specializes in building and developing advanced online platforms. This includes websites with integrated modules like Salesforce or a customer environment. With over 25 experts, they ensure that your platform is future-proof."
+        },
+        {
+            "role": "user",
+            "content": "What kind of apps does Van-Ons develop?"
+        },
+        {
+            "role": "assistant",
+            "content": "Van-Ons develops apps according to the customer's wishes. This can be an extension of your existing platform or a completely standalone app with a unique purpose. They develop for iOS, Android, and React Native."
+        },
+        {
+            "role": "user",
+            "content": "What is the strategy process at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, they first determine the goals and KPIs of your new digital channels. They set up meetings with all involved stakeholders and determine the course for the coming months and years. This includes brainstorming and formulating the digital future vision, deep diving into wishes and expectations, and discussing technical possibilities."
+        },
+        {
+            "role": "user",
+            "content": "What are wireframes and how does Van-Ons use them?"
+        },
+        {
+            "role": "assistant",
+            "content": "Wireframes are like the blueprint of your company's digital future. They determine which pages and templates need to be available in the new website or app and what they should be able to do. Van-Ons works with you to map this out."
+        },
+        {
+            "role": "user",
+            "content": "What does the design process at Van-Ons look like?"
+        },
+        {
+            "role": "assistant",
+            "content": "At Van-Ons, the design process involves creating a unique design or redesign that is tailored to your wishes. The designers work to make your technology align with an attractive front end, and they provide updates throughout the process."
+        },
+        {
+            "role": "user",
+            "content": "What does hosting and further development involve at Van-Ons?"
+        },
+        {
+            "role": "assistant",
+            "content": "Hosting and further development at Van-Ons involves ensuring that your platform is always up and running. They provide direct contact, support during weekends and after working hours, and solid web hosting. If there are any technical issues, you can reach them via a special emergency number."
+        }
+    ]
+}
