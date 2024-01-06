@@ -1,4 +1,5 @@
-var intervalId;
+var intervalId = null;
+
 
 function startAssistantRun() {
     $.ajax({
@@ -32,6 +33,7 @@ const statusHandlers = {
 };
 
 function checkRunStatus(runId) {
+   
     $.ajax({
         url: '/check-run-status',
         type: 'POST',
@@ -41,20 +43,34 @@ function checkRunStatus(runId) {
         },
         data: { runId: runId },
         success: function(response) {
-            (statusHandlers[response.status] || statusHandlers['default'])(response.status);
+            console.log('Run status:', response.status);  // Log the status
+            var handler = statusHandlers[response.status] || statusHandlers['default'];
+            handler(response.status);
+            if (response.status === 'completed') {
+                console.log('Run completed, clearing interval.');
+                clearInterval(intervalId);
+                intervalId = null;
+            }
         },
         error: function(error) {
             console.error('Error checking run status:', error);
             clearInterval(intervalId);
+            intervalId = null; 
             updateMessageArea('<p>Error checking run status. Please try again.</p>');
         }
     });
 }
 
 function initiateStatusCheck(runId) {
+    
+    if (intervalId) {
+       
+        clearInterval(intervalId);
+    }
+
     intervalId = setInterval(function() {
         checkRunStatus(runId);
-    }, 2000);
+    }, 1000);
 }
 
 function handleErrorOnSubmit(error) {

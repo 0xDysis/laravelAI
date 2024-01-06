@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -10,6 +9,9 @@ use App\Models\Order;
 
 class OpenAIController extends Controller
 {
+    private $phpBinaryPath = '/Users/dysisx/Library/Application Support/Herd/bin/php';
+    private $scriptPath = '/Users/dysisx/Documents/assistant/app/Http/Controllers/OpenaiAssistantController.php';
+
     public function index()
     {
         return view('assistant');
@@ -17,97 +19,105 @@ class OpenAIController extends Controller
 
     public function submitMessage(Request $request)
     {
+        $this->validateSession(['assistantId', 'threadId']);
         $userMessage = $request->input('message');
-        $assistantId = Session::get('assistantId');
-        $threadId = Session::get('threadId');
 
-        if (!$assistantId || !$threadId) {
-            throw new \Exception('Assistant or thread ID not found in session.');
-        }
+        $this->runPHPScript('addMessage', [Session::get('threadId'), 'user', $userMessage]);
 
-        $this->runPHPScript('addMessage', [$threadId, 'user', $userMessage]);
-
-        return view('assistant', ['threadId' => $threadId, 'assistantId' => $assistantId]);
+        return view('assistant', [
+            'threadId' => Session::get('threadId'), 
+            'assistantId' => Session::get('assistantId')
+        ]);
     }
 
     public function startRun(Request $request)
-    {
-        $threadId = Session::get('threadId');
-        $assistantId = Session::get('assistantId');
-
-        if (!$assistantId || !$threadId) {
-            return response()->json(['error' => 'Assistant or thread ID not found in session.'], 400);
-        }
-
-        $runId = $this->runPHPScript('runAssistant', [$threadId, $assistantId]);
-        return response()->json(['runId' => $runId]);
-    }
-
-    public function checkRunStatus(Request $request)
-    {
-        $runId = $request->input('runId');
-        $threadId = Session::get('threadId');
-
-        if (!$threadId) {
-            return response()->json(['error' => 'Thread ID not found in session.'], 400);
-        }
-
-        $status = $this->runPHPScript('checkRunStatus', [$threadId, $runId]);
-        return response($status);
-    }
-
-    public function getMessages()
-    {
-        $threadId = Session::get('threadId');
-        
-        if (!$threadId) {
-            return response()->json(['error' => 'Thread ID not found in session.'], 400);
-        }
-        
-        $messagesJson = $this->runPHPScript('getMessages', [$threadId]);
-        $messagesData = json_decode($messagesJson, true);
-    
-        foreach ($messagesData as $key => $message) {
-            $fileIdsJson = $this->runPHPScript('listMessageFiles', [$threadId, $message['id']]);
-            $fileIds = json_decode($fileIdsJson, true);
-    
-            if (!empty($fileIds) && is_array($fileIds)) {
-                $fileId = $fileIds[0];
-                $messagesData[$key]['fileId'] = $fileId;
-    
-                $fileName = $this->extractFileNameFromContent($message['content']);
-                Session::put($fileId . '-threadId', $threadId);
-                Session::put($fileId . '-messageId', $message['id']);
-                Session::put($fileId . '-fileName', $fileName);
-            } else {
-                $messagesData[$key]['fileId'] = null;
-            }
-        }
-    
-        return response()->json($messagesData);
-    }
-    
-    public function downloadMessageFile($fileId)
 {
-    // Directly retrieve the file content using fileId
+    $this->validateSession(['assistantId', 'threadId']);
+
+    $threadId = Session::get('threadId');
+    $assistantId = Session::get('assistantId');
+    $runId = $this->runPHPScript('runAssistant', [$threadId, $assistantId]);
+
+    return response()->json(['runId' => $runId]);
+}
+
+
+public function checkRunStatus(Request $request)
+{
+    $this->validateSession(['threadId']);
+
+    $runId = $request->input('runId');
+    $threadId = Session::get('threadId');
+    $status = $this->runPHPScript('checkRunStatus', [$threadId, $runId]);
+
+    return response($status);
+}
+
+
+public function getMessages()
+{
+    $this->validateSession(['threadId']);
+    $threadId = Session::get('threadId');
+
+    $messagesData = $this->fetchAndProcessMessages($threadId);
+
+    return response()->json($messagesData);
+}
+
+private function fetchAndProcessMessages($threadId)
+{
+    $messagesJson = $this->runPHPScript('getMessages', [$threadId]);
+    $messagesData = json_decode($messagesJson, true);
+
+    foreach ($messagesData as $key => $message) {
+        $messagesData[$key]['fileId'] = $this->processMessageForFileId($threadId, $message);
+    }
+
+    return $messagesData;
+}
+
+private function processMessageForFileId($threadId, $message)
+{
+    $fileIdsJson = $this->runPHPScript('listMessageFiles', [$threadId, $message['id']]);
+    $fileIds = json_decode($fileIdsJson, true);
+
+    if (!empty($fileIds) && is_array($fileIds)) {
+        $fileId = $fileIds[0];
+        $this->storeFileMetadataInSession($fileId, $threadId, $message['id'], $message['content']);
+        return $fileId;
+    }
+
+    return null;
+}
+
+private function storeFileMetadataInSession($fileId, $threadId, $messageId, $content)
+{
+    $fileName = $this->extractFileNameFromContent($content);
+    Session::put($fileId . '-threadId', $threadId);
+    Session::put($fileId . '-messageId', $messageId);
+    Session::put($fileId . '-fileName', $fileName);
+}
+
+    
+public function downloadMessageFile($fileId)
+{
     $fileContent = $this->retrieveMessageFile($fileId);
     if (!$fileContent) {
-        return response()->json(['error' => 'File not found or unable to retrieve.'], 404);
+        return $this->createErrorResponse('File not found or unable to retrieve.', 404);
     }
 
     $fileName = Session::get($fileId . '-fileName', 'defaultFile.csv');
-    $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-    $contentType = $this->getContentTypeByExtension($fileExtension);
+    $contentType = $this->getContentTypeByExtension(pathinfo($fileName, PATHINFO_EXTENSION));
 
-    return response()->streamDownload(function () use ($fileContent) {
-        if (ob_get_level()) {
-            ob_end_clean();
-        }
-        echo $fileContent;
-    }, $fileName, [
-        'Content-Type' => $contentType,
-    ]);
+    return $this->createFileDownloadResponse($fileContent, $fileName, $contentType);
 }
+private function createFileDownloadResponse($fileContent, $fileName, $contentType)
+{
+    return response()->streamDownload(function () use ($fileContent) {
+        echo $fileContent;
+    }, $fileName, ['Content-Type' => $contentType]);
+}
+
     
 
     private function extractFileNameFromContent($content)
@@ -185,10 +195,18 @@ class OpenAIController extends Controller
         return $csvData;
     }
 
+    private function validateSession(array $keys)
+    {
+        foreach ($keys as $key) {
+            if (!Session::has($key)) {
+                throw new \Exception("$key not found in session.");
+            }
+        }
+    }
+
     private function runPHPScript($function, $args = [])
     {
-        $scriptPath = '/Users/dysisx/Documents/assistant/app/Http/Controllers/OpenaiAssistantController.php';
-        $process = new Process(array_merge(['php', $scriptPath, $function], $args));
+        $process = new Process(array_merge([$this->phpBinaryPath, $this->scriptPath, $function], $args));
         $process->setWorkingDirectory(base_path());  
         $process->run();
 
@@ -203,4 +221,6 @@ class OpenAIController extends Controller
 
         return $output;
     }
+
+
 }
