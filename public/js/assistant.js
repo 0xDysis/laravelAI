@@ -62,16 +62,10 @@ function checkRunStatus(runId) {
 }
 
 function initiateStatusCheck(runId) {
-    
-    if (intervalId) {
-       
-        clearInterval(intervalId);
-    }
-
-    intervalId = setInterval(function() {
-        checkRunStatus(runId);
-    }, 1000);
+    intervalId && clearInterval(intervalId);
+    intervalId = setInterval(() => checkRunStatus(runId), 1000);
 }
+
 
 function handleErrorOnSubmit(error) {
     console.error('Error submitting message:', error);
