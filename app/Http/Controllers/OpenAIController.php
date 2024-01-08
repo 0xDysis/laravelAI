@@ -31,23 +31,30 @@ class OpenAIController extends Controller
     }
 
     public function startRun(Request $request)
-{
-    $this->validateSession(['assistantId', 'threadId']);
-
-    $threadId = Session::get('threadId');
-    $assistantId = Session::get('assistantId');
-    $runId = $this->runPHPScript('runAssistant', [$threadId, $assistantId]);
-
-    return response()->json(['runId' => $runId]);
-}
+    {
+        $this->validateSession(['assistantId', 'threadId']);
+    
+        // Initialize session storage for processed messages
+        if (!Session::has('processedMessages')) {
+            Session::put('processedMessages', []);
+        }
+    
+        $threadId = Session::get('threadId');
+        $assistantId = Session::get('assistantId');
+        $runId = $this->runPHPScript('runAssistant', [$threadId, $assistantId]);
+    
+        return response()->json(['runId' => $runId]);
+    }
+    
 
 
 public function checkRunStatus(Request $request)
 {
     $this->validateSession(['threadId']);
-
-    $runId = $request->input('runId');
+    
     $threadId = Session::get('threadId');
+    $runId = $request->input('runId');
+    
     $status = $this->runPHPScript('checkRunStatus', [$threadId, $runId]);
 
     return response($status);
@@ -64,17 +71,28 @@ public function getMessages()
     return response()->json($messagesData);
 }
 
-private function fetchAndProcessMessages($threadId)
-{
+private function fetchAndProcessMessages($threadId) {
     $messagesJson = $this->runPHPScript('getMessages', [$threadId]);
     $messagesData = json_decode($messagesJson, true);
+    $processedMessages = Session::get('processedMessages');
 
     foreach ($messagesData as $key => $message) {
+        if (!empty($processedMessages[$message['id']])) {
+            continue; // Skip already processed messages
+        }
+
         $messagesData[$key]['fileId'] = $this->processMessageForFileId($threadId, $message);
+
+        // Mark the message as processed
+        $processedMessages[$message['id']] = 1;
     }
+
+    // Update the session
+    Session::put('processedMessages', $processedMessages);
 
     return $messagesData;
 }
+
 
 private function processMessageForFileId($threadId, $message)
 {
@@ -97,6 +115,15 @@ private function storeFileMetadataInSession($fileId, $threadId, $messageId, $con
     Session::put($fileId . '-messageId', $messageId);
     Session::put($fileId . '-fileName', $fileName);
 }
+private function extractFileNameFromContent($content)
+    {
+        if (preg_match('/\[Download (.*?)\]\(sandbox:/', $content, $matches)) {
+            return $matches[1];
+        }
+
+        return 'defaultFileName.txt';
+    }
+
 
     
 public function downloadMessageFile($fileId)
@@ -120,14 +147,7 @@ private function createFileDownloadResponse($fileContent, $fileName, $contentTyp
 
     
 
-    private function extractFileNameFromContent($content)
-    {
-        if (preg_match('/\[Download (.*?)\]\(sandbox:/', $content, $matches)) {
-            return $matches[1];
-        }
-
-        return 'defaultFileName.txt';
-    }
+   
 
  
 
@@ -145,10 +165,7 @@ private function createFileDownloadResponse($fileContent, $fileName, $contentTyp
         // Retrieve the file content based solely on the fileId
         return $this->runPHPScript('retrieveMessageFile', [$fileId]);
     }
-    public function listMessageFiles($threadId, $messageId)
-    {
-        return $this->runPHPScript('listMessageFiles', [$threadId, $messageId]);
-    }
+   
 
     public function deleteThread()
     {
