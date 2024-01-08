@@ -15,6 +15,9 @@ class OpenAIController extends Controller
     public function index()
     {
         return view('assistant');
+        if (!Session::has('processedMessages')) {
+            Session::put('processedMessages', []);
+        }
     }
 
     public function submitMessage(Request $request)
@@ -170,9 +173,14 @@ private function createFileDownloadResponse($fileContent, $fileName, $contentTyp
     public function deleteThread()
     {
         $this->runPHPScript('deleteThread', [Session::get('threadId')]);
+        
+        // Clear the threadId and processedMessages related to the thread from the session
         Session::forget('threadId');
+        Session::forget('processedMessages');
+    
         return redirect('/');
     }
+    
 
     public function deleteAssistant()
     {
@@ -182,11 +190,18 @@ private function createFileDownloadResponse($fileContent, $fileName, $contentTyp
     }
 
     public function createNewThread()
-    {
-        $threadId = $this->runPHPScript('createThread');
-        Session::put('threadId', $threadId);
-        return redirect('/');
-    }
+{
+    $threadId = $this->runPHPScript('createThread');
+
+    // Store the new thread ID in the session
+    Session::put('threadId', $threadId);
+
+    // Clear processedMessages from the session to ensure a fresh start for the new thread
+    Session::forget('processedMessages');
+
+    return redirect('/');
+}
+
 
     public function createNewAssistantWithCsv()
     {
