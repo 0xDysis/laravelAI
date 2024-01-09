@@ -151,7 +151,7 @@ class OpenAIController extends Controller
     {
         $this->runPHPScript('deleteThread', [Session::get('threadId')]);
         Session::forget('threadId');
-        Session::forget('processedMessages');
+        Cache::forget('processedMessages');
     
         return redirect('/');
     }
@@ -160,6 +160,7 @@ class OpenAIController extends Controller
     {
         $this->runPHPScript('deleteAssistant', [Session::get('assistantId')]);
         Session::forget('assistantId');
+        Cache::forget('processedMessages');
         return redirect('/');
     }
 
@@ -167,7 +168,7 @@ class OpenAIController extends Controller
     {
         $threadId = $this->runPHPScript('createThread');
         Session::put('threadId', $threadId);
-        Session::forget('processedMessages');
+        Cache::forget('processedMessages');
 
         return redirect('/');
     }
