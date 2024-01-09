@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use App\Models\Order; 
+use App\Models\Order;
 
 class OpenAIController extends Controller
 {
@@ -15,17 +15,17 @@ class OpenAIController extends Controller
 
     public function index()
     {
-        return view('assistant');
         if (!Cache::has('processedMessages')) {
             Cache::put('processedMessages', [], 3600);
         }
+
+        return view('assistant');
     }
 
     public function submitMessage(Request $request)
     {
         $this->validateSession(['assistantId', 'threadId']);
         $userMessage = $request->input('message');
-
         $this->runPHPScript('addMessage', [Session::get('threadId'), 'user', $userMessage]);
 
         return view('assistant', [
@@ -37,46 +37,36 @@ class OpenAIController extends Controller
     public function startRun(Request $request)
     {
         $this->validateSession(['assistantId', 'threadId']);
-    
-       
-    
         $threadId = Session::get('threadId');
         $assistantId = Session::get('assistantId');
         $runId = $this->runPHPScript('runAssistant', [$threadId, $assistantId]);
     
         return response()->json(['runId' => $runId]);
     }
-    
 
-
-public function checkRunStatus(Request $request)
-{
-    $this->validateSession(['threadId']);
-    
-    $threadId = Session::get('threadId');
-    $runId = $request->input('runId');
-    
-    $status = $this->runPHPScript('checkRunStatus', [$threadId, $runId]);
-
-    return response($status);
-}
-
-
-public function getMessages()
+    public function checkRunStatus(Request $request)
     {
         $this->validateSession(['threadId']);
         $threadId = Session::get('threadId');
+        $runId = $request->input('runId');
+        $status = $this->runPHPScript('checkRunStatus', [$threadId, $runId]);
 
+        return response($status);
+    }
+
+    public function getMessages()
+    {
+        $this->validateSession(['threadId']);
+        $threadId = Session::get('threadId');
         $messagesData = $this->fetchAndProcessMessages($threadId);
 
         return response()->json($messagesData);
     }
 
-    private function fetchAndProcessMessages($threadId) {
+    private function fetchAndProcessMessages($threadId) 
+    {
         $messagesJson = $this->runPHPScript('getMessages', [$threadId]);
         $messagesData = json_decode($messagesJson, true);
-
-        // Retrieve processedMessages from cache instead of session
         $processedMessages = Cache::get('processedMessages', []);
 
         foreach ($messagesData as $key => $message) {
@@ -85,40 +75,36 @@ public function getMessages()
             }
 
             $messagesData[$key]['fileId'] = $this->processMessageForFileId($threadId, $message);
-
-            // Update processedMessages in cache
             $processedMessages[$message['id']] = 1;
         }
 
-        // Store updated processedMessages in cache
         Cache::put('processedMessages', $processedMessages, 3600);
-
         return $messagesData;
     }
 
+    private function processMessageForFileId($threadId, $message)
+    {
+        $fileIdsJson = $this->runPHPScript('listMessageFiles', [$threadId, $message['id']]);
+        $fileIds = json_decode($fileIdsJson, true);
 
-private function processMessageForFileId($threadId, $message)
-{
-    $fileIdsJson = $this->runPHPScript('listMessageFiles', [$threadId, $message['id']]);
-    $fileIds = json_decode($fileIdsJson, true);
+        if (!empty($fileIds) && is_array($fileIds)) {
+            $fileId = $fileIds[0];
+            $this->storeFileMetadataInSession($fileId, $threadId, $message['id'], $message['content']);
+            return $fileId;
+        }
 
-    if (!empty($fileIds) && is_array($fileIds)) {
-        $fileId = $fileIds[0];
-        $this->storeFileMetadataInSession($fileId, $threadId, $message['id'], $message['content']);
-        return $fileId;
+        return null;
     }
 
-    return null;
-}
+    private function storeFileMetadataInSession($fileId, $threadId, $messageId, $content)
+    {
+        $fileName = $this->extractFileNameFromContent($content);
+        Session::put($fileId . '-threadId', $threadId);
+        Session::put($fileId . '-messageId', $messageId);
+        Session::put($fileId . '-fileName', $fileName);
+    }
 
-private function storeFileMetadataInSession($fileId, $threadId, $messageId, $content)
-{
-    $fileName = $this->extractFileNameFromContent($content);
-    Session::put($fileId . '-threadId', $threadId);
-    Session::put($fileId . '-messageId', $messageId);
-    Session::put($fileId . '-fileName', $fileName);
-}
-private function extractFileNameFromContent($content)
+    private function extractFileNameFromContent($content)
     {
         if (preg_match('/\[Download (.*?)\]\(sandbox:/', $content, $matches)) {
             return $matches[1];
@@ -127,32 +113,25 @@ private function extractFileNameFromContent($content)
         return 'defaultFileName.txt';
     }
 
+    public function downloadMessageFile($fileId)
+    {
+        $fileContent = $this->retrieveMessageFile($fileId);
+        if (!$fileContent) {
+            return $this->createErrorResponse('File not found or unable to retrieve.', 404);
+        }
 
-    
-public function downloadMessageFile($fileId)
-{
-    $fileContent = $this->retrieveMessageFile($fileId);
-    if (!$fileContent) {
-        return $this->createErrorResponse('File not found or unable to retrieve.', 404);
+        $fileName = Session::get($fileId . '-fileName', 'defaultFile.csv');
+        $contentType = $this->getContentTypeByExtension(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        return $this->createFileDownloadResponse($fileContent, $fileName, $contentType);
     }
 
-    $fileName = Session::get($fileId . '-fileName', 'defaultFile.csv');
-    $contentType = $this->getContentTypeByExtension(pathinfo($fileName, PATHINFO_EXTENSION));
-
-    return $this->createFileDownloadResponse($fileContent, $fileName, $contentType);
-}
-private function createFileDownloadResponse($fileContent, $fileName, $contentType)
-{
-    return response()->streamDownload(function () use ($fileContent) {
-        echo $fileContent;
-    }, $fileName, ['Content-Type' => $contentType]);
-}
-
-    
-
-   
-
- 
+    private function createFileDownloadResponse($fileContent, $fileName, $contentType)
+    {
+        return response()->streamDownload(function () use ($fileContent) {
+            echo $fileContent;
+        }, $fileName, ['Content-Type' => $contentType]);
+    }
 
     private function getContentTypeByExtension($extension)
     {
@@ -165,22 +144,17 @@ private function createFileDownloadResponse($fileContent, $fileName, $contentTyp
 
     public function retrieveMessageFile($fileId)
     {
-        // Retrieve the file content based solely on the fileId
         return $this->runPHPScript('retrieveMessageFile', [$fileId]);
     }
-   
 
     public function deleteThread()
     {
         $this->runPHPScript('deleteThread', [Session::get('threadId')]);
-        
-        // Clear the threadId and processedMessages related to the thread from the session
         Session::forget('threadId');
         Session::forget('processedMessages');
     
         return redirect('/');
     }
-    
 
     public function deleteAssistant()
     {
@@ -190,18 +164,13 @@ private function createFileDownloadResponse($fileContent, $fileName, $contentTyp
     }
 
     public function createNewThread()
-{
-    $threadId = $this->runPHPScript('createThread');
+    {
+        $threadId = $this->runPHPScript('createThread');
+        Session::put('threadId', $threadId);
+        Session::forget('processedMessages');
 
-    // Store the new thread ID in the session
-    Session::put('threadId', $threadId);
-
-    // Clear processedMessages from the session to ensure a fresh start for the new thread
-    Session::forget('processedMessages');
-
-    return redirect('/');
-}
-
+        return redirect('/');
+    }
 
     public function createNewAssistantWithCsv()
     {
@@ -253,6 +222,4 @@ private function createFileDownloadResponse($fileContent, $fileName, $contentTyp
 
         return $output;
     }
-
-
 }
