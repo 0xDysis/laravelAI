@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use App\Models\Order; 
@@ -15,8 +16,8 @@ class OpenAIController extends Controller
     public function index()
     {
         return view('assistant');
-        if (!Session::has('processedMessages')) {
-            Session::put('processedMessages', []);
+        if (!Cache::has('processedMessages')) {
+            Cache::put('processedMessages', [], 3600);
         }
     }
 
@@ -37,10 +38,7 @@ class OpenAIController extends Controller
     {
         $this->validateSession(['assistantId', 'threadId']);
     
-        // Initialize session storage for processed messages
-        if (!Session::has('processedMessages')) {
-            Session::put('processedMessages', []);
-        }
+       
     
         $threadId = Session::get('threadId');
         $assistantId = Session::get('assistantId');
@@ -65,36 +63,38 @@ public function checkRunStatus(Request $request)
 
 
 public function getMessages()
-{
-    $this->validateSession(['threadId']);
-    $threadId = Session::get('threadId');
+    {
+        $this->validateSession(['threadId']);
+        $threadId = Session::get('threadId');
 
-    $messagesData = $this->fetchAndProcessMessages($threadId);
+        $messagesData = $this->fetchAndProcessMessages($threadId);
 
-    return response()->json($messagesData);
-}
-
-private function fetchAndProcessMessages($threadId) {
-    $messagesJson = $this->runPHPScript('getMessages', [$threadId]);
-    $messagesData = json_decode($messagesJson, true);
-    $processedMessages = Session::get('processedMessages');
-
-    foreach ($messagesData as $key => $message) {
-        if (!empty($processedMessages[$message['id']])) {
-            continue; // Skip already processed messages
-        }
-
-        $messagesData[$key]['fileId'] = $this->processMessageForFileId($threadId, $message);
-
-        // Mark the message as processed
-        $processedMessages[$message['id']] = 1;
+        return response()->json($messagesData);
     }
 
-    // Update the session
-    Session::put('processedMessages', $processedMessages);
+    private function fetchAndProcessMessages($threadId) {
+        $messagesJson = $this->runPHPScript('getMessages', [$threadId]);
+        $messagesData = json_decode($messagesJson, true);
 
-    return $messagesData;
-}
+        // Retrieve processedMessages from cache instead of session
+        $processedMessages = Cache::get('processedMessages', []);
+
+        foreach ($messagesData as $key => $message) {
+            if (isset($processedMessages[$message['id']])) {
+                continue; 
+            }
+
+            $messagesData[$key]['fileId'] = $this->processMessageForFileId($threadId, $message);
+
+            // Update processedMessages in cache
+            $processedMessages[$message['id']] = 1;
+        }
+
+        // Store updated processedMessages in cache
+        Cache::put('processedMessages', $processedMessages, 3600);
+
+        return $messagesData;
+    }
 
 
 private function processMessageForFileId($threadId, $message)
