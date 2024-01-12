@@ -24,19 +24,23 @@ class MessageService
         return $this->fetchAndProcessMessages($threadId);
     }
 
-    private function fetchAndProcessMessages($threadId) 
+    private function fetchAndProcessMessages($threadId)
     {
         $messagesJson = $this->phpScriptRunnerService->runScript('getMessages', [$threadId]);
         $messagesData = json_decode($messagesJson, true);
         $processedMessages = Cache::get('processedMessages', []);
 
-        foreach ($messagesData as $key => $message) {
-            if (isset($processedMessages[$message['id']])) {
-                continue; 
+        foreach ($messagesData as &$message) {
+            if (!isset($processedMessages[$message['id']])) {
+                $fileId = $this->processMessageForFileId($threadId, $message);
+                if ($fileId) {
+                    $message['fileId'] = $fileId;
+                    $processedMessages[$message['id']] = $fileId;
+                }
+            } else {
+                // If message already processed, retrieve fileId from cache
+                $message['fileId'] = $processedMessages[$message['id']];
             }
-
-            $messagesData[$key]['fileId'] = $this->processMessageForFileId($threadId, $message);
-            $processedMessages[$message['id']] = 1;
         }
 
         Cache::put('processedMessages', $processedMessages, 3600);
@@ -70,8 +74,6 @@ class MessageService
         if (preg_match('/\[Download (.*?)\]\(sandbox:/', $content, $matches)) {
             return $matches[1];
         }
-
         return 'defaultFileName.txt';
     }
 }
-

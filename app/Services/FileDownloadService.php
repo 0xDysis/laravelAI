@@ -1,4 +1,6 @@
 <?php
+
+
 namespace App\Services;
 
 use Illuminate\Support\Facades\Session;
@@ -16,7 +18,7 @@ class FileDownloadService
     public function downloadMessageFile($fileId)
     {
         // Retrieve the file content using the PHPScriptRunnerService
-        $fileContent = $this->retrieveMessageFile($fileId);
+        $fileContent = $this->phpScriptRunnerService->runScript('retrieveMessageFile', [$fileId]);
         if (!$fileContent) {
             // Handle error response if file content is not found
             return response()->json(['error' => 'File not found or unable to retrieve.'], 404);
@@ -30,10 +32,15 @@ class FileDownloadService
         return $this->createFileDownloadResponse($fileContent, $fileName, $contentType);
     }
 
-    private function retrieveMessageFile($fileId)
+    private function getContentTypeByExtension($extension)
     {
-        // Run the script to retrieve the file content
-        return $this->phpScriptRunnerService->runScript('retrieveMessageFile', [$fileId]);
+        // Mapping of file extensions to MIME types
+        $mimeTypes = [
+           
+            // add more mappings as needed
+        ];
+
+        return $mimeTypes[$extension] ?? 'application/octet-stream';
     }
 
     private function createFileDownloadResponse($fileContent, $fileName, $contentType)
@@ -42,15 +49,5 @@ class FileDownloadService
         return response()->streamDownload(function () use ($fileContent) {
             echo $fileContent;
         }, $fileName, ['Content-Type' => $contentType]);
-    }
-
-    private function getContentTypeByExtension($extension)
-    {
-        // Mapping of file extensions to MIME types
-        $mimeTypes = [
-            // Add your MIME types mapping here
-        ];
-
-        return $mimeTypes[$extension] ?? 'application/octet-stream';
     }
 }
