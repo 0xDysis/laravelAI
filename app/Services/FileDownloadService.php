@@ -17,15 +17,23 @@ class FileDownloadService
 
     public function downloadMessageFile($fileId)
     {
+        // Retrieve file metadata from the session
+        $fileName = Session::get($fileId . '-fileName', 'defaultFile.csv');
+        $threadId = Session::get($fileId . '-threadId');
+        $messageId = Session::get($fileId . '-messageId');
+
+        // If any of the required metadata is missing, return an error
+        if (!$fileName || !$threadId || !$messageId) {
+            return response()->json(['error' => 'File metadata not found.'], 404);
+        }
+
         // Retrieve the file content using the PHPScriptRunnerService
         $fileContent = $this->phpScriptRunnerService->runScript('retrieveMessageFile', [$fileId]);
         if (!$fileContent) {
-            // Handle error response if file content is not found
             return response()->json(['error' => 'File not found or unable to retrieve.'], 404);
         }
 
-        // Retrieve file name and content type from session
-        $fileName = Session::get($fileId . '-fileName', 'defaultFile.csv');
+        // Determine the content type
         $contentType = $this->getContentTypeByExtension(pathinfo($fileName, PATHINFO_EXTENSION));
 
         // Create and return the file download response
@@ -36,8 +44,9 @@ class FileDownloadService
     {
         // Mapping of file extensions to MIME types
         $mimeTypes = [
-           
-            // add more mappings as needed
+            'csv' => 'text/csv',
+            'txt' => 'text/plain',
+            // Add more mappings as needed
         ];
 
         return $mimeTypes[$extension] ?? 'application/octet-stream';

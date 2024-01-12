@@ -21,25 +21,19 @@ class MessageService
 
     public function getMessages($threadId)
     {
-        return $this->fetchAndProcessMessages($threadId);
-    }
-
-    private function fetchAndProcessMessages($threadId)
-    {
         $messagesJson = $this->phpScriptRunnerService->runScript('getMessages', [$threadId]);
         $messagesData = json_decode($messagesJson, true);
         $processedMessages = Cache::get('processedMessages', []);
 
-        foreach ($messagesData as &$message) {
-            if (!isset($processedMessages[$message['id']])) {
-                $fileId = $this->processMessageForFileId($threadId, $message);
-                if ($fileId) {
-                    $message['fileId'] = $fileId;
-                    $processedMessages[$message['id']] = $fileId;
-                }
-            } else {
-                // If message already processed, retrieve fileId from cache
-                $message['fileId'] = $processedMessages[$message['id']];
+        foreach ($messagesData as $key => $message) {
+            if (isset($processedMessages[$message['id']])) {
+                continue;
+            }
+
+            $fileId = $this->processMessageForFileId($threadId, $message);
+            if ($fileId) {
+                $messagesData[$key]['fileId'] = $fileId;
+                $processedMessages[$message['id']] = 1;
             }
         }
 
