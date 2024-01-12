@@ -11,13 +11,14 @@ class PHPScriptRunnerService
 
     public function __construct()
     {
-        // These paths can be set via environment variables or configuration settings
-        $this->phpBinaryPath = config('/Users/dysisx/Library/Application Support/Herd/bin/php');
-        $this->scriptPath = config('/Users/dysisx/Documents/assistant/app/Http/Controllers/OpenaiAssistantController.php');
+        // Assign the paths directly, without using the config function
+        $this->phpBinaryPath = '/Users/dysisx/Library/Application Support/Herd/bin/php';
+        $this->scriptPath = '/Users/dysisx/Documents/assistant/app/Http/Controllers/OpenaiAssistantController.php';
     }
 
     public function runScript($function, $args = [])
     {
+        // Ensure the arguments are correctly formatted
         $process = new Process(array_merge([$this->phpBinaryPath, $this->scriptPath, $function], $args));
         $process->setWorkingDirectory(base_path());  
         $process->run();
@@ -34,3 +35,4 @@ class PHPScriptRunnerService
         return $output;
     }
 }
+

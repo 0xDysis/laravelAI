@@ -5,7 +5,7 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Session;
 use App\Services\PHPScriptRunnerService;
 
-class ExportService
+class DatabaseExportService
 {
     protected $phpScriptRunnerService;
 

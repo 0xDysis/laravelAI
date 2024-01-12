@@ -9,6 +9,8 @@ use App\Services\MessageService;
 use App\Services\PHPScriptRunnerService;
 use App\Services\RunService;
 use App\Services\SessionValidationService;
+use App\Services\ThreadService;
+use App\Services\AssistantService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +39,14 @@ class AppServiceProvider extends ServiceProvider
         // Assuming DatabaseExportService depends on PHPScriptRunnerService
         $this->app->singleton(DatabaseExportService::class, function ($app) {
             return new DatabaseExportService($app->make(PHPScriptRunnerService::class));
+        });
+        $this->app->singleton(ThreadService::class, function ($app) {
+            return new ThreadService($app->make(PHPScriptRunnerService::class));
+        });
+
+        // Register AssistantService
+        $this->app->singleton(AssistantService::class, function ($app) {
+            return new AssistantService($app->make(PHPScriptRunnerService::class));
         });
 
         // SessionValidationService doesn't seem to have dependencies, so it can be new-ed up directly.
