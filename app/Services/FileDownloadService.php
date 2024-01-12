@@ -15,20 +15,30 @@ class FileDownloadService
 
     public function downloadMessageFile($fileId)
     {
-        $fileContent = $this->phpScriptRunnerService->runScript('retrieveMessageFile', [$fileId]);
+        // Retrieve the file content using the PHPScriptRunnerService
+        $fileContent = $this->retrieveMessageFile($fileId);
         if (!$fileContent) {
-            // Handle error response
+            // Handle error response if file content is not found
             return response()->json(['error' => 'File not found or unable to retrieve.'], 404);
         }
 
+        // Retrieve file name and content type from session
         $fileName = Session::get($fileId . '-fileName', 'defaultFile.csv');
         $contentType = $this->getContentTypeByExtension(pathinfo($fileName, PATHINFO_EXTENSION));
 
+        // Create and return the file download response
         return $this->createFileDownloadResponse($fileContent, $fileName, $contentType);
+    }
+
+    private function retrieveMessageFile($fileId)
+    {
+        // Run the script to retrieve the file content
+        return $this->phpScriptRunnerService->runScript('retrieveMessageFile', [$fileId]);
     }
 
     private function createFileDownloadResponse($fileContent, $fileName, $contentType)
     {
+        // Stream the file content for download
         return response()->streamDownload(function () use ($fileContent) {
             echo $fileContent;
         }, $fileName, ['Content-Type' => $contentType]);
@@ -36,11 +46,11 @@ class FileDownloadService
 
     private function getContentTypeByExtension($extension)
     {
+        // Mapping of file extensions to MIME types
         $mimeTypes = [
-            // Mime types mapping
-            // Add your mime types here
+            // Add your MIME types mapping here
         ];
 
-        return $mimeTypes[$extension] ?? 'application/octet-stream'; 
+        return $mimeTypes[$extension] ?? 'application/octet-stream';
     }
 }
