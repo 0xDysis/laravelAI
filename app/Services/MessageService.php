@@ -24,40 +24,59 @@ class MessageService
         return $this->fetchAndProcessMessages($threadId);
     }
     private function fetchAndProcessMessages($threadId) 
-    {
-        $messagesJson = $this->phpScriptRunnerService->runScript('getMessages', [$threadId]);
-        $messagesData = json_decode($messagesJson, true);
-        $processedMessages = Cache::get('processedMessages', []);
-    
-        foreach ($messagesData as $key => $message) {
-            if (isset($processedMessages[$message['id']])) {
-                continue; // Skip processing if the message has already been processed
-            }
-    
-            // Process each message to get the fileId
-            $messagesData[$key]['fileId'] = $this->processMessageForFileId($threadId, $message);
-            $processedMessages[$message['id']] = 1; // Mark this message as processed
+{
+    $messagesJson = $this->phpScriptRunnerService->runScript('getMessages', [$threadId]);
+    $messagesData = json_decode($messagesJson, true);
+    $processedMessages = Cache::get('processedMessages', []);
+
+    foreach ($messagesData as $key => &$message) {
+        if (isset($processedMessages[$message['id']])) {
+            // If the message has already been processed, just attach the fileId (if it exists)
+            $message['fileId'] = $processedMessages[$message['id']]['fileId'] ?? null;
+            continue;
         }
-    
-        Cache::put('processedMessages', $processedMessages, 3600); // Update the cache with processed messages
-        return $messagesData;
+
+        // Process new messages to find file IDs
+        $fileId = $this->processMessageForFileId($threadId, $message);
+        $message['fileId'] = $fileId;
+
+        // Store the message status and fileId in the cache
+        $processedMessages[$message['id']] = ['processed' => 1, 'fileId' => $fileId];
     }
+
+    Cache::put('processedMessages', $processedMessages, 3600); // Update the cache with processed messages
+    return $messagesData;
+}
+
     
     
 
     private function processMessageForFileId($threadId, $message)
-    {
-        $fileIdsJson = $this->phpScriptRunnerService->runScript('listMessageFiles', [$threadId, $message['id']]);
-        $fileIds = json_decode($fileIdsJson, true);
-
-        if (!empty($fileIds)) {
-            $fileId = $fileIds[0];
-            $this->storeFileMetadataInSession($fileId, $threadId, $message['id'], $message['content']);
-            return $fileId;
-        }
-
-        return null;
+{
+    // Check if file ID is already cached for this message
+    $processedMessages = Cache::get('processedMessages', []);
+    if (isset($processedMessages[$message['id']]['fileId'])) {
+        // Return the cached fileId
+        return $processedMessages[$message['id']]['fileId'];
     }
+
+    $fileIdsJson = $this->phpScriptRunnerService->runScript('listMessageFiles', [$threadId, $message['id']]);
+    $fileIds = json_decode($fileIdsJson, true);
+
+    if (!empty($fileIds)) {
+        $fileId = $fileIds[0];
+        $this->storeFileMetadataInSession($fileId, $threadId, $message['id'], $message['content']);
+
+        // Update the cache with the new fileId
+        $processedMessages[$message['id']] = ['fileId' => $fileId];
+        Cache::put('processedMessages', $processedMessages, 3600);
+
+        return $fileId;
+    }
+
+    return null;
+}
+
 
     private function storeFileMetadataInSession($fileId, $threadId, $messageId, $content)
     {
@@ -75,4 +94,3 @@ class MessageService
         return 'defaultFileName.txt';
     }
 }
-
