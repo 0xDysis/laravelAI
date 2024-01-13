@@ -44,9 +44,7 @@ class FileDownloadService
     {
         // Mapping of file extensions to MIME types
         $mimeTypes = [
-            'csv' => 'text/csv',
-            'txt' => 'text/plain',
-            // Add more mappings as needed
+            
         ];
 
         return $mimeTypes[$extension] ?? 'application/octet-stream';
