@@ -124,10 +124,11 @@ function formatMessageWithoutFile(message) {
     return message.content;
 }
 
-function fetchAndDisplayMessages() {
+function fetchAndDisplayMessages(threadId = null) {
     $.ajax({
         url: '/get-messages',
         type: 'GET',
+        data: threadId ? { threadId: threadId } : {},
         success: function(response) {
             var messageContent = '<p><strong>Messages:</strong></p>';
             response.reverse();
@@ -145,16 +146,20 @@ function fetchAndDisplayMessages() {
         }
     });
 }
+
+
 function fetchAndDisplayThreads() {
     $.ajax({
         url: '/get-threads',
         type: 'GET',
         success: function(threads) {
-            var threadsContent = '<p><strong>Threads:</strong></p>';
+            var threadsContent = '<ul>';
             threads.forEach(function(thread) {
-                threadsContent += '<p>Thread ID: ' + thread + '</p>';
+                threadsContent += '<li class="thread-item" data-thread-id="' + thread + '">Thread ID: ' + thread + '</li>';
             });
+            threadsContent += '</ul>';
             updateThreadsArea(threadsContent);
+            attachThreadClickListeners();
         },
         error: function(error) {
             console.error('Error fetching threads:', error);
@@ -162,6 +167,15 @@ function fetchAndDisplayThreads() {
         }
     });
 }
+function attachThreadClickListeners() {
+    document.querySelectorAll('.thread-item').forEach(item => {
+        item.addEventListener('click', function() {
+            var threadId = this.getAttribute('data-thread-id');
+            fetchAndDisplayMessages(threadId);
+        });
+    });
+}
+
 
 function updateThreadsArea(content) {
     var threadsArea = document.getElementById('threads'); 

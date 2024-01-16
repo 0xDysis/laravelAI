@@ -87,15 +87,15 @@ class OpenAIController extends Controller
         return response($status);
     }
     
-    public function getMessages()
+    public function getMessages(Request $request)
     {
-        $this->sessionValidationService->validate(['threadId']);
-        $threadId = Session::get('threadId');
+        $threadId = $request->input('threadId') ?? Session::get('threadId');
         
         $messagesData = $this->messageService->getMessages($threadId);
     
         return response()->json($messagesData);
     }
+    
     
     public function downloadMessageFile($fileId)
     {

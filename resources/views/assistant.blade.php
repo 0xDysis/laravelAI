@@ -37,9 +37,7 @@
         @endif
     </div>
 
-    <div id="threads">
-        <!-- Threads will be populated here via AJAX -->
-    </div>
+    <div id="threads"></div>
     
     <div class="form-container">
         <div class="message-form">
