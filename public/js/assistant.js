@@ -145,6 +145,29 @@ function fetchAndDisplayMessages() {
         }
     });
 }
+function fetchAndDisplayThreads() {
+    $.ajax({
+        url: '/get-threads',
+        type: 'GET',
+        success: function(threads) {
+            var threadsContent = '<p><strong>Threads:</strong></p>';
+            threads.forEach(function(thread) {
+                threadsContent += '<p>Thread ID: ' + thread + '</p>';
+            });
+            updateThreadsArea(threadsContent);
+        },
+        error: function(error) {
+            console.error('Error fetching threads:', error);
+            updateThreadsArea('<p>Error fetching threads. Please try again.</p>');
+        }
+    });
+}
+
+function updateThreadsArea(content) {
+    var threadsArea = document.getElementById('threads'); 
+    threadsArea.innerHTML = content;
+}
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -152,4 +175,5 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         submitMessage();
     });
+    fetchAndDisplayThreads();
 });

@@ -7,7 +7,7 @@
     <script src="{{ asset('js/assistant.js') }}"></script> <!-- Include assistant.js -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-        #messages {
+        #messages, #threads {
             max-height: 400px; /* Adjust height as needed */
             overflow-y: auto; /* Makes the div scrollable */
             margin-bottom: 20px;
@@ -35,6 +35,10 @@
         @else
             <p>No messages to display. Start by creating a new thread and assistant.</p>
         @endif
+    </div>
+
+    <div id="threads">
+        <!-- Threads will be populated here via AJAX -->
     </div>
     
     <div class="form-container">

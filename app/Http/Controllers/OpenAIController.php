@@ -126,5 +126,12 @@ class OpenAIController extends Controller
         $this->threadService->createNewThread();
         return redirect('/');
     }
+    public function getThreads()
+{
+    $user = auth()->user(); // Get the authenticated user
+    $threads = $user->threads; // Get the threads from the user model
+
+    return response()->json($threads);
+}
     
 }
