@@ -31,7 +31,7 @@ class MessageService
 
     foreach ($messagesData as $key => &$message) {
         if (isset($processedMessages[$message['id']])) {
-            // If the message has already been processed, just attach the fileId (if it exists)
+            
             $message['fileId'] = $processedMessages[$message['id']]['fileId'] ?? null;
             continue;
         }
