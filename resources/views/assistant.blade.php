@@ -8,11 +8,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         #messages, #threads {
-            max-height: 400px; /* Adjust height as needed */
-            overflow-y: auto; /* Makes the div scrollable */
+            max-height: 400px; 
+            overflow-y: auto; 
             margin-bottom: 20px;
         }
-        /* Additional styles for better UI */
+        
         .form-container {
             margin-top: 20px;
         }

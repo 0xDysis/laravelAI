@@ -4,7 +4,7 @@ namespace App\Services;
 use App\Services\PHPScriptRunnerService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
-use App\Models\User; // Import the User model
+use App\Models\User; 
 
 class ThreadService
 {
@@ -21,8 +21,8 @@ class ThreadService
         Session::forget('threadId');
         Cache::forget('processedMessages');
 
-        // Delete the thread ID from the user's threads in the database
-        $user = auth()->user(); // Get the authenticated user
+        
+        $user = auth()->user(); 
         $user->threads = array_filter($user->threads, function($tid) use ($threadId) {
             return $tid != $threadId;
         });
@@ -35,14 +35,13 @@ class ThreadService
         Session::put('threadId', $threadId);
         Cache::forget('processedMessages');
 
-        // Add the new thread ID to the user's threads in the database
-        $user = auth()->user(); // Get the authenticated user
+        
+        $user = auth()->user(); 
         $user->threads = array_merge($user->threads ?? [], [$threadId]);
         $user->save();
 
         return $threadId;
     }
 
-    // ... any other thread-related methods ...
 }
 
