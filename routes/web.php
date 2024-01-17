@@ -16,8 +16,9 @@ use App\Http\Controllers\ProfileController;
 // Original OpenAIController routes
 Route::get('/', [OpenAIController::class, 'index']);
 Route::post('/submit-message', [OpenAIController::class, 'submitMessage']);
-Route::delete('/delete-thread', [OpenAIController::class, 'deleteThread']);
-Route::delete('/delete-assistant', [OpenAIController::class, 'deleteAssistant']);
+Route::post('/delete-thread/{threadId}', [OpenAIController::class, 'deleteThread']);
+
+Route::post('/delete-assistant', [OpenAIController::class, 'deleteAssistant']);
 Route::post('/create-new-thread', [OpenAIController::class, 'createNewThread']);
 Route::post('/create-new-assistant', [OpenAIController::class, 'createNewAssistantWithCsv']);
 Route::post('/start-run', [OpenAIController::class, 'startRun']);

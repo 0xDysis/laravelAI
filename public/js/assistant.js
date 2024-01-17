@@ -1,4 +1,5 @@
 var intervalId = null;
+var currentThreadId = null;
 
 
 function startAssistantRun() {
@@ -83,6 +84,7 @@ function submitMessage() {
         type: 'POST',
         data: { 
             message: message,
+            threadId: currentThreadId,  // Include the current thread ID
             _token: $('input[name="_token"]').val()
         },
         success: function() {
@@ -125,10 +127,12 @@ function formatMessageWithoutFile(message) {
 }
 
 function fetchAndDisplayMessages(threadId = null) {
+    currentThreadId = threadId;
+
     $.ajax({
         url: '/get-messages',
         type: 'GET',
-        data: threadId ? { threadId: threadId } : {},
+        data: { threadId: threadId },
         success: function(response) {
             var messageContent = '<p><strong>Messages:</strong></p>';
             response.reverse();
@@ -153,11 +157,21 @@ function fetchAndDisplayThreads() {
         url: '/get-threads',
         type: 'GET',
         success: function(threads) {
-            var threadsContent = '<ul>';
+            var threadsContent = '';
             threads.forEach(function(thread) {
-                threadsContent += '<li class="thread-item" data-thread-id="' + thread + '">Thread ID: ' + thread + '</li>';
+                threadsContent += `
+                    <div class="thread-id-container group p-2 border rounded my-2 flex justify-between items-center hover:bg-gray-300" style="overflow: hidden;">
+                        <span class="thread-id" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${thread}</span>
+                        <button class="delete-thread-icon text-red-500 hover:text-red-600" onclick="deleteThread('${thread}')" style="background: none; border: none; padding: 0; cursor: pointer;">
+                            <!-- SVG icon here -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M6.707 4.707a1 1 0 00-1.414-1.414L4.5 4.5 4.5 6H4a1 1 0 000 2h12a1 1 0 100-2h-.5l-.5-1.5-.293-.293a1 1 0 00-1.414 1.414L13.5 6h-7l.207-.293z" clip-rule="evenodd" />
+                                <path d="M4 7h12v10a2 2 0 002 2H4a2 2 0 002-2V7z" />
+                            </svg>
+                        </button>
+                    </div>
+                `;
             });
-            threadsContent += '</ul>';
             updateThreadsArea(threadsContent);
             attachThreadClickListeners();
         },
@@ -167,27 +181,148 @@ function fetchAndDisplayThreads() {
         }
     });
 }
+
+
+
 function attachThreadClickListeners() {
-    document.querySelectorAll('.thread-item').forEach(item => {
-        item.addEventListener('click', function() {
-            var threadId = this.getAttribute('data-thread-id');
-            fetchAndDisplayMessages(threadId);
+    document.querySelectorAll('.thread-id-container').forEach(item => {
+        // Attach click listener for thread deletion
+        item.querySelector('.delete-thread-icon').addEventListener('click', function(event) {
+            event.stopPropagation();  // Prevent triggering the thread click event
+            var threadId = this.closest('.thread-id-container').querySelector('.thread-id').textContent;
+            deleteThread(threadId);
         });
+
+        // Attach click listener for thread selection
+        attachClickToThread(item);
     });
 }
+
+function attachClickToThread(threadElement) {
+    threadElement.addEventListener('click', function() {
+        var threadId = this.querySelector('.thread-id').textContent;
+        fetchAndDisplayMessages(threadId);
+    });
+}
+
 
 
 function updateThreadsArea(content) {
     var threadsArea = document.getElementById('threads'); 
     threadsArea.innerHTML = content;
 }
+function deleteThread(threadId) {
+    console.log("Deleting thread with ID:", threadId); 
+    $.ajax({
+        url: '/delete-thread/' + threadId, // Ensure this is correctly concatenated
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function() {
+            console.log('Thread deleted successfully');
+            fetchAndDisplayThreads(); // Refresh the threads list
+            updateMessageArea('<p>Thread deleted. Select another thread to view messages.</p>');
+            currentThreadId = null; // Reset the current thread ID
+        },
+        error: function(error) {
+            console.error('Error deleting thread:', error);
+           
+        }
+    });
+}
+function createNewThread() {
+    console.log("Creating new thread");
+    $.ajax({
+        url: '/create-new-thread',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function() {
+            console.log('New thread created successfully');
+            fetchAndDisplayThreads();
+        },
+        error: function(error) {
+            console.error('Error creating new thread:', error);
+        }
+    });
+}
+
+function createNewAssistant() {
+    console.log("Creating new assistant");
+    $.ajax({
+        url: '/create-new-assistant',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function() {
+            console.log('New assistant created successfully');
+        },
+        error: function(error) {
+            console.error('Error creating new assistant:', error);
+        }
+    });
+}
+
+function deleteAssistant() {
+    console.log("Deleting assistant");
+    $.ajax({
+        url: '/delete-assistant',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function() {
+            console.log('Assistant deleted successfully');
+        },
+        error: function(error) {
+            console.error('Error deleting assistant:', error);
+        }
+    });
+}
 
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('messageForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        submitMessage();
-    });
+   
+    var deleteThreadButton = document.getElementById('deleteThreadButton');
+    if (deleteThreadButton) {
+        deleteThreadButton.addEventListener('click', function () {
+            if (currentThreadId) {
+                deleteThread(currentThreadId);
+            } else {
+                console.error('No thread selected for deletion');
+            }
+        });
+    }
+
+    var createThreadButton = document.getElementById('createThreadButton');
+    if (createThreadButton) {
+        createThreadButton.addEventListener('click', createNewThread);
+    }
+
+    var createAssistantButton = document.getElementById('createAssistantButton');
+    if (createAssistantButton) {
+        createAssistantButton.addEventListener('click', createNewAssistant);
+    }
+
+    var deleteAssistantButton = document.getElementById('deleteAssistantButton');
+    if (deleteAssistantButton) {
+        deleteAssistantButton.addEventListener('click', deleteAssistant);
+    }
+
+    var messageForm = document.getElementById('messageForm');
+    if (messageForm) {
+        messageForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            submitMessage();
+        });
+    }
+
     fetchAndDisplayThreads();
 });
+
+
+

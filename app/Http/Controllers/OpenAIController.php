@@ -107,12 +107,12 @@ class OpenAIController extends Controller
         return $this->databaseExportService->createNewAssistantWithCsv();
     }
     
-    public function deleteThread()
-    {
-        $threadId = Session::get('threadId');
-        $this->threadService->deleteThread($threadId);
-        return redirect('/');
-    }
+    public function deleteThread($threadId)
+{
+    $this->threadService->deleteThread($threadId);
+    return redirect('/');
+}
+
 
     public function deleteAssistant()
     {
