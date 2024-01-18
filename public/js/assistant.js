@@ -162,7 +162,7 @@ function fetchAndDisplayThreads() {
                 threadsContent += `
                     <div class="thread-id-container group p-2 border rounded my-2 flex justify-between items-center hover:bg-gray-300" style="overflow: hidden;">
                         <span class="thread-id" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${thread}</span>
-                        <button class="delete-thread-icon text-red-500 hover:text-red-600" onclick="deleteThread('${thread}')" style="background: none; border: none; padding: 0; cursor: pointer;">
+                        <button class="delete-thread-icon text-red-500 hover:text-red-600" style="background: none; border: none; padding: 0; cursor: pointer;">
                             <!-- SVG icon here -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M6.707 4.707a1 1 0 00-1.414-1.414L4.5 4.5 4.5 6H4a1 1 0 000 2h12a1 1 0 100-2h-.5l-.5-1.5-.293-.293a1 1 0 00-1.414 1.414L13.5 6h-7l.207-.293z" clip-rule="evenodd" />
@@ -181,7 +181,6 @@ function fetchAndDisplayThreads() {
         }
     });
 }
-
 
 
 function attachThreadClickListeners() {
@@ -207,6 +206,7 @@ function attachClickToThread(threadElement) {
         fetchAndDisplayMessages(threadId);
     });
 }
+
 
 function updateThreadsArea(content) {
     var threadsArea = document.getElementById('threads'); 
@@ -317,7 +317,8 @@ document.addEventListener('DOMContentLoaded', function () {
             var threadId = event.target.closest('.thread-id-container').querySelector('.thread-id').textContent;
             deleteThread(threadId);
             event.stopPropagation(); // Prevent triggering other click events
-        } else if (event.target.matches('.thread-id-container, .thread-id-container *')) {
+        }
+         else if (event.target.matches('.thread-id-container, .thread-id-container *')) {
             // Handle thread selection click
             var threadId = event.target.closest('.thread-id-container').querySelector('.thread-id').textContent;
             fetchAndDisplayMessages(threadId);
