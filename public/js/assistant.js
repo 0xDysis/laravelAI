@@ -216,6 +216,18 @@ function updateThreadsArea(content) {
 
 function deleteThread(threadId) {
     console.log("Deleting thread with ID:", threadId); 
+
+    // Optimistically remove the thread from the DOM
+    var threadElement = null;
+    var threadElements = document.querySelectorAll('.thread-id-container');
+    threadElements.forEach(function(el) {
+        if (el.querySelector('.thread-id').textContent === threadId) {
+            threadElement = el;
+            el.remove();
+        }
+    });
+
+    // Perform the server request
     $.ajax({
         url: '/delete-thread/' + threadId,
         type: 'POST',
@@ -224,21 +236,23 @@ function deleteThread(threadId) {
         },
         success: function() {
             console.log('Thread deleted successfully');
-            // Find and remove the thread element from the DOM
-            var threadElements = document.querySelectorAll('.thread-id-container');
-            threadElements.forEach(function(el) {
-                if (el.querySelector('.thread-id').textContent === threadId) {
-                    el.remove();
-                }
-            });
             updateMessageArea('<p>Thread deleted. Select another thread to view messages.</p>');
             currentThreadId = null;
         },
         error: function(error) {
             console.error('Error deleting thread:', error);
+
+            // Revert the optimistic update on error
+            if (threadElement) {
+                var threadsArea = document.getElementById('threads');
+                threadsArea.appendChild(threadElement);
+            }
+            updateMessageArea('<p>Error deleting thread. Please try again.</p>');
         }
     });
 }
+
+
 
 
 
