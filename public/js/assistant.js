@@ -21,7 +21,13 @@ function startAssistantRun() {
 const statusHandlers = {
     'completed': function() {
         clearInterval(intervalId);
-        fetchAndDisplayMessages();
+        // Pass the currentThreadId to fetch messages for the correct thread
+        if (currentThreadId) {
+            fetchAndDisplayMessages(currentThreadId);
+        } else {
+            console.log("No current thread selected.");
+            updateMessageArea('<p>No thread selected. Please select a thread to view messages.</p>');
+        }
     },
     'queued': function() {
         console.log('Run is queued. Waiting for next check.');
@@ -32,6 +38,7 @@ const statusHandlers = {
         updateMessageArea('<p>Run ended with status: ' + status + '</p>');
     }
 };
+
 
 function checkRunStatus(runId) {
 
@@ -51,6 +58,7 @@ function checkRunStatus(runId) {
                 console.log('Run completed, clearing interval.');
                 clearInterval(intervalId);
                 intervalId = null;
+                
             }
         },
         error: function(error) {
@@ -90,10 +98,12 @@ function submitMessage() {
         success: function() {
             messageInput.val('');
             startAssistantRun();
+           
         },
         error: handleErrorOnSubmit
     });
 }
+
 
 
 function appendMessage(messageArea, message) {
@@ -112,6 +122,7 @@ function updateMessageArea(message, append = false) {
     const action = append ? appendMessage : setMessage;
     action(messageArea, message);
 }
+
 
 
 function formatMessageWithFile(message) {
@@ -309,21 +320,14 @@ function deleteAssistant() {
 }
 
 
-
 document.addEventListener('DOMContentLoaded', function () {
+    attachEventListeners();
+    fetchAndDisplayThreads();
+});
 
-    document.addEventListener('click', function(event) {
-        if (event.target.matches('.delete-thread-icon, .delete-thread-icon *')) {
-            var threadId = event.target.closest('.thread-id-container').querySelector('.thread-id').textContent;
-            deleteThread(threadId);
-            event.stopPropagation(); // Prevent triggering other click events
-        }
-         else if (event.target.matches('.thread-id-container, .thread-id-container *')) {
-            // Handle thread selection click
-            var threadId = event.target.closest('.thread-id-container').querySelector('.thread-id').textContent;
-            fetchAndDisplayMessages(threadId);
-        }
-    });
+function attachEventListeners() {
+    var threadsArea = document.getElementById('threads');
+    threadsArea.addEventListener('click', handleThreadAreaClick);
 
     var createThreadButton = document.getElementById('createThreadButton');
     if (createThreadButton) {
@@ -347,9 +351,15 @@ document.addEventListener('DOMContentLoaded', function () {
             submitMessage();
         });
     }
+}
 
-    fetchAndDisplayThreads();
-});
-
-
-
+function handleThreadAreaClick(event) {
+    if (event.target.matches('.delete-thread-icon, .delete-thread-icon *')) {
+        var threadId = event.target.closest('.thread-id-container').querySelector('.thread-id').textContent;
+        deleteThread(threadId);
+        event.stopPropagation();
+    } else if (event.target.closest('.thread-id-container') && !event.target.closest('.delete-thread-icon')) {
+        var threadId = event.target.closest('.thread-id-container').querySelector('.thread-id').textContent;
+        fetchAndDisplayMessages(threadId);
+    }
+}
