@@ -52,23 +52,20 @@ class OpenAIController extends Controller
     }
     public function submitMessage(Request $request)
     {
-        $this->sessionValidationService->validate(['assistantId', 'threadId']);
+        $this->sessionValidationService->validate(['assistantId']);
+        
         $userMessage = $request->input('message');
-        $threadId = Session::get('threadId'); 
+        $threadId = $request->input('threadId'); // Get threadId from the request
         $assistantId = Session::get('assistantId');
     
         $this->messageService->submitMessage($threadId, $assistantId, $userMessage);
-    
-        return view('assistant', [
-            'threadId' => $threadId, 
-            'assistantId' => $assistantId
-        ]);
     }
+    
     
     public function startRun(Request $request)
     {
-        $this->sessionValidationService->validate(['assistantId', 'threadId']);
-        $threadId = Session::get('threadId');
+        $this->sessionValidationService->validate(['assistantId']);
+        $threadId = $request->input('threadId') ?? Session::get('threadId');
         $assistantId = Session::get('assistantId');
     
         $runId = $this->runService->startRun($threadId, $assistantId);
@@ -76,25 +73,27 @@ class OpenAIController extends Controller
         return response()->json(['runId' => $runId]);
     }
     
+    
     public function checkRunStatus(Request $request)
-    {
-        $this->sessionValidationService->validate(['threadId']);
-        $threadId = Session::get('threadId');
-        $runId = $request->input('runId');
-    
-        $status = $this->runService->checkRunStatus($threadId, $runId);
-    
-        return response($status);
-    }
+{
+    // Get threadId from the request, or fall back to session if not present
+    $threadId = $request->input('threadId') ?? Session::get('threadId');
+    $runId = $request->input('runId');
+ 
+    $status = $this->runService->checkRunStatus($threadId, $runId);
+ 
+    return response($status);
+}
+
     
     public function getMessages(Request $request)
-    {
-        $threadId = $request->input('threadId') ?? Session::get('threadId');
-        
-        $messagesData = $this->messageService->getMessages($threadId);
-    
-        return response()->json($messagesData);
-    }
+{
+    $threadId = $request->input('threadId') ?? Session::get('threadId');
+    $messagesData = $this->messageService->getMessages($threadId);
+ 
+    return response()->json($messagesData);
+}
+
     
     
     public function downloadMessageFile($fileId)
