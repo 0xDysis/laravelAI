@@ -9,6 +9,9 @@ function startAssistantRun() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
+        data: { 
+            threadId: currentThreadId // Add threadId to the request data
+        },
         success: function(response) {
             initiateStatusCheck(response.runId);
         },
@@ -41,7 +44,6 @@ const statusHandlers = {
 
 
 function checkRunStatus(runId) {
-
     $.ajax({
         url: '/check-run-status',
         type: 'POST',
@@ -49,7 +51,10 @@ function checkRunStatus(runId) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: { runId: runId },
+        data: { 
+            runId: runId, 
+            threadId: currentThreadId // Add threadId to the request data
+        },
         success: function(response) {
             console.log('Run status:', response.status);  // Log the status
             var handler = statusHandlers[response.status] || statusHandlers['default'];
@@ -360,6 +365,8 @@ function handleThreadAreaClick(event) {
         event.stopPropagation();
     } else if (event.target.closest('.thread-id-container') && !event.target.closest('.delete-thread-icon')) {
         var threadId = event.target.closest('.thread-id-container').querySelector('.thread-id').textContent;
+        currentThreadId = threadId;  // Set the currentThreadId here
         fetchAndDisplayMessages(threadId);
     }
 }
+
