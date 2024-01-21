@@ -70,6 +70,7 @@ function getMessages($client, $threadId) {
             'id' => $message->id,
             'role' => $message->role,
             'content' => $messageText,
+            'threadId' => $threadId,  // Add the threadId to the message
         ];
         array_push($messagesData, $messageDict);
     }
