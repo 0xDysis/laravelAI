@@ -72,6 +72,24 @@ class OpenAIController extends Controller
         
         return response()->json(['runId' => $runId]);
     }
+
+    public function cancelRun(Request $request)
+    {
+        $this->sessionValidationService->validate(['assistantId']);
+        $threadId = $request->input('threadId');
+        $runId = $request->input('runId');
+
+        if (!$threadId || !$runId) {
+            return response()->json(['error' => 'Thread ID and Run ID are required'], 400);
+        }
+
+        try {
+            $cancelResponse = $this->runService->cancelRun($threadId, $runId);
+            return response()->json($cancelResponse);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
     
     
     public function checkRunStatus(Request $request)
@@ -93,7 +111,25 @@ class OpenAIController extends Controller
  
     return response()->json($messagesData);
 }
+public function modifyMessage(Request $request)
+    {
+        $this->sessionValidationService->validate(['assistantId']);
 
+        $threadId = $request->input('threadId');
+        $messageId = $request->input('messageId');
+        $newName = $request->input('newName');
+
+        if (!$threadId || !$messageId || !$newName) {
+            return response()->json(['error' => 'Thread ID, Message ID, and New Name are required'], 400);
+        }
+
+        try {
+            $this->messageService->modifyMessage($threadId, $messageId, $newName);
+            return response()->json(['message' => 'Message modified successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
     
     
     public function downloadMessageFile($fileId)

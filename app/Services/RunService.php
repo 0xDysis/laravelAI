@@ -23,5 +23,11 @@ class RunService
         return $this->phpScriptRunnerService->runScript('checkRunStatus', [$threadId, $runId]);
     }
 
+    // Add the cancelRun method
+    public function cancelRun($threadId, $runId)
+    {
+        return $this->phpScriptRunnerService->runScript('cancelRun', [$threadId, $runId]);
+    }
+
     // ... additional methods if necessary ...
 }

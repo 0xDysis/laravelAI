@@ -23,6 +23,10 @@ class MessageService
     {
         return $this->fetchAndProcessMessages($threadId);
     }
+    public function modifyMessage($threadId, $messageId, $newName)
+    {
+        $this->phpScriptRunnerService->runScript('modifyMessage', [$threadId, $messageId, $newName]);
+    }
     private function fetchAndProcessMessages($threadId) 
 {
     $messagesJson = $this->phpScriptRunnerService->runScript('getMessages', [$threadId]);

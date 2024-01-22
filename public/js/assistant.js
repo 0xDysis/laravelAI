@@ -1,6 +1,6 @@
 var intervalId = null;
 var currentThreadId = null;
-
+var currentRunId = null; // Add a global variable to keep track of the current run ID
 
 function startAssistantRun() {
     $.ajax({
@@ -13,6 +13,7 @@ function startAssistantRun() {
             threadId: currentThreadId // Add threadId to the request data
         },
         success: function(response) {
+            currentRunId = response.runId; // Set the current run ID here
             initiateStatusCheck(response.runId);
         },
         error: function(error) {
@@ -85,7 +86,35 @@ function handleErrorOnSubmit(error) {
     console.error('Error submitting message:', error);
     updateMessageArea('<p>Error submitting message. Please try again.</p>', true);
 }
+function cancelAssistantRun() {
+    if (!currentThreadId || !currentRunId) {
+        console.error('No active thread or run to cancel');
+        return;
+    }
 
+    $.ajax({
+        url: '/cancel-run',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            threadId: currentThreadId,
+            runId: currentRunId
+        },
+        success: function(response) {
+            console.log('Run cancelled successfully:', response);
+            clearInterval(intervalId); // Clear the interval checking the run status
+            intervalId = null;
+            currentRunId = null; // Reset the current run ID
+            updateMessageArea('<p>Run cancelled.</p>');
+        },
+        error: function(error) {
+            console.error('Error cancelling the run:', error);
+            updateMessageArea('<p>Error cancelling the run. Please try again.</p>');
+        }
+    });
+}
 function submitMessage() {
     var messageInput = $('#message');
     var message = messageInput.val();
@@ -140,6 +169,36 @@ function formatMessageWithFile(message) {
 
 function formatMessageWithoutFile(message) {
     return message.content;
+}
+function modifyMessage(threadId, messageId, newName) {
+    $.ajax({
+        url: '/modify-message',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            threadId: threadId,
+            messageId: messageId,
+            newName: newName
+        },
+        success: function(response) {
+            console.log('Message modified successfully:', response);
+            fetchAndDisplayMessages(threadId); // Refresh messages to show changes
+        },
+        error: function(error) {
+            console.error('Error modifying message:', error);
+            updateMessageArea('<p>Error modifying message. Please try again.</p>');
+        }
+    });
+}
+function handleModifyMessageClick() {
+    var newName = document.getElementById('newMessageName').value;
+    if (currentThreadId && currentMessageId && newName) {
+        modifyMessage(currentThreadId, currentMessageId, newName);
+    } else {
+        console.log('Missing thread ID, message ID, or new name');
+    }
 }
 
 function fetchAndDisplayMessages(threadId = null) {
