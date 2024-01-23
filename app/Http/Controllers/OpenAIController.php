@@ -111,25 +111,7 @@ class OpenAIController extends Controller
  
     return response()->json($messagesData);
 }
-public function modifyMessage(Request $request)
-    {
-        $this->sessionValidationService->validate(['assistantId']);
 
-        $threadId = $request->input('threadId');
-        $messageId = $request->input('messageId');
-        $newName = $request->input('newName');
-
-        if (!$threadId || !$messageId || !$newName) {
-            return response()->json(['error' => 'Thread ID, Message ID, and New Name are required'], 400);
-        }
-
-        try {
-            $this->messageService->modifyMessage($threadId, $messageId, $newName);
-            return response()->json(['message' => 'Message modified successfully']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
     
     
     public function downloadMessageFile($fileId)

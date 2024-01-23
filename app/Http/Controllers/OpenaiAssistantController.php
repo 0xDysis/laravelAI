@@ -84,25 +84,7 @@ function runAssistant($client, $threadId, $assistantId) {
 
     echo $run->id;
 }
-function modifyMessage($client, $threadId, $messageId, $newName) {
-    try {
-        $response = $client->threads()->messages()->modify(
-            threadId: $threadId,
-            messageId: $messageId,
-            parameters: [
-                'metadata' => [
-                    'name' => $newName,
-                ],
-            ],
-        );
 
-        // Output the details of the modified message
-        echo json_encode($response->toArray());
-    } catch (Exception $e) {
-        // Handle any exceptions that may occur
-        echo 'Error modifying message: ' . $e->getMessage();
-    }
-}
 
 function cancelRun($client, $threadId, $runId) {
     try {

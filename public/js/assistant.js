@@ -170,36 +170,7 @@ function formatMessageWithFile(message) {
 function formatMessageWithoutFile(message) {
     return message.content;
 }
-function modifyMessage(threadId, messageId, newName) {
-    $.ajax({
-        url: '/modify-message',
-        type: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            threadId: threadId,
-            messageId: messageId,
-            newName: newName
-        },
-        success: function(response) {
-            console.log('Message modified successfully:', response);
-            fetchAndDisplayMessages(threadId); // Refresh messages to show changes
-        },
-        error: function(error) {
-            console.error('Error modifying message:', error);
-            updateMessageArea('<p>Error modifying message. Please try again.</p>');
-        }
-    });
-}
-function handleModifyMessageClick() {
-    var newName = document.getElementById('newMessageName').value;
-    if (currentThreadId && currentMessageId && newName) {
-        modifyMessage(currentThreadId, currentMessageId, newName);
-    } else {
-        console.log('Missing thread ID, message ID, or new name');
-    }
-}
+
 
 function fetchAndDisplayMessages(threadId = null) {
     currentThreadId = threadId;
