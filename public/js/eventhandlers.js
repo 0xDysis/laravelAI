@@ -1,4 +1,4 @@
-// eventhandlers.js - Refactored event handling for a modular approach
+
 
 import {
     startAssistantRun,
@@ -120,7 +120,7 @@ import {
     fetchAndDisplayThreads(updateThreadsArea, handleError);
 }
 
-// Ensure that updateMessageArea and any other used functions are defined or imported
+
 
 export { initialize };
   
