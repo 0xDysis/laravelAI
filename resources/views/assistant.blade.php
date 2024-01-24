@@ -5,7 +5,7 @@
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Include assistant.js -->
-    
+    <script src="{{ asset('js/assistant.js') }}" type="module"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Include Tailwind CSS -->
     @vite('resources/css/app.css')
@@ -23,7 +23,7 @@
             <!-- Action Buttons -->
             <div class="mt-5 space-y-2">
                 <button id="createThreadButton" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none">Create New Thread</button>
-                <button id="createAssistantButton" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">Create New Assistant</button>
+                <button id="createAssistantButton" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">Update Assistant</button>
                 <button id="cancelRunButton" onclick="cancelAssistantRun()">Cancel Run</button>
                
 
@@ -50,6 +50,6 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('js/assistant.js') }}" type="module"></script>
+    
 </body>
 </html>
