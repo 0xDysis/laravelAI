@@ -52,30 +52,56 @@ class OpenAIController extends Controller
     }
     public function submitMessage(Request $request)
     {
-        $this->sessionValidationService->validate(['assistantId']);
-        
-        $userMessage = $request->input('message');
-        $threadId = $request->input('threadId'); // Get threadId from the request
-        $assistantId = Session::get('assistantId');
+        $user = auth()->user(); // Get the authenticated user
     
-        $this->messageService->submitMessage($threadId, $assistantId, $userMessage);
+        // Fetch the most recent assistantId from the user's assistant_ids array
+        // Adjust the logic here if you need to select a different assistantId
+        $assistantId = last($user->assistant_ids);
+    
+        // Get the user message and thread ID from the request
+        $userMessage = $request->input('message');
+        $threadId = $request->input('threadId');
+    
+        // Make sure we have an assistantId before attempting to submit the message
+        if ($assistantId) {
+            $this->messageService->submitMessage($threadId, $assistantId, $userMessage);
+        } else {
+            // Handle the case where there is no assistantId available
+            // You might want to return an error response or take other appropriate action
+            return response()->json(['error' => 'No assistant ID available'], 422);
+        }
     }
+    
     
     
     public function startRun(Request $request)
-    {
-        $this->sessionValidationService->validate(['assistantId']);
-        $threadId = $request->input('threadId') ?? Session::get('threadId');
-        $assistantId = Session::get('assistantId');
-    
-        $runId = $this->runService->startRun($threadId, $assistantId);
-        
-        return response()->json(['runId' => $runId]);
+{
+    // Ensure that there is a logged-in user before proceeding
+    $user = auth()->user();
+    if (!$user) {
+        return response()->json(['error' => 'User not authenticated'], 401);
     }
+    
+    // Fetch the most recent assistantId from the user's assistant_ids array
+    $assistantId = last($user->assistant_ids);
+
+    // Get threadId from the request
+    $threadId = $request->input('threadId');
+
+    // Make sure we have an assistantId before attempting to start the run
+    if ($assistantId) {
+        $runId = $this->runService->startRun($threadId, $assistantId);
+        return response()->json(['runId' => $runId]);
+    } else {
+        // Handle the case where there is no assistantId available
+        return response()->json(['error' => 'No assistant ID available'], 422);
+    }
+}
+
 
     public function cancelRun(Request $request)
     {
-        $this->sessionValidationService->validate(['assistantId']);
+        
         $threadId = $request->input('threadId');
         $runId = $request->input('runId');
 
@@ -131,12 +157,18 @@ class OpenAIController extends Controller
 }
 
 
-    public function deleteAssistant()
-    {
-        $assistantId = Session::get('assistantId');
-        $this->assistantService->deleteAssistant($assistantId);
-        return redirect('/');
-    }
+public function deleteAssistant()
+{
+    $user = auth()->user(); // Get the authenticated user
+
+    // Clear the assistant_ids array
+    $user->assistant_ids = [];
+    $user->save(); // Save the user with the updated empty array
+
+    return redirect('/');
+}
+
+
 
     public function createNewThread()
     {

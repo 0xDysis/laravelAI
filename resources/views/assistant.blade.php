@@ -50,6 +50,7 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('js/assistant.js') }}"></script>
+    
+    <script src="{{ asset('js/main.js') }}" type="module"></script>
 </body>
 </html>

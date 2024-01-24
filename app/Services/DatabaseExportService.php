@@ -2,7 +2,7 @@
 namespace App\Services;
 
 use App\Models\Order;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth; // To get the current user
 use App\Services\PHPScriptRunnerService;
 
 class DatabaseExportService
@@ -21,7 +21,7 @@ class DatabaseExportService
         file_put_contents($tempFilePath, $csvData);
         $assistantId = $this->phpScriptRunnerService->runScript('createAssistant', [$tempFilePath]);
 
-        Session::put('assistantId', $assistantId);
+        $this->storeAssistantIdInUser($assistantId);
         unlink($tempFilePath);
 
         return redirect('/');
@@ -37,4 +37,18 @@ class DatabaseExportService
 
         return $csvData;
     }
+
+    private function storeAssistantIdInUser($assistantId)
+    {
+        $user = Auth::user(); // Get the authenticated user
+
+        // Check if the user already has assistant IDs and add the new one
+        $assistantIds = $user->assistant_ids ?? [];
+        $assistantIds[] = $assistantId;
+
+        $user->assistant_ids = $assistantIds;
+        $user->save();
+    }
 }
+
+

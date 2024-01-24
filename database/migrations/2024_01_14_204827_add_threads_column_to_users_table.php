@@ -9,15 +9,24 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->json('threads')->nullable(); // This line adds the threads column
+            $table->json('threads')->nullable(); // Add threads column
+            $table->json('assistant_ids')->nullable(); // Add assistant_ids column
         });
     }
 
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('threads'); // This line removes the threads column
+            if (Schema::hasColumn('users', 'threads')) {
+                $table->dropColumn('threads');
+            }
+            if (Schema::hasColumn('users', 'assistant_ids')) {
+                $table->dropColumn('assistant_ids');
+            }
         });
     }
-};
+};    
+
+
+
 
