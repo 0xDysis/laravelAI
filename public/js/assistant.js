@@ -399,4 +399,3 @@ function handleThreadAreaClick(event) {
         fetchAndDisplayMessages(threadId);
     }
 }
-
