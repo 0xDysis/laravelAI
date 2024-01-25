@@ -170,11 +170,19 @@ public function deleteAssistant()
 
 
 
-    public function createNewThread()
-    {
-        $this->threadService->createNewThread();
-        return redirect('/');
-    }
+public function createNewThread()
+{
+    // Assuming createNewThread() returns the ID of the new thread as a string
+    $threadId = $this->threadService->createNewThread();
+
+    // Return the thread ID as a JSON response
+    return response()->json([
+        'threadId' => $threadId
+    ]);
+}
+
+
+
     public function getThreads()
 {
     $user = auth()->user(); // Get the authenticated user

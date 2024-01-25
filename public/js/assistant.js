@@ -202,17 +202,18 @@ function fetchAndDisplayMessages(threadId = null) {
 }
 
 
-function fetchAndDisplayThreads() {
+function fetchAndDisplayThreads(callback) {
     $.ajax({
         url: '/get-threads',
         type: 'GET',
         success: function(threads) {
             var threadsContent = '';
-            threads.forEach(function(thread) {
+            threads.forEach(function(threadId) {
+                
                 threadsContent += `
-                    <div class="thread-id-container group p-2 border rounded my-2 flex justify-between items-center hover:bg-gray-300" style="overflow: hidden;">
-                        <span class="thread-id" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${thread}</span>
-                        <button class="delete-thread-icon text-red-500 hover:text-red-600" style="background: none; border: none; padding: 0; cursor: pointer;">
+                    <div class="thread-id-container group p-2 border rounded my-2 flex justify-between items-center hover:bg-gray-300" style="overflow: hidden;" data-thread-id="${threadId}">
+                        <span class="thread-id truncate" style="flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${threadId}</span>
+                        <button class="delete-thread-icon text-red-500 hover:text-red-600 ml-2" style="background: none; border: none; padding: 0; cursor: pointer;">
                             <!-- SVG icon here -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M6.707 4.707a1 1 0 00-1.414-1.414L4.5 4.5 4.5 6H4a1 1 0 000 2h12a1 1 0 100-2h-.5l-.5-1.5-.293-.293a1 1 0 00-1.414 1.414L13.5 6h-7l.207-.293z" clip-rule="evenodd" />
@@ -223,7 +224,7 @@ function fetchAndDisplayThreads() {
                 `;
             });
             updateThreadsArea(threadsContent);
-           
+            if (callback) callback(); 
         },
         error: function(error) {
             console.error('Error fetching threads:', error);
@@ -231,6 +232,7 @@ function fetchAndDisplayThreads() {
         }
     });
 }
+
 
 
 function attachThreadClickListeners() {
@@ -311,18 +313,30 @@ function createNewThread() {
     $.ajax({
         url: '/create-new-thread',
         type: 'POST',
+        dataType: 'json', // Expect a JSON response
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        success: function() {
+        success: function(response) {
             console.log('New thread created successfully');
-            fetchAndDisplayThreads();
+            var newThreadId = response.threadId;
+            // Now trigger a click event on the new thread's element
+            // We'll assume `fetchAndDisplayThreads` will add an element with the id `thread_{threadId}`
+            fetchAndDisplayThreads(function() {
+                // This callback ensures that we try to click the thread after the list is updated
+                var newThreadElement = document.querySelector(`.thread-id-container[data-thread-id="${newThreadId}"]`);
+                if (newThreadElement) {
+                    newThreadElement.click(); // Simulate the click
+                }
+            });
         },
         error: function(error) {
             console.error('Error creating new thread:', error);
         }
     });
 }
+
+
 
 function createNewAssistant() {
     console.log("Creating new assistant");

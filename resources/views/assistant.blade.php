@@ -11,27 +11,24 @@
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-100 font-sans">
-    <div class="flex h-screen">
-        <!-- Sidebar for Threads -->
-        <div class="w-1/4 bg-white p-5 shadow">
-            <h2 class="text-xl font-semibold mb-4">Conversations</h2>
-            <!-- Assuming threads are loaded into a $threads variable -->
-            <div id="threads" class="overflow-y-auto space-y-2">
-                <!-- Threads will be inserted here by JavaScript -->
-            </div>
+    <div class="flex flex-col md:flex-row h-screen">
+       <!-- Sidebar for Threads -->
+<div class="md:w-1/6 lg:w-1/8 bg-white p-5 shadow overflow-y-auto">
+    <!-- Action Buttons -->
+    <div class="mb-5 space-y-2">
+        <button id="createThreadButton" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none">Start new conversation</button>
+        <button id="createAssistantButton" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">synchronize database</button>
+        <button id="cancelRunButton" class="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none">Cancel Request</button>
+    </div>
 
-            <!-- Action Buttons -->
-            <div class="mt-5 space-y-2">
-                <button id="createThreadButton" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none">Start new conversation</button>
-<button id="createAssistantButton" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">Update Assistant</button>
-<button id="cancelRunButton" class="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none">Cancel Request</button>
-               
+    <h2 class="text-xl font-semibold mb-4">Conversations</h2>
+    <!-- Threads Container -->
+    <div id="threads" class="space-y-2">
+        <!-- Threads will be inserted here by JavaScript -->
+    </div>
+</div>
 
 
-
-                <button id="deleteAssistantButton" class="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none">Delete Assistant</button>
-            </div>
-        </div>
 
         <!-- Main Content Area -->
         <div class="flex-1 flex flex-col">
@@ -50,6 +47,5 @@
             </div>
         </div>
     </div>
-    
 </body>
 </html>
