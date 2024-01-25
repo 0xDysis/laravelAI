@@ -184,15 +184,32 @@ function fetchAndDisplayMessages(threadId = null) {
         type: 'GET',
         data: { threadId: threadId },
         success: function(response) {
-            var messageContent = '<p><strong>Messages:</strong></p>';
-            response.reverse();
-            response.forEach(function(message) {
-                var formattedContent = message.fileId ? 
-                    formatMessageWithFile(message) : 
-                    formatMessageWithoutFile(message);
-                messageContent += '<p><strong>' + message.role + ':</strong> ' + formattedContent + '</p>';
+            var messagesContainer = $('#messages');
+            messagesContainer.empty(); // Clear previous messages
+
+            response.reverse().forEach(function(message) {
+                var messageElement;
+                if(message.role === 'assistant') {
+                    // Style for assistant messages
+                    messageElement = `
+                        <div class="mb-4 flex items-end justify-start">
+                            <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded-lg max-w-xs lg:max-w-md">
+                                ${message.content}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Style for user messages
+                    messageElement = `
+                        <div class="mb-4 flex items-end justify-end">
+                            <div class="bg-green-100 border border-green-400 text-black-700 px-4 py-3 rounded-lg max-w-xs lg:max-w-md">
+                                ${message.content}
+                            </div>
+                        </div>
+                    `;
+                }
+                messagesContainer.append(messageElement); // Append message to the container
             });
-            updateMessageArea(messageContent);
         },
         error: function(error) {
             console.error('Error fetching messages:', error);
@@ -210,14 +227,17 @@ function fetchAndDisplayThreads(callback) {
             var threadsContent = '';
             threads.forEach(function(threadId) {
                 threadsContent += `
-                    <div class="thread-id-container group p-2 my-2 flex justify-between items-center bg-white text-gray-800 hover:bg-light-blue focus:bg-light-blue active:bg-light-blue border-0 hover:text-dark-blue transition duration-300 ease-in-out" data-thread-id="${threadId}">
-                        <span class="thread-id truncate group-hover:text-dark-blue" style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${threadId}</span>
-                        <button class="delete-thread-icon ml-2 bg-transparent border-0 p-0 cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 group-hover:text-red-600 transition duration-300 ease-in-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
+                <div class="thread-id-container group p-2 my-2 flex justify-between  items-center bg-white text-gray-800 hover:bg-light-blue focus:bg-light-blue active:bg-light-blue border-0 hover:text-dark-blue transition duration-300 ease-in-out rounded" data-thread-id="${threadId}">
+    <span class="thread-id truncate group-hover:text-dark-blue" style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${threadId}</span>
+    <button class="delete-thread-icon ml-2 bg-transparent border-0 p-0 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+    </button>
+</div>
+
+            
+            
                 `;
             });
             updateThreadsArea(threadsContent);
