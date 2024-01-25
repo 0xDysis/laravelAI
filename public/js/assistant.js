@@ -226,7 +226,7 @@ function fetchAndDisplayMessages(threadId = null) {
                     // Style for assistant messages
                     messageElement = `
                         <div class="mb-4 flex items-end justify-start">
-                            <div class="px-4 py-3 rounded-lg max-w-xs lg:max-w-md" 
+                            <div class="px-4 py-3 bottom-left-radius max-w-xs lg:max-w-md" 
                                  style="background-color: white; border: 1px solid #D4D4D4; color: #414141;">
                                 ${formattedContent}
                             </div>
@@ -235,12 +235,12 @@ function fetchAndDisplayMessages(threadId = null) {
                 } else {
                     // Style for user messages
                     messageElement = `
-                        <div class="mb-4 flex items-end justify-end">
-                            <div class="px-4 py-3 rounded-lg max-w-xs lg:max-w-md" 
-                                 style="background-color: #EBF0FF; border: 1px solid #B9CAFF; color: #00165A;">
-                                ${formattedContent}
-                            </div>
-                        </div>
+                    <div class="mb-4 flex items-end justify-end">
+                    <div class="px-4 py-3 bottom-right-radius max-w-xs lg:max-w-md" 
+                         style="background-color: #EBF0FF; border: 1px solid #B9CAFF; color: #00165A;">
+                        ${formattedContent}
+                    </div>
+                </div>
                     `;
                 }
                 // Append each message and ensure the message area is scrolled to the bottom

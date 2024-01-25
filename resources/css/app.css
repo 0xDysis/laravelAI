@@ -9,6 +9,23 @@
     color: 
     #003CFB; /* Darker blue, adjust the hex code as needed */
 }
+.bottom-right-radius {
+    padding: 0.5rem; /* Adjust as per your need */
+    border-top-left-radius: 1.0rem;
+    border-top-right-radius: 1.0rem;
+    border-bottom-left-radius: 1.0rem;
+    border-bottom-right-radius: 0.25rem;
+    /* Add any other styles like background-color, border, etc., as needed */
+}
+
+.bottom-left-radius {
+    padding: 0.5rem; /* Adjust as per your need */
+    border-top-left-radius: 1.0rem;
+    border-top-right-radius: 1.0rem;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 1.0rem;
+    /* Add any other styles like background-color, border, etc., as needed */
+}
 
 
 

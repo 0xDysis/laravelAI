@@ -47,7 +47,7 @@
               
                 
                 
-            Powered by Van Ons AI
+            Powered by Van-Ons AI
         </div>
     </div>
     <!-- Main Content Area -->
