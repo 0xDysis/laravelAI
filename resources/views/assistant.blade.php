@@ -23,8 +23,8 @@
             <!-- Action Buttons -->
             <div class="mt-5 space-y-2">
                 <button id="createThreadButton" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none">Create New Thread</button>
-                <button id="createAssistantButton" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">Update Assistant</button>
-                <button id="cancelRunButton" onclick="cancelAssistantRun()">Cancel Run</button>
+<button id="createAssistantButton" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">Update Assistant</button>
+<button id="cancelRunButton" class="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none">Cancel Run</button>
                
 
 

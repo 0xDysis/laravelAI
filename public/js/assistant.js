@@ -87,10 +87,14 @@ function handleErrorOnSubmit(error) {
     updateMessageArea('<p>Error submitting message. Please try again.</p>', true);
 }
 function cancelAssistantRun() {
+    console.log('Cancel Run button clicked'); // Log when the button is clicked
+
     if (!currentThreadId || !currentRunId) {
         console.error('No active thread or run to cancel');
         return;
     }
+
+    console.log('Attempting to cancel run with thread ID:', currentThreadId, 'and run ID:', currentRunId); // Log the IDs being used
 
     $.ajax({
         url: '/cancel-run',
@@ -385,6 +389,11 @@ function attachEventListeners() {
             e.preventDefault();
             submitMessage();
         });
+    } 
+
+    var cancelRunButton = document.getElementById('cancelRunButton');
+    if (cancelRunButton) {
+        cancelRunButton.addEventListener('click', cancelAssistantRun);
     }
 }
 

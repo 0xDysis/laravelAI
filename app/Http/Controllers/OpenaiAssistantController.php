@@ -151,4 +151,3 @@ if ($argc > 1) {
     echo "No function specified to call.";
 }
 
-?>
