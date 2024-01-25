@@ -209,15 +209,12 @@ function fetchAndDisplayThreads(callback) {
         success: function(threads) {
             var threadsContent = '';
             threads.forEach(function(threadId) {
-                
                 threadsContent += `
-                    <div class="thread-id-container group p-2 my-2 flex justify-between items-center bg-black hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-500 border-0" data-thread-id="${threadId}">
-                        <span class="thread-id truncate text-white" style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${threadId}</span>
-                        <button class="delete-thread-icon text-red-500 hover:text-red-600 ml-2 bg-transparent border-0" style="padding: 0; cursor: pointer;">
-                            <!-- SVG icon here -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#ffffff">
-                                <path fill-rule="evenodd" d="M6.707 4.707a1 1 0 00-1.414-1.414L4.5 4.5 4.5 6H4a1 1 0 000 2h12a1 1 0 100-2h-.5l-.5-1.5-.293-.293a1 1 0 00-1.414 1.414L13.5 6h-7l.207-.293z" clip-rule="evenodd" />
-                                <path d="M4 7h12v10a2 2 0 002 2H4a2 2 0 002-2V7z" />
+                    <div class="thread-id-container group p-2 my-2 flex justify-between items-center bg-white text-gray-800 hover:bg-light-blue focus:bg-light-blue active:bg-light-blue border-0 hover:text-dark-blue transition duration-300 ease-in-out" data-thread-id="${threadId}">
+                        <span class="thread-id truncate group-hover:text-dark-blue" style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${threadId}</span>
+                        <button class="delete-thread-icon ml-2 bg-transparent border-0 p-0 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 group-hover:text-red-600 transition duration-300 ease-in-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
@@ -232,6 +229,8 @@ function fetchAndDisplayThreads(callback) {
         }
     });
 }
+
+
 
 
 

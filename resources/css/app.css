@@ -1,6 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* Add this to your app.css file */
+.hover\:bg-light-blue:hover {
+    background-color: rgba(173, 216, 230, 0.5); /* Light transparent blue */
+}
+.hover\:text-dark-blue:hover {
+    color: #0d47a1; /* Darker blue, adjust the hex code as needed */
+}
 
 
