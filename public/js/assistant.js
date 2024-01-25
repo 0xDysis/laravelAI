@@ -211,11 +211,11 @@ function fetchAndDisplayThreads(callback) {
             threads.forEach(function(threadId) {
                 
                 threadsContent += `
-                    <div class="thread-id-container group p-2 border rounded my-2 flex justify-between items-center hover:bg-gray-300" style="overflow: hidden;" data-thread-id="${threadId}">
-                        <span class="thread-id truncate" style="flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${threadId}</span>
-                        <button class="delete-thread-icon text-red-500 hover:text-red-600 ml-2" style="background: none; border: none; padding: 0; cursor: pointer;">
+                    <div class="thread-id-container group p-2 my-2 flex justify-between items-center bg-black hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-500 border-0" data-thread-id="${threadId}">
+                        <span class="thread-id truncate text-white" style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${threadId}</span>
+                        <button class="delete-thread-icon text-red-500 hover:text-red-600 ml-2 bg-transparent border-0" style="padding: 0; cursor: pointer;">
                             <!-- SVG icon here -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#ffffff">
                                 <path fill-rule="evenodd" d="M6.707 4.707a1 1 0 00-1.414-1.414L4.5 4.5 4.5 6H4a1 1 0 000 2h12a1 1 0 100-2h-.5l-.5-1.5-.293-.293a1 1 0 00-1.414 1.414L13.5 6h-7l.207-.293z" clip-rule="evenodd" />
                                 <path d="M4 7h12v10a2 2 0 002 2H4a2 2 0 002-2V7z" />
                             </svg>
@@ -228,10 +228,14 @@ function fetchAndDisplayThreads(callback) {
         },
         error: function(error) {
             console.error('Error fetching threads:', error);
-            updateThreadsArea('<p>Error fetching threads. Please try again.</p>');
+            updateThreadsArea('<p class="text-white">Error fetching threads. Please try again.</p>');
         }
     });
 }
+
+
+
+
 
 
 
