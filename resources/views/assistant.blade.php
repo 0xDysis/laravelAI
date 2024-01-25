@@ -53,19 +53,7 @@
     <!-- Main Content Area -->
     <div class="flex-1 flex flex-col bg-gray-100">
         <div id="messages" class="flex-1 overflow-y-auto p-5 bg-gray-100 text-gray-800">
-            <!-- Assistant Message -->
-            <div class="mb-4 flex items-end justify-start">
-                <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded-lg max-w-xs lg:max-w-md">
-                    <p>Hello! How can I assist you today?</p>
-                </div>
-            </div>
-            <!-- User Message -->
-            <div class="mb-4 flex items-end justify-end">
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg max-w-xs lg:max-w-md">
-                    <p>Hey, I need help with my account.</p>
-                </div>
-            </div>
-            <!-- More messages... -->
+          
         </div>
         
         

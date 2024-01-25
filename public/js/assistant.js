@@ -122,24 +122,53 @@ function cancelAssistantRun() {
 function submitMessage() {
     var messageInput = $('#message');
     var message = messageInput.val();
-    updateMessageArea('<p><strong>User:</strong> ' + message + '</p>', true);
-    updateMessageArea('<p>Processing your request...</p>', true);
+    var userMessageElement = `
+        <div class="mb-4 flex items-end justify-end">
+            <div class="px-4 py-3 rounded-lg max-w-xs lg:max-w-md" 
+                 style="background-color: #EBF0FF; border: 1px solid #B9CAFF; color: #00165A;">
+                ${message}
+            </div>
+        </div>
+    `;
+
+    // Append the new message
+    updateMessageArea(userMessageElement, true);
+    
+    // Display a processing message
+    var processingMessage = `
+        <div class="text-center text-sm text-gray-500">
+            Processing your request...
+        </div>
+    `;
+    updateMessageArea(processingMessage, true);
 
     $.ajax({
         url: '/submit-message',
         type: 'POST',
         data: { 
             message: message,
-            threadId: currentThreadId,  // Include the current thread ID
+            threadId: currentThreadId,
             _token: $('input[name="_token"]').val()
         },
         success: function() {
             messageInput.val('');
             startAssistantRun();
-           
         },
         error: handleErrorOnSubmit
     });
+}
+
+
+function displayProcessingIndicator() {
+    var processingElement = `
+        <div class="mb-4 flex items-center justify-center">
+            <div class="px-4 py-2 rounded" 
+                 style="background-color: transparent; color: #6B7280;">
+                Processing your request...
+            </div>
+        </div>
+    `;
+    $('#messages').append(processingElement); // Append processing indicator to the container
 }
 
 
@@ -184,17 +213,22 @@ function fetchAndDisplayMessages(threadId = null) {
         type: 'GET',
         data: { threadId: threadId },
         success: function(response) {
-            var messagesContainer = $('#messages');
-            messagesContainer.empty(); // Clear previous messages
+            // Clear the message area first before appending new messages
+            updateMessageArea('', false);
 
             response.reverse().forEach(function(message) {
+                var formattedContent = message.fileId ? 
+                    formatMessageWithFile(message) : 
+                    formatMessageWithoutFile(message);
+
                 var messageElement;
                 if(message.role === 'assistant') {
                     // Style for assistant messages
                     messageElement = `
                         <div class="mb-4 flex items-end justify-start">
-                            <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded-lg max-w-xs lg:max-w-md">
-                                ${message.content}
+                            <div class="px-4 py-3 rounded-lg max-w-xs lg:max-w-md" 
+                                 style="background-color: white; border: 1px solid #D4D4D4; color: #414141;">
+                                ${formattedContent}
                             </div>
                         </div>
                     `;
@@ -202,21 +236,31 @@ function fetchAndDisplayMessages(threadId = null) {
                     // Style for user messages
                     messageElement = `
                         <div class="mb-4 flex items-end justify-end">
-                            <div class="bg-green-100 border border-green-400 text-black-700 px-4 py-3 rounded-lg max-w-xs lg:max-w-md">
-                                ${message.content}
+                            <div class="px-4 py-3 rounded-lg max-w-xs lg:max-w-md" 
+                                 style="background-color: #EBF0FF; border: 1px solid #B9CAFF; color: #00165A;">
+                                ${formattedContent}
                             </div>
                         </div>
                     `;
                 }
-                messagesContainer.append(messageElement); // Append message to the container
+                // Append each message and ensure the message area is scrolled to the bottom
+                updateMessageArea(messageElement, true);
             });
+
+            // After appending all messages, ensure we scroll to the bottom
+            var messageArea = document.getElementById('messages');
+            messageArea.scrollTop = messageArea.scrollHeight;
         },
         error: function(error) {
             console.error('Error fetching messages:', error);
-            updateMessageArea('<p>Error fetching messages. Please try again.</p>');
+            var errorMessage = '<p>Error fetching messages. Please try again.</p>';
+            updateMessageArea(errorMessage, false);
         }
     });
 }
+
+
+
 
 
 function fetchAndDisplayThreads(callback) {
