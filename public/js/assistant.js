@@ -13,15 +13,29 @@ function startAssistantRun() {
             threadId: currentThreadId // Add threadId to the request data
         },
         success: function(response) {
-            currentRunId = response.runId; // Set the current run ID here
+            currentRunId = response.runId;
             initiateStatusCheck(response.runId);
+    
+            // Reset the button state before showing it
+            $('#cancelRunButton').removeClass('opacity-0 transition-opacity duration-500 ease-in-out hidden');
+    
+            // Delay to trigger the fade-in effect
+            setTimeout(function() {
+                $('#cancelRunButton').addClass('transition-opacity duration-500 ease-in-out opacity-100');
+            }, 500);
         },
         error: function(error) {
             console.error('Error starting assistant run:', error);
         }
     });
 }
-
+function hideCancelButton() {
+    // Hide logic with transition for fade-out effect
+    $('#cancelRunButton').removeClass('transition-opacity duration-500 ease-in-out opacity-100');
+    setTimeout(function() {
+        $('#cancelRunButton').addClass('hidden');
+    }, 500); // Delay should match the duration of the fade-out transition
+}
 const statusHandlers = {
     'completed': function() {
         clearInterval(intervalId);
@@ -32,6 +46,8 @@ const statusHandlers = {
             console.log("No current thread selected.");
             updateMessageArea('<p>No thread selected. Please select a thread to view messages.</p>');
         }
+        hideCancelButton(); // Use the function to hide the button
+
     },
     'queued': function() {
         console.log('Run is queued. Waiting for next check.');
@@ -40,6 +56,8 @@ const statusHandlers = {
     'default': function(status) {
         clearInterval(intervalId);
         updateMessageArea('<p>Run ended with status: ' + status + '</p>');
+   
+
     }
 };
 
@@ -108,10 +126,12 @@ function cancelAssistantRun() {
         },
         success: function(response) {
             console.log('Run cancelled successfully:', response);
-            clearInterval(intervalId); // Clear the interval checking the run status
+            clearInterval(intervalId); 
             intervalId = null;
-            currentRunId = null; // Reset the current run ID
+            currentRunId = null; 
             updateMessageArea('<p>Run cancelled.</p>');
+            hideCancelButton(); // Use the function to hide the button
+
         },
         error: function(error) {
             console.error('Error cancelling the run:', error);
@@ -123,12 +143,12 @@ function submitMessage() {
     var messageInput = $('#message');
     var message = messageInput.val();
     var userMessageElement = `
-        <div class="mb-4 flex items-end justify-end">
-            <div class="px-4 py-3 rounded-lg max-w-xs lg:max-w-md" 
-                 style="background-color: #EBF0FF; border: 1px solid #B9CAFF; color: #00165A;">
-                ${message}
-            </div>
-        </div>
+    <div class="mb-4 flex items-end justify-end">
+    <div class="px-4 py-3 bottom-right-radius max-w-xs lg:max-w-md" 
+         style="background-color: #EBF0FF; border: 1px solid #B9CAFF; color: #00165A;">
+        ${message}
+    </div>
+</div>
     `;
 
     // Append the new message
@@ -159,17 +179,7 @@ function submitMessage() {
 }
 
 
-function displayProcessingIndicator() {
-    var processingElement = `
-        <div class="mb-4 flex items-center justify-center">
-            <div class="px-4 py-2 rounded" 
-                 style="background-color: transparent; color: #6B7280;">
-                Processing your request...
-            </div>
-        </div>
-    `;
-    $('#messages').append(processingElement); // Append processing indicator to the container
-}
+
 
 
 
@@ -227,7 +237,7 @@ function fetchAndDisplayMessages(threadId = null) {
                     messageElement = `
                         <div class="mb-4 flex items-end justify-start">
                             <div class="px-4 py-3 bottom-left-radius max-w-xs lg:max-w-md" 
-                                 style="background-color: white; border: 1px solid #D4D4D4; color: #414141;">
+                                 style="background-color: white; border: 1px solid #D4D4D4; color: #414141; overflow-wrap: break-word; word-break: break-all;">
                                 ${formattedContent}
                             </div>
                         </div>
@@ -237,7 +247,7 @@ function fetchAndDisplayMessages(threadId = null) {
                     messageElement = `
                     <div class="mb-4 flex items-end justify-end">
                     <div class="px-4 py-3 bottom-right-radius max-w-xs lg:max-w-md" 
-                         style="background-color: #EBF0FF; border: 1px solid #B9CAFF; color: #00165A;">
+                         style="background-color: #EBF0FF; border: 1px solid #B9CAFF; color: #00165A; overflow-wrap: break-word; word-break: break-all;">
                         ${formattedContent}
                     </div>
                 </div>
@@ -271,7 +281,7 @@ function fetchAndDisplayThreads(callback) {
             var threadsContent = '';
             threads.forEach(function(threadId) {
                 threadsContent += `
-                <div class="thread-id-container group p-2 my-2 flex justify-between  items-center bg-white text-gray-800 hover:bg-light-blue focus:bg-light-blue active:bg-light-blue border-0 hover:text-dark-blue transition duration-300 ease-in-out rounded" data-thread-id="${threadId}">
+                <div class="thread-id-container group p-2 my-2 flex justify-between  items-center bg-white text-gray-800 hover:bg-light-blue focus:bg-light-blue active:bg-light-blue border-0 hover:text-dark-blue transition duration-300 ease-in-out rounded text-sm" data-thread-id="${threadId}">
     <span class="thread-id truncate group-hover:text-dark-blue" style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${threadId}</span>
     <button class="delete-thread-icon ml-2 bg-transparent border-0 p-0 cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">

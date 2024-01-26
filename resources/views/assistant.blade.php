@@ -59,16 +59,28 @@
         
         <!-- Message Form -->
         <div class="p-5 bg-gray-100 border-t border-gray-100 flex-shrink-0">
-            <form id="messageForm" class="flex items-center space-x-3">
+            <form id="messageForm" class="flex items-center space-x-3 relative">
                 @csrf
-                <input type="text" id="message" name="message" placeholder="Type your message..." class="flex-1 p-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring focus:ring-gray-300 focus:border-transparent">
+                <div class="flex flex-1 relative">
+                    <input type="text" id="message" name="message" placeholder="Type your message..." class="flex-1 p-3 pl-10 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring focus:ring-gray-300 focus:border-transparent">
+                    <button id="cancelRunButton" type="button" class="hidden absolute right-0 inset-y-0 px-3 text-gray-600 border-l">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
                 <button type="submit" class="p-2 bg-blue-700 text-white rounded hover:bg-blue-800 focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" />
                       </svg>
                       
                 </button>
             </form>
+            
+            
+            
         </div>
     </div>
 </div>
