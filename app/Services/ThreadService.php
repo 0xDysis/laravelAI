@@ -42,6 +42,17 @@ class ThreadService
 
         return $threadId;
     }
+    public function createAndRunThreadWithMessage($assistantId, $userMessage)
+    {
+        // Call the PHP script and pass parameters
+        $response = $this->phpScriptRunnerService->runScript('createAndRunThreadWithMessage', [$assistantId, $userMessage]);
+
+        // Process the response as needed, e.g., store in session, cache, or update user model
+        Session::put('threadId', $response['id']);
+        // ... other processing ...
+
+        return $response;
+    }
 
 }
 
