@@ -181,7 +181,25 @@ public function createNewThread()
     ]);
 }
 
+public function createAndRunThreadWithMessage(Request $request)
+    {
+        $user = auth()->user(); // Ensure there's an authenticated user
 
+        $assistantId = last($user->assistant_ids); // Get the most recent assistantId
+        $userMessage = $request->input('message'); // Get the user message from the request
+
+        // Ensure we have an assistantId and a user message
+        if (!$assistantId || !$userMessage) {
+            return response()->json(['error' => 'Assistant ID and user message are required'], 400);
+        }
+
+        try {
+            $response = $this->threadService->createAndRunThreadWithMessage($assistantId, $userMessage);
+            return response()->json($response); // Return the response from the service
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 
     public function getThreads()
 {
