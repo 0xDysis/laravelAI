@@ -55,6 +55,34 @@ function addMessage($client, $threadId, $role, $content) {
     echo $message->id;
 }
 
+function createAndRunThreadWithMessage($client, $assistantId, $userMessage) {
+    try {
+        $response = $client->threads()->createAndRun(
+            [
+                'assistant_id' => $assistantId,
+                'thread' => [
+                    'messages' => [
+                        [
+                            'role' => 'user',
+                            'content' => $userMessage,
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        // Returning the response properties
+        return [
+            'id' => $response->id,
+            'object' => $response->object,
+            // ... other properties as needed ...
+        ];
+
+    } catch (Exception $e) {
+        echo 'Error creating and running thread: ' . $e->getMessage();
+    }
+}
+
 function getMessages($client, $threadId) {
     $response = $client->threads()->messages()->list($threadId);
     $messages = $response->data;
