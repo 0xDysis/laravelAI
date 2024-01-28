@@ -179,6 +179,37 @@ function submitMessage() {
 }
 
 
+function createAndRunNewThread(message) {
+    $.ajax({
+        url: '/create-and-run-thread',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            message: message
+        },
+        success: function(response) {
+            console.log('New thread created and run started:', response);
+            // Optionally set the currentThreadId if needed
+            // currentThreadId = response.threadId; 
+            // startAssistantRun(); // if you want to start running immediately
+        },
+        error: function(error) {
+            console.error('Error creating a new thread:', error);
+            updateMessageArea('<p>Error starting a new thread. Please try again.</p>');
+        }
+    });
+}
+function displayCreateThreadInput() {
+    var inputFieldHtml = `
+        <div class="text-center p-4">
+            <input type="text" id="newThreadMessage" placeholder="Type your message to start a new thread" class="w-full p-2 border rounded">
+            <button onclick="submitNewThreadMessage()" class="mt-2 p-2 bg-blue-500 text-white rounded">Start New Thread</button>
+        </div>
+    `;
+    updateMessageArea(inputFieldHtml, false);
+}
 
 
 
