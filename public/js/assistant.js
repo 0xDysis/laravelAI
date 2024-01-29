@@ -256,6 +256,15 @@ function fetchAndDisplayMessages(threadId = null) {
         success: function(response) {
             // Clear the message area first before appending new messages
             updateMessageArea('', false);
+            var assistantMessage = `
+                <div class="mb-4 flex items-end justify-start">
+                    <div class="px-4 py-3 bottom-left-radius max-w-xs lg:max-w-md" 
+                         style="background-color: white; border: 1px solid #D4D4D4; color: #414141; overflow-wrap: break-word; word-break: break-all;">
+                        I am the Casa Hotel assistant and I am here to help you.
+                    </div>
+                </div>
+            `;
+            updateMessageArea(assistantMessage, true);
 
             response.reverse().forEach(function(message) {
                 var formattedContent = message.fileId ? 
@@ -309,23 +318,24 @@ function fetchAndDisplayThreads(callback) {
         url: '/get-threads',
         type: 'GET',
         success: function(threads) {
+            threads.reverse();
             var threadsContent = '';
             threads.forEach(function(threadId) {
                 threadsContent += `
-                <div class="thread-id-container group p-2 my-2 flex justify-between  items-center bg-white text-gray-800 hover:bg-light-blue focus:bg-light-blue active:bg-light-blue border-0 hover:text-dark-blue transition duration-300 ease-in-out rounded text-sm" data-thread-id="${threadId}">
-    <span class="thread-id truncate group-hover:text-dark-blue" style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${threadId}</span>
-    <button class="delete-thread-icon ml-2 bg-transparent border-0 p-0 cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-        </svg>
-    </button>
-</div>
-
-            
-            
+                <div class="thread-id-container group p-2 my-2 flex justify-between items-center bg-white text-gray-800 hover:bg-light-blue focus:bg-light-blue active:bg-light-blue border-0 hover:text-dark-blue transition duration-300 ease-in-out rounded text-sm" data-thread-id="${threadId}">
+                    <span class="thread-id truncate group-hover:text-dark-blue" style="flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${threadId}</span>
+                    <button class="delete-thread-icon ml-2 bg-transparent border-0 p-0 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
                 `;
             });
             updateThreadsArea(threadsContent);
+            
+            // Attach the new styling event listener
+            attachThreadStylingListeners();
             if (callback) callback(); 
         },
         error: function(error) {
@@ -335,6 +345,24 @@ function fetchAndDisplayThreads(callback) {
     });
 }
 
+function attachThreadStylingListeners() {
+    var threadsArea = document.getElementById('threads');
+    threadsArea.addEventListener('click', function(event) {
+        if (event.target.matches('.thread-id-container, .thread-id-container *')) {
+            // Remove bg-clicked-blue class from all threads
+            var allThreads = threadsArea.querySelectorAll('.thread-id-container');
+            allThreads.forEach(function(thread) {
+                thread.classList.remove('bg-clicked-blue');
+            });
+
+            // Add bg-clicked-blue class to clicked thread
+            var threadContainer = event.target.closest('.thread-id-container');
+            if (threadContainer) {
+                threadContainer.classList.add('bg-clicked-blue');
+            }
+        }
+    });
+}
 
 
 
@@ -366,6 +394,11 @@ function attachClickToThread(threadElement) {
         fetchAndDisplayMessages(threadId);
     });
 }
+
+
+
+
+
 
 
 function updateThreadsArea(content) {

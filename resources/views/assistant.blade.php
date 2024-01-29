@@ -51,10 +51,14 @@
         </div>
     </div>
     <!-- Main Content Area -->
-    <div class="flex-1 flex flex-col bg-gray-100">
+    <div class="flex-1 flex flex-col bg-gray-100 relative">
         <div id="messages" class="flex-1 overflow-y-auto p-5 bg-gray-100 text-gray-800">
-          
+            <div class="text-center p-4 bg-white rounded-lg shadow-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                klik op de 'nieuw gesprek knop' om een nieuw gesprek te starten
+            </div>
         </div>
+    
+
         
         
         <!-- Message Form -->

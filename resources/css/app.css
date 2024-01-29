@@ -27,6 +27,14 @@
     /* Add any other styles like background-color, border, etc., as needed */
 }
 
+.bg-clicked-blue {
+    background-color: #D9E2FE;
+    color: #003CFB;
+}
+#threads .bg-clicked-blue {
+    background-color: #D9E2FE;
+    color: #003CFB;
+}
 
 
 
