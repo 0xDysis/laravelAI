@@ -102,7 +102,6 @@ jobs:
       - name: ⚙️ Run post-deployment scripts
         run: |
           ssh ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }} << EOF
-            sudo systemctl reload php-fpm-${{ secrets.PRODUCTION_USER_NAME }}.service
             cd ${{ env.REMOTE_BASE_PATH }}public_html
             php8.2 artisan migrate --force
             php8.2 artisan storage:link --force
