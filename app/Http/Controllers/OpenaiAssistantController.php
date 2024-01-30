@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+
 
 $apiKey = env('OPENAI_API_KEY', 'your-default-api-key');
 $client = OpenAI::client($apiKey);
