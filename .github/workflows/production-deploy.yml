@@ -1,0 +1,123 @@
+name: Production deployment
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - v*
+
+env:
+  PHP_VERSION: 8.2
+  REMOTE_BASE_PATH: /var/www/casa-assistant.staging.van-ons.nl/
+  DEPLOY_VERSION: ${{ github.sha }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📄 Clone repository
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.PRODUCTION_KEY }}
+          known_hosts: ${{ secrets.PRODUCTION_KNOWN_HOSTS }}
+
+      - name: ⚙️ Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: ⬇️ Install npm dependencies
+        run: npm ci
+
+      - name: 🔧 Build npm
+        run: npm run build
+
+      - name: 📦 Remove node_modules
+        run: rm -r node_modules
+
+      - name: ⚙️ Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+
+      - name: ✨ Get Composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: 📦 Set up Composer dependency caching
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: ⬇️ Install Composer dependencies
+        run: composer validate --no-check-publish && composer install --prefer-dist --no-progress --no-dev --no-ansi --no-interaction --optimize-autoloader
+
+      - name: 📂 Deploy
+        run: rsync -avz -e "ssh" --delete --include-from=.rsync . ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }}:${{ env.REMOTE_BASE_PATH }}deploy-cache/
+
+      - name: 📂 Create folders
+        run: |
+          ssh ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }} << EOF
+            cd ${{ env.REMOTE_BASE_PATH }}
+            mkdir -p releases
+            mkdir -p shared
+            mkdir -p shared/storage/app
+            mkdir -p shared/storage/logs
+            mkdir -p shared/storage/framework/cache
+            mkdir -p shared/storage/framework/logs
+            mkdir -p shared/storage/framework/sessions
+            mkdir -p shared/storage/framework/testing
+            mkdir -p shared/storage/framework/views
+          EOF
+      - name: 🔗 Create symlinks
+        run: |
+          ssh ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }} << EOF
+            cd ${{ env.REMOTE_BASE_PATH }}
+            if [ ! -L public_html ]; then
+              echo "Removing public_html to allow creation of symlink"
+              rm -r public_html
+            fi
+            if [ -d "releases/${{ env.DEPLOY_VERSION }}" ];
+            then
+             echo "Removing: releases/${{ env.DEPLOY_VERSION }}"
+             rm -rf releases/${{ env.DEPLOY_VERSION }};
+            fi
+            echo "Creating: releases/${{ env.DEPLOY_VERSION }}"
+            cp -dR deploy-cache releases/${{ env.DEPLOY_VERSION }};
+            echo "Creating symlinks for persistent files/folders"
+            rm -f releases/${{ env.DEPLOY_VERSION }}/.env && ln -sr shared/.env releases/${{ env.DEPLOY_VERSION }}/
+            rm -rf releases/${{ env.DEPLOY_VERSION }}/storage && ln -sr shared/storage releases/${{ env.DEPLOY_VERSION }}/
+            echo "Linking public_html to revision: ${{ env.DEPLOY_VERSION }}"
+            ln -sfn releases/${{ env.DEPLOY_VERSION }} public_html
+            echo "Removing old releases"
+            cd releases && ls -t | tail -n +6 | xargs rm -rf
+          EOF
+      - name: ⚙️ Run post-deployment scripts
+        run: |
+          ssh ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }} << EOF
+            cd ${{ env.REMOTE_BASE_PATH }}public_html
+            php8.2 artisan migrate --force
+            php8.2 artisan storage:link --force
+            php8.2 artisan cache:clear
+            php8.2 artisan config:cache
+            php8.2 artisan event:cache
+            php8.2 artisan route:cache
+            php8.2 artisan view:cache
+            composer dump-autoload
+            sudo systemctl reload php8.2-fpm.service
+          EOF
+#      - name: 🤖Create Sentry release
+#        uses: getsentry/action-release@v1
+#        env:
+#          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+#          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+#          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+#        with:
+#          environment: production

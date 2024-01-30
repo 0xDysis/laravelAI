@@ -1,0 +1,16 @@
+- public/storage
+
++ app/***
++ bootstrap/***
++ config/***
++ database/***
++ public/***
++ resources/***
++ routes/***
++ vendor/***
++ lang/***
++ artisan
++ composer.json
++ composer.lock
+
+- *
