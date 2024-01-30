@@ -67,13 +67,14 @@ jobs:
           ssh ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }} << EOF
             cd ${{ env.REMOTE_BASE_PATH }}
             mkdir -p releases
-            mkdir -p storage/app
-            mkdir -p storage/logs
-            mkdir -p storage/framework/cache
-            mkdir -p storage/framework/logs
-            mkdir -p storage/framework/sessions
-            mkdir -p storage/framework/testing
-            mkdir -p storage/framework/views
+            mkdir -p shared
+            mkdir -p shared/storage/app
+            mkdir -p shared/storage/logs
+            mkdir -p shared/storage/framework/cache
+            mkdir -p shared/storage/framework/logs
+            mkdir -p shared/storage/framework/sessions
+            mkdir -p shared/storage/framework/testing
+            mkdir -p shared/storage/framework/views
           EOF
       - name: 🔗 Create symlinks
         run: |
