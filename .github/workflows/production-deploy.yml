@@ -111,7 +111,7 @@ jobs:
             php8.2 artisan route:cache
             php8.2 artisan view:cache
             composer dump-autoload
-            sudo systemctl reload php-fpm-${{ secrets.PRODUCTION_USER_NAME }}.service
+            sudo systemctl reload php8.2-fpm.service
           EOF
 #      - name: 🤖Create Sentry release
 #        uses: getsentry/action-release@v1
