@@ -7,7 +7,7 @@ on:
 
 env:
   PHP_VERSION: 8.2
-  REMOTE_BASE_PATH: ~/casa-assistant.staging.van-ons.nl
+  REMOTE_BASE_PATH: ~/casa-assistant.staging.van-ons.nl/
   DEPLOY_VERSION: ${{ github.sha }}
 
 jobs:
@@ -59,10 +59,6 @@ jobs:
       - name: ⬇️ Install Composer dependencies
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress --no-dev --no-ansi --no-interaction --optimize-autoloader
 
-      - name: ⚙ ️Set file permissions
-        run: |
-          find -L . -type d -exec chmod 0775 {} \;
-          find -L . -type f -exec chmod 0664 {} \;
       - name: 📂 Deploy
         run: rsync -avz -e "ssh" --delete --include-from=.rsync . ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }}:${{ env.REMOTE_BASE_PATH }}deploy-cache/
 
