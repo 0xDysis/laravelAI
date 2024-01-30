@@ -1,0 +1,25 @@
+Reservation report 1-10-2023 18:00:00 - 1-11-2023 00:00:00,Unnamed: 1
+Created,2023-11-30 16:14:41.743000
+Enterprise,Hotel Casa Amsterdam
+Service,Hotel Casa Amsterdam
+Mode,Detailed
+Filter,Overlapping
+Start,2023-10-01 18:00:00
+End,2023-11-01 00:00:00
+Status,"Confirmed, Checked in, Checked out, Optional"
+Options,"Include space charges, Include products, Include additional expenses, Display general notes"
+Values,Gross value
+Group by,
+Rate,
+Rate group,
+Group name,
+Type,
+Assigned space,
+Requested category,
+Company,
+Travel agency,
+Origin,
+Segments,
+Pricing classification,
+Reservation purpose,
+Customer's address country,
