@@ -12,7 +12,7 @@ class PHPScriptRunnerService
     public function __construct()
     {
         
-        $this->phpBinaryPath = PHP_BINARY;
+        $this->phpBinaryPath = '/usr/bin/php';
         $this->scriptPath = 'app/Services/PHPScriptRunnerService.php';
     }
 
