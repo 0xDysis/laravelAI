@@ -7,7 +7,7 @@ on:
 
 env:
   PHP_VERSION: 8.2
-  REMOTE_BASE_PATH: ~/casa-assistant.staging.van-ons.nl/
+  REMOTE_BASE_PATH: /var/www/casa-assistant.staging.van-ons.nl/
   DEPLOY_VERSION: ${{ github.sha }}
 
 jobs:
