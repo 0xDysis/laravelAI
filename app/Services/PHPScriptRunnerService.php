@@ -11,9 +11,9 @@ class PHPScriptRunnerService
 
     public function __construct()
     {
-        // Assign the paths directly, without using the config function
-        $this->phpBinaryPath = '/Users/dysisx/Library/Application Support/Herd/bin/php';
-        $this->scriptPath = '/Users/dysisx/Documents/assistant/app/Http/Controllers/OpenaiAssistantController.php';
+        
+        $this->phpBinaryPath = PHP_BINARY;
+        $this->scriptPath = 'app/Services/PHPScriptRunnerService.php';
     }
 
     public function runScript($function, $args = [])

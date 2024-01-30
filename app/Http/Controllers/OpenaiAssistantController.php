@@ -41,6 +41,45 @@ function createAssistant($client, $filePath) {
 
     echo $assistant->id;
 }
+function createAssistant2($client) {
+    
+    $basePath = 'public/';
+
+    
+    $file1 = $client->files()->upload([
+        'purpose' => 'assistants',
+        'file' => fopen($basePath . "Nights.csv", "rb"),
+    ]);
+
+    
+    $file2 = $client->files()->upload([
+        'purpose' => 'assistants',
+        'file' => fopen($basePath . "Age_categories.csv", "rb"),
+    ]);
+
+    $file3 = $client->files()->upload([
+        'purpose' => 'assistants',
+        'file' => fopen($basePath . "Reservations (1).csv", "rb"),
+    ]);
+
+    
+    $file4 = $client->files()->upload([
+        'purpose' => 'assistants',
+        'file' => fopen($basePath . "Parameters.csv", "rb"),
+    ]);
+
+    
+    $assistant = $client->assistants()->create([
+        'name' => "Retrieval Assistant",
+        'instructions' => "YOU ALWAYS CONVERT REQUESTS FOR GRAPHS PLOTS OR ANYTHING OF THE LIKE TO A DOWNLOADABLE FILE IN THE PNG FORMAT VanOnsAssist is a knowledgeable, friendly, and professional AI assistant for the web development company van-ons, specifically designed to help you find the right information about anything concerning the van-ons operations",
+        'tools' => [['type' => 'code_interpreter']],
+        'model' => 'gpt-3.5-turbo-1106',
+        'file_ids' => [$file1->id, $file2->id, $file3->id, $file4->id]
+    ]);
+
+    echo $assistant->id;
+}
+
 
 function createThread($client) {
     $thread = $client->threads()->create([]);

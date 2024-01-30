@@ -147,7 +147,7 @@ class OpenAIController extends Controller
     
     public function createNewAssistantWithCsv()
     {
-        return $this->databaseExportService->createNewAssistantWithCsv();
+        return $this->databaseExportService->createNewAssistantWithMultipleCsv();
     }
     
     public function deleteThread($threadId)
