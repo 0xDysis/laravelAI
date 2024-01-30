@@ -7,11 +7,8 @@ on:
 
 env:
   PHP_VERSION: 8.2
-  REMOTE_BASE_PATH: ~/
-  DEPLOY_CACHE: deploy_cache
-  DEPLOY_TEMP: deploy_temp
-  DEPLOY_FOLDER: public_html
-  BACKUP_FOLDER: public_html_backup
+  REMOTE_BASE_PATH: ~/casa-assistant.staging.van-ons.nl
+  DEPLOY_VERSION: ${{ github.sha }}
 
 jobs:
   deploy:
@@ -48,10 +45,6 @@ jobs:
         with:
           php-version: ${{ env.PHP_VERSION }}
 
-      - name: 🔑Configure Composer authentication
-        run: |
-          composer config github-oauth.github.com ${{ secrets.TOKEN_GITHUB }}
-
       - name: ✨ Get Composer cache directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -63,54 +56,72 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-
       - name: ⬇️ Install Composer dependencies
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress --no-dev --no-ansi --no-interaction --optimize-autoloader
 
+      - name: ⚙ ️Set file permissions
+        run: |
+          find -L . -type d -exec chmod 0775 {} \;
+          find -L . -type f -exec chmod 0664 {} \;
       - name: 📂 Deploy
-        run: rsync -avz -e "ssh" --delete --include-from=.rsync . ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }}:${{ env.REMOTE_BASE_PATH }}${{ env.DEPLOY_CACHE }}/
+        run: rsync -avz -e "ssh" --delete --include-from=.rsync . ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }}:${{ env.REMOTE_BASE_PATH }}deploy-cache/
 
       - name: 📂 Create folders
         run: |
           ssh ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }} << EOF
             cd ${{ env.REMOTE_BASE_PATH }}
-            mkdir -p shared/storage/app
-            mkdir -p shared/storage/logs
-            mkdir -p shared/storage/framework/cache
-            mkdir -p shared/storage/framework/logs
-            mkdir -p shared/storage/framework/sessions
-            mkdir -p shared/storage/framework/statamic
-            mkdir -p shared/storage/framework/testing
-            mkdir -p shared/storage/framework/views
+            mkdir -p releases
+            mkdir -p storage/app
+            mkdir -p storage/logs
+            mkdir -p storage/framework/cache
+            mkdir -p storage/framework/logs
+            mkdir -p storage/framework/sessions
+            mkdir -p storage/framework/testing
+            mkdir -p storage/framework/views
           EOF
-
       - name: 🔗 Create symlinks
         run: |
           ssh ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }} << EOF
             cd ${{ env.REMOTE_BASE_PATH }}
-          
-            cp -dR ${{ env.DEPLOY_CACHE }} ${{ env.DEPLOY_TEMP }};
-          
+            if [ ! -L public_html ]; then
+              echo "Removing public_html to allow creation of symlink"
+              rm -r public_html
+            fi
+            if [ -d "releases/${{ env.DEPLOY_VERSION }}" ];
+            then
+             echo "Removing: releases/${{ env.DEPLOY_VERSION }}"
+             rm -rf releases/${{ env.DEPLOY_VERSION }};
+            fi
+            echo "Creating: releases/${{ env.DEPLOY_VERSION }}"
+            cp -dR deploy-cache releases/${{ env.DEPLOY_VERSION }};
             echo "Creating symlinks for persistent files/folders"
-            rm -f ${{ env.DEPLOY_TEMP }}/.env && ln -sr shared/.env ${{ env.DEPLOY_TEMP }}/
-            rm -rf ${{ env.DEPLOY_TEMP }}/storage && ln -sr shared/storage ${{ env.DEPLOY_TEMP }}/
-          
-            echo "Switching ${{ env.DEPLOY_CACHE }} to ${{ env.DEPLOY_FOLDER }}"
-            rm -rf ${{ env.BACKUP_FOLDER }}
-            mv ${{ env.DEPLOY_FOLDER }} ${{ env.BACKUP_FOLDER }}
-            mv ${{ env.DEPLOY_TEMP }} ${{ env.DEPLOY_FOLDER }}
+            rm -f releases/${{ env.DEPLOY_VERSION }}/.env && ln -sr shared/.env releases/${{ env.DEPLOY_VERSION }}/
+            rm -rf releases/${{ env.DEPLOY_VERSION }}/storage && ln -sr shared/storage releases/${{ env.DEPLOY_VERSION }}/
+            echo "Linking public_html to revision: ${{ env.DEPLOY_VERSION }}"
+            ln -sfn releases/${{ env.DEPLOY_VERSION }} public_html
+            echo "Removing old releases"
+            cd releases && ls -t | tail -n +6 | xargs rm -rf
           EOF
       - name: ⚙️ Run post-deployment scripts
         run: |
           ssh ${{ secrets.PRODUCTION_USER_NAME }}@${{ secrets.PRODUCTION_HOST }} << EOF
-            cd ${{ env.REMOTE_BASE_PATH }}${{ env.DEPLOY_FOLDER }}
+            sudo systemctl reload php-fpm-${{ secrets.PRODUCTION_USER_NAME }}.service
+            cd ${{ env.REMOTE_BASE_PATH }}public_html
+            php8.2 artisan migrate --force
             php8.2 artisan storage:link --force
+            php8.2 artisan cache:clear
             php8.2 artisan config:cache
             php8.2 artisan event:cache
             php8.2 artisan route:cache
             php8.2 artisan view:cache
-            php8.2 artisan migrate --force
-          
-            echo "Reloading php-fpm"
+            composer dump-autoload
             sudo systemctl reload php-fpm-${{ secrets.PRODUCTION_USER_NAME }}.service
           EOF
+#      - name: 🤖Create Sentry release
+#        uses: getsentry/action-release@v1
+#        env:
+#          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+#          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+#          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+#        with:
+#          environment: production
