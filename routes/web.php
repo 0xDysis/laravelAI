@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-messages', [OpenAIController::class, 'getMessages']);
     Route::get('/download-file/{fileId}', [OpenAIController::class, 'downloadMessageFile']);
     Route::get('/get-threads', [OpenAIController::class, 'getThreads']);
-    Route::post('/thread/create-run', [OpenAIController::class, 'createAndRunThreadWithMessage']); // New route
+   
 
  
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -13,7 +13,7 @@
         <div class="md:w-1/6 md:w-1/8 bg-white p-5 shadow overflow-y-auto border-r border-gray-200 flex flex-col justify-between">
             <div class="flex-grow">
                 <div class="mb-10 flex-shrink-0 flex justify-start">
-                    <img src="{{ asset('build/assets/zwart-transparant1580994585logo 1.png') }}" alt="Company Logo" class="block my-0 p-0 w-14">
+                    <img src="{{ Vite::asset('resources/images/zwart-transparant1580994585logo 1.png') }}" alt="Company Logo" class="block my-0 p-0 w-14">
                 </div>
                 <div class="mt-4">
                     <!-- Action Buttons -->
