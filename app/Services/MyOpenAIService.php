@@ -77,9 +77,9 @@ class MyOpenAIService
 
         $assistant = $this->client->assistants()->create([
             'name' => "Retrieval Assistant",
-            'instructions' => "YOU ALWAYS CONVERT REQUESTS FOR GRAPHS PLOTS OR ANYTHING OF THE LIKE TO A DOWNLOADABLE FILE IN THE PNG FORMAT VanOnsAssist is a knowledgeable, friendly, and professional AI assistant for the web development company van-ons, specifically designed to help you find the right information about anything concerning the van-ons operations",
+            'instructions' => "you are an expert data analyst for the company hotel casa. they have given you 4 different csv files containing data about their company which you use to extrapolate the data they ask of you. you will only speak in DUTCH.",
             'tools' => [['type' => 'code_interpreter']],
-            'model' => 'gpt-3.5-turbo-1106',
+            'model' => 'gpt-4-turbo-preview',
             'file_ids' => [$file1->id, $file2->id, $file3->id, $file4->id]
         ]);
 

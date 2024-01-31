@@ -260,7 +260,7 @@ function fetchAndDisplayMessages(threadId = null) {
                 <div class="mb-4 flex items-end justify-start">
                     <div class="px-4 py-3 bottom-left-radius max-w-xs lg:max-w-md" 
                          style="background-color: white; border: 1px solid #D4D4D4; color: #414141; overflow-wrap: break-word; word-break: break-all;">
-                        I am the Casa Hotel assistant and I am here to help you.
+                        Hallo! ik ben de Hotel Casa data analyst. hoe kan ik u helpen?
                     </div>
                 </div>
             `;
