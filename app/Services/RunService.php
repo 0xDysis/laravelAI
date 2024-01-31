@@ -1,33 +1,31 @@
 <?php
-namespace App\Services;
 
-use Illuminate\Support\Facades\Session;
-use App\Services\PHPScriptRunnerService;
+namespace App\Services;
 
 class RunService
 {
-    protected $phpScriptRunnerService;
+    protected $openAIService;
 
-    public function __construct(PHPScriptRunnerService $phpScriptRunnerService)
+    public function __construct(MyOpenAIService $openAIService)
     {
-        $this->phpScriptRunnerService = $phpScriptRunnerService;
+        $this->openAIService = $openAIService;
     }
 
     public function startRun($threadId, $assistantId)
     {
-        return $this->phpScriptRunnerService->runScript('runAssistant', [$threadId, $assistantId]);
+        return $this->openAIService->runAssistant($threadId, $assistantId);
     }
 
     public function checkRunStatus($threadId, $runId)
     {
-        return $this->phpScriptRunnerService->runScript('checkRunStatus', [$threadId, $runId]);
+        return $this->openAIService->checkRunStatus($threadId, $runId);
     }
 
-    // Add the cancelRun method
     public function cancelRun($threadId, $runId)
     {
-        return $this->phpScriptRunnerService->runScript('cancelRun', [$threadId, $runId]);
+        return $this->openAIService->cancelRun($threadId, $runId);
     }
 
-    // ... additional methods if necessary ...
+   
 }
+

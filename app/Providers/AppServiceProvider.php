@@ -3,12 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Services\MyOpenAIService;
 use App\Services\DatabaseExportService;
 use App\Services\FileDownloadService;
 use App\Services\MessageService;
-use App\Services\PHPScriptRunnerService;
 use App\Services\RunService;
-use App\Services\SessionValidationService;
 use App\Services\ThreadService;
 use App\Services\AssistantService;
 
@@ -16,50 +15,42 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // PHPScriptRunnerService doesn't seem to have dependencies, so it can be new-ed up directly.
-        $this->app->singleton(PHPScriptRunnerService::class, function ($app) {
-            return new PHPScriptRunnerService();
+        // Register MyOpenAIService
+        $this->app->singleton(MyOpenAIService::class, function ($app) {
+            return new MyOpenAIService();
         });
 
-        // Assuming MessageService depends on PHPScriptRunnerService
+        // MessageService now depends on MyOpenAIService
         $this->app->singleton(MessageService::class, function ($app) {
-            return new MessageService($app->make(PHPScriptRunnerService::class));
+            return new MessageService($app->make(MyOpenAIService::class));
         });
 
-        // Assuming RunService depends on PHPScriptRunnerService
+        // RunService now depends on MyOpenAIService
         $this->app->singleton(RunService::class, function ($app) {
-            return new RunService($app->make(PHPScriptRunnerService::class));
+            return new RunService($app->make(MyOpenAIService::class));
         });
 
-        // Assuming FileDownloadService depends on PHPScriptRunnerService
+        // FileDownloadService now depends on MyOpenAIService
         $this->app->singleton(FileDownloadService::class, function ($app) {
-            return new FileDownloadService($app->make(PHPScriptRunnerService::class));
+            return new FileDownloadService($app->make(MyOpenAIService::class));
         });
 
-        // Assuming DatabaseExportService depends on PHPScriptRunnerService
+        // DatabaseExportService now depends on MyOpenAIService
         $this->app->singleton(DatabaseExportService::class, function ($app) {
-            return new DatabaseExportService($app->make(PHPScriptRunnerService::class));
+            return new DatabaseExportService($app->make(MyOpenAIService::class));
         });
+
+        // ThreadService now depends on MyOpenAIService
         $this->app->singleton(ThreadService::class, function ($app) {
-            return new ThreadService($app->make(PHPScriptRunnerService::class));
+            return new ThreadService($app->make(MyOpenAIService::class));
         });
 
-        // Register AssistantService
+        // AssistantService now depends on MyOpenAIService
         $this->app->singleton(AssistantService::class, function ($app) {
-            return new AssistantService($app->make(PHPScriptRunnerService::class));
+            return new AssistantService($app->make(MyOpenAIService::class));
         });
-
-        // SessionValidationService doesn't seem to have dependencies, so it can be new-ed up directly.
-        $this->app->singleton(SessionValidationService::class, function () {
-            return new SessionValidationService();
-        });
-
-        // Register other services similarly...
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         //

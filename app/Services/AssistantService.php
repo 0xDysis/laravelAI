@@ -1,39 +1,37 @@
 <?php
+
 namespace App\Services;
 
-use App\Services\PHPScriptRunnerService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class AssistantService
 {
-    protected $phpScriptRunnerService;
+    protected $openAIService;
 
-    public function __construct(PHPScriptRunnerService $phpScriptRunnerService)
+    public function __construct(MyOpenAIService $openAIService)
     {
-        $this->phpScriptRunnerService = $phpScriptRunnerService;
+        $this->openAIService = $openAIService;
     }
 
     public function deleteAssistant($assistantId)
     {
-        // Run the script to delete the assistant
-        $this->phpScriptRunnerService->runScript('deleteAssistant', [$assistantId]);
+        
+        $this->openAIService->deleteAssistant($assistantId);
 
-        // Get the currently authenticated user
+        
         $user = Auth::user();
 
-        // Remove the assistantId from the user's assistant_ids array
+        
         if (($key = array_search($assistantId, $user->assistant_ids)) !== false) {
             unset($user->assistant_ids[$key]);
         }
 
-        // Save the updated user record
+        
         $user->save();
 
-        // Clear any cached data related to the assistant
+        
         Cache::forget('processedMessages');
     }
-
-    // ... any other assistant-related methods ...
 }
 

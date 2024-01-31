@@ -1,17 +1,17 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Order;
-use Illuminate\Support\Facades\Auth; // To get the current user
-use App\Services\PHPScriptRunnerService;
+use Illuminate\Support\Facades\Auth;
 
 class DatabaseExportService
 {
-    protected $phpScriptRunnerService;
+    protected $openAIService;
 
-    public function __construct(PHPScriptRunnerService $phpScriptRunnerService)
+    public function __construct(MyOpenAIService $openAIService)
     {
-        $this->phpScriptRunnerService = $phpScriptRunnerService;
+        $this->openAIService = $openAIService;
     }
 
     public function createNewAssistantWithCsv()
@@ -19,7 +19,7 @@ class DatabaseExportService
         $csvData = $this->convertOrdersToCsv();
         $tempFilePath = tempnam(sys_get_temp_dir(), 'csv');
         file_put_contents($tempFilePath, $csvData);
-        $assistantId = $this->phpScriptRunnerService->runScript('createAssistant', [$tempFilePath]);
+        $assistantId = $this->openAIService->createAssistant($tempFilePath);
 
         $this->storeAssistantIdInUser($assistantId);
         unlink($tempFilePath);
@@ -28,42 +28,34 @@ class DatabaseExportService
     }
 
     public function createNewAssistantWithMultipleCsv()
-{
-    $csvFiles = [
-        'Nights.csv', 
-        'Age_categories.csv', 
-        'Reservations (1).csv', 
-        'Parameters.csv'
-    ];
+    {
+        $csvFiles = [
+            'Nights.csv', 
+            'Age_categories.csv', 
+            'Reservations (1).csv', 
+            'Parameters.csv'
+        ];
 
-    $tempFilePaths = [];
-    foreach ($csvFiles as $csvFile) {
-        $tempFilePath = tempnam(sys_get_temp_dir(), 'csv');
-        // Use the public_path helper to reference files in the public directory
-        $sourceFilePath = public_path($csvFile);
-        if (!copy($sourceFilePath, $tempFilePath)) {
-            // Handle the error appropriately
-            return "Error copying file: " . $sourceFilePath;
+        $tempFilePaths = [];
+        foreach ($csvFiles as $csvFile) {
+            $tempFilePath = tempnam(sys_get_temp_dir(), 'csv');
+            $sourceFilePath = public_path($csvFile);
+            if (!copy($sourceFilePath, $tempFilePath)) {
+                return "Error copying file: " . $sourceFilePath;
+            }
+            $tempFilePaths[] = $tempFilePath;
         }
-        $tempFilePaths[] = $tempFilePath;
+
+        $assistantId = $this->openAIService->createAssistant2($tempFilePaths);
+
+        $this->storeAssistantIdInUser($assistantId);
+
+        foreach ($tempFilePaths as $tempFilePath) {
+            unlink($tempFilePath);
+        }
+
+        return redirect('/');
     }
-
-    // Run the script with the array of temporary file paths
-    $assistantId = $this->phpScriptRunnerService->runScript('createAssistant2', $tempFilePaths);
-
-    // Store the new assistant ID in the user's record
-    $this->storeAssistantIdInUser($assistantId);
-
-    // Clean up: delete the temporary files
-    foreach ($tempFilePaths as $tempFilePath) {
-        unlink($tempFilePath);
-    }
-
-    return redirect('/');
-}
-
-    
-
 
     private function convertOrdersToCsv()
     {
@@ -78,9 +70,7 @@ class DatabaseExportService
 
     private function storeAssistantIdInUser($assistantId)
     {
-        $user = Auth::user(); // Get the authenticated user
-
-        // Check if the user already has assistant IDs and add the new one
+        $user = Auth::user();
         $assistantIds = $user->assistant_ids ?? [];
         $assistantIds[] = $assistantId;
 
@@ -88,5 +78,3 @@ class DatabaseExportService
         $user->save();
     }
 }
-
-
