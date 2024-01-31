@@ -54,28 +54,26 @@ class MyOpenAIService
     }
 
     public function createAssistant2()
-    {
-        $basePath = 'public/';
+{
+    $file1 = $this->client->files()->upload([
+        'purpose' => 'assistants',
+        'file' => fopen(public_path("Nights.csv"), "rb"),
+    ]);
 
-        $file1 = $this->client->files()->upload([
-            'purpose' => 'assistants',
-            'file' => fopen($basePath . "Nights.csv", "rb"),
-        ]);
+    $file2 = $this->client->files()->upload([
+        'purpose' => 'assistants',
+        'file' => fopen(public_path("Age_categories.csv"), "rb"),
+    ]);
 
-        $file2 = $this->client->files()->upload([
-            'purpose' => 'assistants',
-            'file' => fopen($basePath . "Age_categories.csv", "rb"),
-        ]);
+    $file3 = $this->client->files()->upload([
+        'purpose' => 'assistants',
+        'file' => fopen(public_path("Reservations (1).csv"), "rb"),
+    ]);
 
-        $file3 = $this->client->files()->upload([
-            'purpose' => 'assistants',
-            'file' => fopen($basePath . "Reservations (1).csv", "rb"),
-        ]);
-
-        $file4 = $this->client->files()->upload([
-            'purpose' => 'assistants',
-            'file' => fopen($basePath . "Parameters.csv", "rb"),
-        ]);
+    $file4 = $this->client->files()->upload([
+        'purpose' => 'assistants',
+        'file' => fopen(public_path("Parameters.csv"), "rb"),
+    ]);
 
         $assistant = $this->client->assistants()->create([
             'name' => "Retrieval Assistant",
