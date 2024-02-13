@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Services;
+namespace LaravelAI\LaravelChatbot\Services;
+
 
 use OpenAI;
 
@@ -142,5 +143,4 @@ class MyOpenAIService
         return json_encode($fileIds);
     }
 }
-
 
