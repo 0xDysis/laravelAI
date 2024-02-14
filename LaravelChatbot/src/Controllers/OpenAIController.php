@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace LaravelAI\LaravelChatbot\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
-use App\Models\Order;
-use App\Services\MessageService;
-use App\Services\RunService;
-use App\Services\FileDownloadService;
-use App\Services\DatabaseExportService;
-use App\Services\ThreadService;
-use App\Services\AssistantService;
+use LaravelAI\LaravelChatbot\Models\User;
+use LaravelAI\LaravelChatbot\Services\MessageService;
+use LaravelAI\LaravelChatbot\Services\RunService;
+use LaravelAI\LaravelChatbot\Services\FileDownloadService;
+use LaravelAI\LaravelChatbot\Services\DatabaseExportService;
+use LaravelAI\LaravelChatbot\Services\ThreadService;
+use LaravelAI\LaravelChatbot\Services\AssistantService;
+use App\Http\Controllers\Controller;
 
 class OpenAIController extends Controller
 {
@@ -37,6 +38,7 @@ class OpenAIController extends Controller
         $this->threadService = $threadService;
         $this->assistantService = $assistantService;
     }
+
 
     public function index()
     {
