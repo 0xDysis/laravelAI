@@ -1,5 +1,15 @@
 <?php
+
+namespace LaravelAI\LaravelChatbot;
+
 use Illuminate\Support\ServiceProvider;
+use LaravelAI\LaravelChatbot\Services\AssistantService;
+use LaravelAI\LaravelChatbot\Services\DatabaseExportService;
+use LaravelAI\LaravelChatbot\Services\FileDownloadService;
+use LaravelAI\LaravelChatbot\Services\MessageService;
+use LaravelAI\LaravelChatbot\Services\MyOpenAIService;
+use LaravelAI\LaravelChatbot\Services\RunService;
+use LaravelAI\LaravelChatbot\Services\ThreadService;
 
 class LaravelChatbotServiceProvider extends ServiceProvider
 {
@@ -17,7 +27,6 @@ class LaravelChatbotServiceProvider extends ServiceProvider
             __DIR__.'/config/laravelchatbot.php' => config_path('laravelchatbot.php'),
         ], 'laravelchatbot');
 
-        // Publish migrations
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/database/migrations/' => database_path('migrations'),
@@ -27,7 +36,6 @@ class LaravelChatbotServiceProvider extends ServiceProvider
     
     public function register()
     {
-        // Register controllers as services if needed (usually not necessary)
         // Register your services in the container for dependency injection
         $this->app->singleton(AssistantService::class, function ($app) {
             return new AssistantService();
@@ -54,7 +62,3 @@ class LaravelChatbotServiceProvider extends ServiceProvider
         // You may also bind interfaces to implementations here
     }
 }
-
-// Remember to replace `AssistantService::class` and other service classes
-// with the actual full namespace paths to your service classes.
-
