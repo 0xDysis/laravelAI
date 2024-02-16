@@ -21,14 +21,14 @@ class MyOpenAIService
 {
     $file1 = $this->client->files()->upload([
         'purpose' => 'assistants',
-        'file' => fopen(public_path("Nights.csv"), "rb"),
+        'file' => fopen(public_path("yourfile.json"), "rb"),
     ]);
 
    
 
         $assistant = $this->client->assistants()->create([
             'name' => "Retrieval Assistant",
-            'instructions' => "you are an expert data analyst for the company hotel casa. they have given you 4 different csv files containing data about their company which you use to extrapolate the data they ask of you. you will only speak in DUTCH.",
+            'instructions' => "your instructions",
             'tools' => [['type' => 'retrieval']],
             'model' => 'gpt-4-turbo-preview',
             'file_id' => [$file1->id]
