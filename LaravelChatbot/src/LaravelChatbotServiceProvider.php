@@ -36,7 +36,7 @@ class LaravelChatbotServiceProvider extends ServiceProvider
     
     public function register()
     {
-        // Register your services in the container for dependency injection
+        
         $this->app->singleton(AssistantService::class, function ($app) {
             return new AssistantService();
         });
@@ -59,6 +59,6 @@ class LaravelChatbotServiceProvider extends ServiceProvider
             return new ThreadService();
         });
 
-        // You may also bind interfaces to implementations here
+       
     }
 }
