@@ -1,6 +1,6 @@
 var intervalId = null;
 var currentThreadId = null;
-var currentRunId = null; // Add a global variable to keep track of the current run ID
+var currentRunId = null; 
 
 function startAssistantRun() {
     $.ajax({
@@ -10,16 +10,16 @@ function startAssistantRun() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: { 
-            threadId: currentThreadId // Add threadId to the request data
+            threadId: currentThreadId 
         },
         success: function(response) {
             currentRunId = response.runId;
             initiateStatusCheck(response.runId);
     
-            // Reset the button state before showing it
+          
             $('#cancelRunButton').removeClass('opacity-0 transition-opacity duration-500 ease-in-out hidden');
     
-            // Delay to trigger the fade-in effect
+        
             setTimeout(function() {
                 $('#cancelRunButton').addClass('transition-opacity duration-500 ease-in-out opacity-100');
             }, 500);
@@ -30,23 +30,23 @@ function startAssistantRun() {
     });
 }
 function hideCancelButton() {
-    // Hide logic with transition for fade-out effect
+
     $('#cancelRunButton').removeClass('transition-opacity duration-500 ease-in-out opacity-100');
     setTimeout(function() {
         $('#cancelRunButton').addClass('hidden');
-    }, 500); // Delay should match the duration of the fade-out transition
+    }, 500);
 }
 const statusHandlers = {
     'completed': function() {
         clearInterval(intervalId);
-        // Pass the currentThreadId to fetch messages for the correct thread
+       
         if (currentThreadId) {
             fetchAndDisplayMessages(currentThreadId);
         } else {
             console.log("No current thread selected.");
             updateMessageArea('<p>No thread selected. Please select a thread to view messages.</p>');
         }
-        hideCancelButton(); // Use the function to hide the button
+        hideCancelButton(); 
 
     },
     'queued': function() {
@@ -72,10 +72,10 @@ function checkRunStatus(runId) {
         },
         data: { 
             runId: runId, 
-            threadId: currentThreadId // Add threadId to the request data
+            threadId: currentThreadId 
         },
         success: function(response) {
-            console.log('Run status:', response.status);  // Log the status
+            console.log('Run status:', response.status); 
             var handler = statusHandlers[response.status] || statusHandlers['default'];
             handler(response.status);
             if (response.status === 'completed') {
@@ -105,14 +105,14 @@ function handleErrorOnSubmit(error) {
     updateMessageArea('<p>Error submitting message. Please try again.</p>', true);
 }
 function cancelAssistantRun() {
-    console.log('Cancel Run button clicked'); // Log when the button is clicked
+    console.log('Cancel Run button clicked');
 
     if (!currentThreadId || !currentRunId) {
         console.error('No active thread or run to cancel');
         return;
     }
 
-    console.log('Attempting to cancel run with thread ID:', currentThreadId, 'and run ID:', currentRunId); // Log the IDs being used
+    console.log('Attempting to cancel run with thread ID:', currentThreadId, 'and run ID:', currentRunId); 
 
     $.ajax({
         url: '/cancel-run',
@@ -130,7 +130,7 @@ function cancelAssistantRun() {
             intervalId = null;
             currentRunId = null; 
             updateMessageArea('<p>Run cancelled.</p>');
-            hideCancelButton(); // Use the function to hide the button
+            hideCancelButton(); 
 
         },
         error: function(error) {
@@ -151,10 +151,10 @@ function submitMessage() {
 </div>
     `;
 
-    // Append the new message
+
     updateMessageArea(userMessageElement, true);
     
-    // Display a processing message
+    
     var processingMessage = `
         <div class="text-center text-sm text-gray-500">
             Processing your request...
@@ -191,9 +191,7 @@ function createAndRunNewThread(message) {
         },
         success: function(response) {
             console.log('New thread created and run started:', response);
-            // Optionally set the currentThreadId if needed
-            // currentThreadId = response.threadId; 
-            // startAssistantRun(); // if you want to start running immediately
+         
         },
         error: function(error) {
             console.error('Error creating a new thread:', error);
@@ -254,7 +252,7 @@ function fetchAndDisplayMessages(threadId = null) {
         type: 'GET',
         data: { threadId: threadId },
         success: function(response) {
-            // Clear the message area first before appending new messages
+            
             updateMessageArea('', false);
             var assistantMessage = `
                 <div class="mb-4 flex items-end justify-start">
@@ -293,11 +291,11 @@ function fetchAndDisplayMessages(threadId = null) {
                 </div>
                     `;
                 }
-                // Append each message and ensure the message area is scrolled to the bottom
+                
                 updateMessageArea(messageElement, true);
             });
 
-            // After appending all messages, ensure we scroll to the bottom
+           
             var messageArea = document.getElementById('messages');
             messageArea.scrollTop = messageArea.scrollHeight;
         },
@@ -334,7 +332,7 @@ function fetchAndDisplayThreads(callback) {
             });
             updateThreadsArea(threadsContent);
             
-            // Attach the new styling event listener
+           
             attachThreadStylingListeners();
             if (callback) callback(); 
         },
@@ -349,13 +347,13 @@ function attachThreadStylingListeners() {
     var threadsArea = document.getElementById('threads');
     threadsArea.addEventListener('click', function(event) {
         if (event.target.matches('.thread-id-container, .thread-id-container *')) {
-            // Remove bg-clicked-blue class from all threads
+          
             var allThreads = threadsArea.querySelectorAll('.thread-id-container');
             allThreads.forEach(function(thread) {
                 thread.classList.remove('bg-clicked-blue');
             });
 
-            // Add bg-clicked-blue class to clicked thread
+          
             var threadContainer = event.target.closest('.thread-id-container');
             if (threadContainer) {
                 threadContainer.classList.add('bg-clicked-blue');
@@ -375,12 +373,12 @@ function attachThreadClickListeners() {
     var threadsArea = document.getElementById('threads');
     threadsArea.addEventListener('click', function(event) {
         if (event.target.matches('.delete-thread-icon, .delete-thread-icon *')) {
-            // Handle delete thread click
+            
             var threadId = event.target.closest('.thread-id-container').querySelector('.thread-id').textContent;
             deleteThread(threadId);
-            event.stopPropagation(); // Prevent triggering the thread click event
+            event.stopPropagation(); 
         } else if (event.target.matches('.thread-id-container, .thread-id-container *')) {
-            // Handle thread selection click
+            
             var threadId = event.target.closest('.thread-id-container').querySelector('.thread-id').textContent;
             fetchAndDisplayMessages(threadId);
         }
@@ -410,7 +408,7 @@ function updateThreadsArea(content) {
 function deleteThread(threadId) {
     console.log("Deleting thread with ID:", threadId); 
 
-    // Optimistically remove the thread from the DOM
+   
     var threadElement = null;
     var threadElements = document.querySelectorAll('.thread-id-container');
     threadElements.forEach(function(el) {
@@ -420,7 +418,7 @@ function deleteThread(threadId) {
         }
     });
 
-    // Perform the server request
+    
     $.ajax({
         url: '/delete-thread/' + threadId,
         type: 'POST',
@@ -435,7 +433,7 @@ function deleteThread(threadId) {
         error: function(error) {
             console.error('Error deleting thread:', error);
 
-            // Revert the optimistic update on error
+            
             if (threadElement) {
                 var threadsArea = document.getElementById('threads');
                 threadsArea.appendChild(threadElement);
@@ -454,20 +452,19 @@ function createNewThread() {
     $.ajax({
         url: '/create-new-thread',
         type: 'POST',
-        dataType: 'json', // Expect a JSON response
+        dataType: 'json', 
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function(response) {
             console.log('New thread created successfully');
             var newThreadId = response.threadId;
-            // Now trigger a click event on the new thread's element
-            // We'll assume `fetchAndDisplayThreads` will add an element with the id `thread_{threadId}`
+           
             fetchAndDisplayThreads(function() {
-                // This callback ensures that we try to click the thread after the list is updated
+                
                 var newThreadElement = document.querySelector(`.thread-id-container[data-thread-id="${newThreadId}"]`);
                 if (newThreadElement) {
-                    newThreadElement.click(); // Simulate the click
+                    newThreadElement.click(); 
                 }
             });
         },

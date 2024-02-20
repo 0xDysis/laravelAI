@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use LaravelAI\LaravelChatbot\Http\Controllers\OpenAIController;
-use LaravelAI\LaravelChatbot\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth')->group(function () {
@@ -18,7 +17,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-messages', [OpenAIController::class, 'getMessages']);
     Route::get('/download-file/{fileId}', [OpenAIController::class, 'downloadMessageFile']);
     Route::get('/get-threads', [OpenAIController::class, 'getThreads']);
-
 
 });
 
