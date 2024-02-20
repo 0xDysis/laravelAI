@@ -556,7 +556,7 @@ function handleThreadAreaClick(event) {
         event.stopPropagation();
     } else if (event.target.closest('.thread-id-container') && !event.target.closest('.delete-thread-icon')) {
         var threadId = event.target.closest('.thread-id-container').querySelector('.thread-id').textContent;
-        currentThreadId = threadId;  // Set the currentThreadId here
+        currentThreadId = threadId;  
         fetchAndDisplayMessages(threadId);
     }
 }
